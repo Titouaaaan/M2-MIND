@@ -1,0 +1,32 @@
+Notes on: Compositional Semantic Parsing on Semi-Structured Tables
+
+The data was downloaded (and unzipped) from the following link:
+https://github.com/ppasupat/WikiTableQuestions/releases/download/v1.0.2/WikiTableQuestions-1.0.2-compact.zip
+
+WikiTableQuestions: 2,108 HTML tables and 22,033 question-answer pairs
+The difficulty of this dataset is plural: complex questions involving comparisons, aggregation etc..
+And the semi-structured state of the table (no strict rules on the content of the tables)
+
+Task:
+answer a question x using only table t, and output a list y of answers to the question x.
+Train test split, 80-20 split
+Each table is converted into a knowledge graph w 
+
+Approach:
+1 - convert table into KG w
+2 - parse through question x to create logical candidates Zx (graph queries), which could each answer the question 
+3 - each candidate gets a feature vector phi(x,w,z), and create a log linear distribution over the z
+p_theta(z|w,x) = exp(theta^T phi(x,w,z)) / SUM_(z' in Zx) exp(theta^T phi(x,w,z')) 
+with theta a parameter to optimize, and then normalize over Zx (sum of all probablilities z over Zx)
+This ensure that SUM_(z in Zx) p(z|w,x) = 1
+4 - pick the z with the highest probability (which translates to a highest score)
+5 - execute the query z on w to retrieve the answer to the question x
+
+Traning: (optimize theta)
+get back to that later if important
+
+Knowledge Graph:
+Row -> Node
+String -> entity node (content of node)
+Columns -> edges to nodes
+
