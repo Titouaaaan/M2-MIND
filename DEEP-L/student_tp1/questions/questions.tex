@@ -1,0 +1,225 @@
+\documentclass[12pt,a4paper]{article}
+
+% Packages
+\usepackage[utf8]{inputenc}    % Encoding
+\usepackage[T1]{fontenc}       % Font encoding
+\usepackage{lipsum}            % Dummy text (optional)
+\usepackage{amsmath, amssymb}  % Math symbols
+\usepackage{graphicx}          % For images
+\usepackage{hyperref}          % Clickable links
+
+% Title info
+\title{TP1 Questions}
+\author{Titouan Guerin}
+\date{\today}
+
+\begin{document}
+
+\begin{section}{Question 1}
+    
+Caluler la dérivée partielle 
+\[
+\frac{\partial (L \circ h)}{\partial \mathbf{x_i}}(\mathbf{x})
+\]
+en fonction de 
+\[
+\frac{\partial h_j}{\partial \mathbf{x_i}}(\mathbf{x})
+\quad \text{et} \quad
+(\nabla L)_j = \frac{\partial L}{\partial \mathbf{y_j}}(h(\mathbf{x})),
+\]
+où $(\nabla L)_j$ permet de simplifier la notation. 
+
+Pour une fonction $h$ connue (ce qui est toujours le cas pour nous), on peut calculer explicitement sa dérivée par rapport à $x_i$.
+
+\paragraph{Answer}
+
+On note
+\[
+(\nabla L)_j(\mathbf{y}) \;=\; \frac{\partial L}{\partial y_j}(\mathbf{y}),
+\qquad\text{donc}\qquad
+(\nabla L)_j(h(\mathbf{x})) \;=\; \frac{\partial L}{\partial y_j}\big(h(\mathbf{x})\big).
+\]
+Ici, \[ h(\mathbf{x}) = \mathbf{y}\]
+Donc quand on va chercher la dérivée de \(L\circ h\) par rapport à \(x_i\), 
+il faut d'abord voir comment \(L\) varie quand on fait varier \(h\),
+puis comment \(h\) varie quand on fait varier \(x_i\).
+
+Explicitement, \(L\circ h\) peut s'écrire,
+\[
+L(h_1(\mathbf{x}), h_2(\mathbf{x}), \ldots, h_m(\mathbf{x})).
+\]
+
+Donc la dérivée partielle de \(L\circ h\) par rapport à la coordonnée \(x_i\) s'écrit,
+\[
+\frac{\partial (L\circ h)}{\partial x_i}(\mathbf{x})
+\;=\;
+\sum_{j=1}^{m} \left( \frac{\partial L}{\partial y_j}\big(h(\mathbf{x})\big)\;
+\frac{\partial h_j}{\partial x_i}(\mathbf{x}) \right)
+\;=\;
+\sum_{j=1}^{m} \left( (\nabla L)_j(h(\mathbf{x}))\; \frac{\partial h_j}{\partial x_i}(\mathbf{x}) \right)
+\]
+
+\end{section}
+
+\begin{section}{Question 2}
+Appliquer le résultat trouvé dans la question 1 pour calculer: \newline
+Les dérivées pour la fonction de coût MSE
+\[
+\frac{\partial (L\circ \text{mse})}{\partial y}(\hat{y}, y)
+\quad \text{et} \quad
+\frac{\partial (L\circ \text{mse})}{\partial \hat{y}}(\hat{y}, y)
+\]
+Les dérivées de la fonction linéaire f par rapport à ses entrées x (w et b sont
+obtenus de manière similaire)
+\[\frac{\partial (L\circ f)}{\partial \mathbf{x_j}}(\mathbf{x}, \mathbf{w}, b)\]
+
+La fonction L introduite ici est générique et est présente uniquement pour bien montrer 
+le fonctionnement du chaînage des dérivées. Par rapport au problème qui nous
+intéresse, dans le premier cas comme la fonction mse est la dernière de étape de calcul, on peut considérer que L correspond à l'identité ; dans le deuxième cas il s'agit
+bien sûr de la fonction mse(·, $\hat{y}$).
+
+\paragraph{Answer}
+D'abord on calcule la derivée de mse par rapport à ses entrées \(\hat{y}\) et \(y\).
+\[
+\frac{\partial \text{mse}}{\partial y_i}(\hat{y}, y) = \frac{\partial}{\partial y_i} \frac{1}{n} \sum_{j=1}^{n} \left( (\hat{y}_j - y_j)^2 \right) = \frac{-2}{n}(\hat{y}_i - y_i)
+\]
+\[
+\frac{\partial \text{mse}}{\partial \hat{y_i}}(\hat{y}, y) = \frac{\partial}{\partial \hat{y_i}} \frac{1}{n} \sum_{j=1}^{n} \left( (\hat{y}_j - y_j)^2 \right) = \frac{2}{n}(\hat{y}_i - y_i)
+\]
+
+Donc maintenant on peut appliquer la formule de la question 1.
+\[
+\frac{\partial (L \circ f)}{\partial \mathbf{x}_j}(\mathbf{x}, \mathbf{w}, b) =
+\sum_{i=1}^{m} \frac{\partial L}{\partial f_i}\frac{\partial f_i}{\partial \mathbf{x}_j}
+\]
+Ensuite, la dérivée de \(f\) par rapport à \(\mathbf{x}_j\) est simplement la dérivée de la couche lineaire:
+\[
+f(\mathbf{x}) = \mathbf{W}\mathbf{x} + b
+\]
+Soit,
+\[
+\frac{\partial f_i}{\partial \mathbf{x}_j}(\mathbf{x}) = \mathbf{W}_{i,j}
+\]
+Donc on a:
+\[
+\frac{\partial (L \circ f)}{\partial \mathbf{x}_j}(\mathbf{x}, \mathbf{w}, b) =
+\sum_{i=1}^{m} \frac{\partial L}{\partial f_i} \mathbf{W}_{i,j} 
+\]
+
+\end{section}
+
+\begin{section}{Question 3}
+Étendre les résultats obtenus dans la question précédente pour calculer: \newline
+Les dérivées pour la fonction de coût MSE:
+\[
+\frac{\partial (L\circ \text{mse})}{\partial \mathbf{Y}_{ij}}(\hat{Y}, Y)
+\]
+et
+\[\frac{\partial (L\circ \text{mse})}{\partial \hat{Y}_{ij}}(\hat{Y}, Y)\]
+Les dérivées de la fonction linéaire f par rapport à ses entrées:
+\[
+\frac{\partial (L\circ f)}{\partial \mathbf{X}_{ij}}(\mathbf{X}, \mathbf{W}, \mathbf{b}) \text{ , }
+\frac{\partial (L\circ f)}{\partial \mathbf{W}_{ij}}(\mathbf{X}, \mathbf{W}, \mathbf{b}) \text{ , et }
+\frac{\partial (L\circ f)}{\partial \mathbf{b}_{ij}}(\mathbf{X}, \mathbf{W}, \mathbf{b})
+\]
+
+\paragraph{Answer}
+On reprend les mêmes calculs que dans la question 2, mais cette fois pour des matrices pour Pytorch.
+Rappel:
+\[
+C(\mathbf{X}, \mathbf{W}, \mathbf{b}, \mathbf{Y}) = \text{mse}(f(\mathbf{X}, \mathbf{W}, \mathbf{b}), Y)
+\]
+
+Donc,
+\[
+\frac{\partial (L \circ \text{mse})}{\partial Y_{ij}}(\hat{Y}, Y) = -\frac{2}{qp} (\hat{Y}_{ij} - Y_{ij})
+\] 
+\[
+\frac{\partial (L \circ \text{mse})}{\partial \hat{Y}_{ij}}(\hat{Y}, Y) = \frac{2}{qp} (\hat{Y}_{ij} - Y_{ij})
+\] 
+
+Ensuite pour les dérivées de f, mais avant petit rappel que chaque composante s'ecrit:
+\[
+f_{ik}(\mathbf{X}) = \sum_{j=1}^{n} \mathbf{X}_{ij} \mathbf{W}_{jk} + b_k
+\]
+Pour une couche linéaire :  
+\[
+\frac{\partial (L\circ f)}{\partial X_{ij}} = \sum_{k=1}^{p} \frac{\partial L}{\partial f_{ik}} \frac{\partial f_{ik}}{\partial X_{ij}} = \sum_{k=1}^{p} \frac{\partial L}{\partial f_{ik}} W_{jk}
+\]
+
+\[
+\frac{\partial (L\circ f)}{\partial W_{ij}} = \sum_{i=1}^{q} \frac{\partial L}{\partial f_{ik}} \frac{\partial f_{ik}}{\partial W_{ij}} = \sum_{i=1}^{q} \frac{\partial L}{\partial f_{ik}} X_{jk}
+\]
+
+\[
+\frac{\partial (L\circ f)}{\partial b_{ij}} = \sum_{i=1}^{q} \frac{\partial L}{\partial f_{ik}} \frac{\partial f_{ik}}{\partial b_{ij}} = \sum_{i=1}^{q} \frac{\partial L}{\partial f_{ik}} 
+\]
+
+
+\end{section}
+
+\begin{section}{Question 4}
+
+\paragraph{Answer}
+
+Pour \(\hat{Y}, Y \in \mathbb{R}^{q \times p}\), la fonction de coût MSE est :  
+\[
+\text{MSE}(\hat{Y}, Y) = \frac{1}{qp} \sum_{i=1}^{q} \sum_{j=1}^{p} (\hat{Y}_{ij} - Y_{ij})^2
+\]
+
+Les gradients matriciels sont :  
+\[
+\frac{\partial (L \circ \text{mse})}{\partial \hat{Y}} = \frac{2}{qp} (\hat{Y} - Y) 
+\]  
+\[
+\frac{\partial (L \circ \text{mse})}{\partial Y} = -\frac{2}{qp} (\hat{Y} - Y) 
+\]
+
+---
+Pour une couche linéaire  
+\(\mathbf{f}(\mathbf{X}) = \mathbf{X}\mathbf{W} + \mathbf{b}\)  
+\[
+\frac{\partial (L \circ f)}{\partial \mathbf{X}} = \frac{\partial L}{\partial \mathbf{f}} \mathbf{W}^\top \quad \in \mathbb{R}^{q \times n}
+\]
+
+\[
+\frac{\partial (L \circ f)}{\partial \mathbf{W}} = \mathbf{X}^\top \frac{\partial L}{\partial \mathbf{f}} \quad \in \mathbb{R}^{n \times p}
+\]
+
+\[
+\frac{\partial (L \circ f)}{\partial \mathbf{b}} = \mathbf{1}_q^\top \frac{\partial L}{\partial \mathbf{f}} \quad \in \mathbb{R}^{1 \times p}
+\]
+
+où \(\mathbf{1}_q \in \mathbb{R}^{q \times 1}\) est un vecteur colonne de 1, permettant de sommer sur tous les exemples.
+
+---
+
+
+\end{section}
+
+\begin{section}{Question 5}
+
+\paragraph{Answer}
+Rappel: 
+\[
+C(\mathbf{X}, \mathbf{W}, \mathbf{b}, \mathbf{Y}) = \text{mse}(f(\mathbf{X}, \mathbf{W}, \mathbf{b}), Y)
+\]
+Soit,
+\[
+\text{mse}(f(\mathbf{X}, \mathbf{W}, \mathbf{b}), Y)
+= \text{mse}(\mathbf{XW + b}, \mathbf{Y}) =
+\frac{1}{qp} \sum_{i=1}^{q} \sum_{j=1}^{p} \left( (\mathbf{XW + b})_{ij} - \mathbf{Y}_{ij} \right)^2
+\]
+Donc,
+\[
+\frac{\partial C}{\partial \mathbf{W}} = \frac{2}{qp} \mathbf{X}^\top (\mathbf{XW + b - Y})
+\]
+et pour b,
+\[
+\frac{\partial C}{\partial \mathbf{b}} = \frac{2}{qp} \mathbf{1}_q^\top (\mathbf{XW + b - Y})
+\]
+Remarque, ici on pourrait remplacer $\mathbf{X}\mathbf{W} + b$ par juste $\hat{Y}$.
+
+\end{section}
+
+\end{document}
