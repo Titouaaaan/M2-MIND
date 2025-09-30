@@ -158,9 +158,9 @@ f_{ik}(\mathbf{X}) = \sum_{j=1}^{n} \mathbf{X}_{ij} \mathbf{W}_{jk} + b_k
 Pour une couche linéaire :  
 \[
 \frac{\partial (L\circ f)}{\partial X_{ij}} = \sum_{k=1}^{p} \sum_{l=1}^{n} \frac{\partial L}{\partial f_{kl}} \frac{\partial f_{kl}}{\partial X_{ij}} = 
-\sum_{k=1}^{p} \sum_{l=1}^{n} \frac{\partial L}{\partial f_{kl}} \frac{\partial}{\partial X_{ij}} \sum_{u} \left(\mathbf{X}_{ku} \mathbf{W}_{ul} + b_u \right)
+\sum_{k=1}^{p} \sum_{l=1}^{n} \frac{\partial L}{\partial f_{kl}} \frac{\partial}{\partial X_{ij}} \sum_{u} \left(\mathbf{X}_{ku} \mathbf{W}_{ul} + b_l \right)
 \]
-et ici on utilise le fait que $\left(\mathbf{X}_{ku} \mathbf{W}_{ul} + b_u \right)$ est égal à 0 si k $\neq$ i ou l $\neq$ j, donc on a:
+et ici on utilise le fait que $\left(\mathbf{X}_{ku} \mathbf{W}_{ul} + b_l \right)$ est égal à 0 si k $\neq$ i ou l $\neq$ j, donc on a:
 \[
 \frac{\partial L}{\partial f_{ij}} \sum_u \mathbf{W}_{uj}
 \]
