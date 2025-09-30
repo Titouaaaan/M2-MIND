@@ -16,7 +16,7 @@
 \begin{document}
 
 \begin{section}{Question 1}
-    
+
 Caluler la dérivée partielle 
 \[
 \frac{\partial (L \circ h)}{\partial \mathbf{x_i}}(\mathbf{x})
@@ -34,12 +34,13 @@ Pour une fonction $h$ connue (ce qui est toujours le cas pour nous), on peut cal
 \paragraph{Answer}
 
 On note
-\[
-(\nabla L)_j(\mathbf{y}) \;=\; \frac{\partial L}{\partial y_j}(\mathbf{y}),
-\qquad\text{donc}\qquad
-(\nabla L)_j(h(\mathbf{x})) \;=\; \frac{\partial L}{\partial y_j}\big(h(\mathbf{x})\big).
-\]
-Ici, \[ h(\mathbf{x}) = \mathbf{y}\]
+%\[
+%(\nabla L)_j(\mathbf{y}) \;=\; \frac{\partial L}{\partial y_j}(\mathbf{y}),
+%\qquad\text{donc}\qquad
+%(\nabla L)_j(h(\mathbf{x})) \;=\; \frac{\partial L}{\partial y_j}\big(h(\mathbf{x})\big).
+%\]
+%Ici, 
+\[ h(\mathbf{x}) = \mathbf{y}\]
 Donc quand on va chercher la dérivée de \(L\circ h\) par rapport à \(x_i\), 
 il faut d'abord voir comment \(L\) varie quand on fait varier \(h\),
 puis comment \(h\) varie quand on fait varier \(x_i\).
@@ -53,10 +54,10 @@ Donc la dérivée partielle de \(L\circ h\) par rapport à la coordonnée \(x_i\
 \[
 \frac{\partial (L\circ h)}{\partial x_i}(\mathbf{x})
 \;=\;
-\sum_{j=1}^{m} \left( \frac{\partial L}{\partial y_j}\big(h(\mathbf{x})\big)\;
+\sum_{j=1}^{m} \left( \frac{\partial L}{\partial y_j}\big(\mathbf{y}\big)\;
 \frac{\partial h_j}{\partial x_i}(\mathbf{x}) \right)
 \;=\;
-\sum_{j=1}^{m} \left( (\nabla L)_j(h(\mathbf{x}))\; \frac{\partial h_j}{\partial x_i}(\mathbf{x}) \right)
+\sum_{j=1}^{m} \left( (\nabla L)_j\; \frac{\partial h_j}{\partial x_i}(\mathbf{x}) \right)
 \]
 
 \end{section}
@@ -81,10 +82,10 @@ bien sûr de la fonction mse(·, $\hat{y}$).
 \paragraph{Answer}
 D'abord on calcule la derivée de mse par rapport à ses entrées \(\hat{y}\) et \(y\).
 \[
-\frac{\partial \text{mse}}{\partial y_i}(\hat{y}, y) = \frac{\partial}{\partial y_i} \frac{1}{n} \sum_{j=1}^{n} \left( (\hat{y}_j - y_j)^2 \right) = \frac{-2}{n}(\hat{y}_i - y_i)
+\frac{\partial \text{mse}}{\partial y_i}(\hat{y}, y) = \frac{\partial}{\partial y_i} \left( (\hat{y}_j - y_j)^2 \right) = -2(\hat{y}_i - y_i)
 \]
 \[
-\frac{\partial \text{mse}}{\partial \hat{y_i}}(\hat{y}, y) = \frac{\partial}{\partial \hat{y_i}} \frac{1}{n} \sum_{j=1}^{n} \left( (\hat{y}_j - y_j)^2 \right) = \frac{2}{n}(\hat{y}_i - y_i)
+\frac{\partial \text{mse}}{\partial \hat{y_i}}(\hat{y}, y) = \frac{\partial}{\partial \hat{y_i}} \left( (\hat{y}_j - y_j)^2 \right) = 2(\hat{y}_i - y_i)
 \]
 
 Donc maintenant on peut appliquer la formule de la question 1.
@@ -92,18 +93,24 @@ Donc maintenant on peut appliquer la formule de la question 1.
 \frac{\partial (L \circ f)}{\partial \mathbf{x}_j}(\mathbf{x}, \mathbf{w}, b) =
 \sum_{i=1}^{m} \frac{\partial L}{\partial f_i}\frac{\partial f_i}{\partial \mathbf{x}_j}
 \]
-Ensuite, la dérivée de \(f\) par rapport à \(\mathbf{x}_j\) est simplement la dérivée de la couche lineaire:
+Ensuite, la dérivée de \(f\) par rapport à \(\mathbf{x}_j\) est simplement la dérivée de la couche lineaire (uniquement dans le cas scalaire):
 \[
 f(\mathbf{x}) = \mathbf{W}\mathbf{x} + b
 \]
 Soit,
 \[
-\frac{\partial f_i}{\partial \mathbf{x}_j}(\mathbf{x}) = \mathbf{W}_{i,j}
+\frac{\partial f_i}{\partial \mathbf{x}_j}(\mathbf{x}) = \mathbf{W}_{j}
 \]
 Donc on a:
 \[
 \frac{\partial (L \circ f)}{\partial \mathbf{x}_j}(\mathbf{x}, \mathbf{w}, b) =
-\sum_{i=1}^{m} \frac{\partial L}{\partial f_i} \mathbf{W}_{i,j} 
+\frac{\partial L}{\partial f_i} \mathbf{W}_{j} 
+\]
+On peut donc étendre la formule pour:
+\[
+\frac{\partial f}{\partial \mathbf{x}_j}(\mathbf{x}, \mathbf{w}, b) \frac{\partial L}{\partial \hat{y}}(\hat{y}) =
+\mathbf{W}_j \frac{\partial L}{\partial \hat{y}}(\hat{y}) =
+2 \mathbf{W}_j (\hat{y} - y)
 \]
 
 \end{section}
@@ -124,6 +131,12 @@ Les dérivées de la fonction linéaire f par rapport à ses entrées:
 \]
 
 \paragraph{Answer}
+Rappel des dimensions: 
+\[
+\mathbf{X} \in \mathbb{R}^{q \times n}, \quad
+\mathbf{W} \in \mathbb{R}^{n \times p}, \quad
+\mathbf{b} \in \mathbb{R}^{1 \times p}, \quad
+\]
 On reprend les mêmes calculs que dans la question 2, mais cette fois pour des matrices pour Pytorch.
 Rappel:
 \[
@@ -132,10 +145,10 @@ C(\mathbf{X}, \mathbf{W}, \mathbf{b}, \mathbf{Y}) = \text{mse}(f(\mathbf{X}, \ma
 
 Donc,
 \[
-\frac{\partial (L \circ \text{mse})}{\partial Y_{ij}}(\hat{Y}, Y) = -\frac{2}{qp} (\hat{Y}_{ij} - Y_{ij})
+\frac{\partial (L \circ \text{mse})}{\partial Y_{ij}}(\hat{Y}, Y) = -\frac{2}{q} (\hat{Y}_{ij} - Y_{ij})
 \] 
 \[
-\frac{\partial (L \circ \text{mse})}{\partial \hat{Y}_{ij}}(\hat{Y}, Y) = \frac{2}{qp} (\hat{Y}_{ij} - Y_{ij})
+\frac{\partial (L \circ \text{mse})}{\partial \hat{Y}_{ij}}(\hat{Y}, Y) = \frac{2}{q} (\hat{Y}_{ij} - Y_{ij})
 \] 
 
 Ensuite pour les dérivées de f, mais avant petit rappel que chaque composante s'ecrit:
@@ -144,15 +157,21 @@ f_{ik}(\mathbf{X}) = \sum_{j=1}^{n} \mathbf{X}_{ij} \mathbf{W}_{jk} + b_k
 \]
 Pour une couche linéaire :  
 \[
-\frac{\partial (L\circ f)}{\partial X_{ij}} = \sum_{k=1}^{p} \frac{\partial L}{\partial f_{ik}} \frac{\partial f_{ik}}{\partial X_{ij}} = \sum_{k=1}^{p} \frac{\partial L}{\partial f_{ik}} W_{jk}
+\frac{\partial (L\circ f)}{\partial X_{ij}} = \sum_{k=1}^{p} \sum_{l=1}^{n} \frac{\partial L}{\partial f_{kl}} \frac{\partial f_{kl}}{\partial X_{ij}} = 
+\sum_{k=1}^{p} \sum_{l=1}^{n} \frac{\partial L}{\partial f_{kl}} \frac{\partial}{\partial X_{ij}} \sum_{u} \left(\mathbf{X}_{ku} \mathbf{W}_{ul} + b_u \right)
+\]
+et ici on utilise le fait que $\left(\mathbf{X}_{ku} \mathbf{W}_{ul} + b_u \right)$ est égal à 0 si k $\neq$ i ou l $\neq$ j, donc on a:
+\[
+\frac{\partial L}{\partial f_{ij}} \sum_u \mathbf{W}_{uj}
+\]
+
+Pour les deux autres on utilise le même raisonnement:
+\[
+\frac{\partial (L\circ f)}{\partial W_{ij}} = \text{TODO}
 \]
 
 \[
-\frac{\partial (L\circ f)}{\partial W_{ij}} = \sum_{i=1}^{q} \frac{\partial L}{\partial f_{ik}} \frac{\partial f_{ik}}{\partial W_{ij}} = \sum_{i=1}^{q} \frac{\partial L}{\partial f_{ik}} X_{jk}
-\]
-
-\[
-\frac{\partial (L\circ f)}{\partial b_{ij}} = \sum_{i=1}^{q} \frac{\partial L}{\partial f_{ik}} \frac{\partial f_{ik}}{\partial b_{ij}} = \sum_{i=1}^{q} \frac{\partial L}{\partial f_{ik}} 
+\frac{\partial (L\circ f)}{\partial b_{ij}} = \text{TODO}
 \]
 
 
@@ -164,15 +183,15 @@ Pour une couche linéaire :
 
 Pour \(\hat{Y}, Y \in \mathbb{R}^{q \times p}\), la fonction de coût MSE est :  
 \[
-\text{MSE}(\hat{Y}, Y) = \frac{1}{qp} \sum_{i=1}^{q} \sum_{j=1}^{p} (\hat{Y}_{ij} - Y_{ij})^2
+\text{MSE}(\hat{Y}, Y) = \frac{1}{p} \sum_{j=1}^{p} (\hat{Y}_{ij} - Y_{ij})^2
 \]
 
 Les gradients matriciels sont :  
 \[
-\frac{\partial (L \circ \text{mse})}{\partial \hat{Y}} = \frac{2}{qp} (\hat{Y} - Y) 
+\frac{\partial (L \circ \text{mse})}{\partial \hat{Y}} = \frac{2}{p} (\hat{Y} - Y) 
 \]  
 \[
-\frac{\partial (L \circ \text{mse})}{\partial Y} = -\frac{2}{qp} (\hat{Y} - Y) 
+\frac{\partial (L \circ \text{mse})}{\partial Y} = -\frac{2}{p} (\hat{Y} - Y) 
 \]
 
 ---
