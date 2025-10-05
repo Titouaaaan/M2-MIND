@@ -9,6 +9,7 @@
 \usepackage{hyperref}          % Clickable links
 \usepackage{enumitem}
 \usepackage[a4paper, top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry} % the margins
+\usepackage{tabularx}
 
 
 % Title info
@@ -113,13 +114,140 @@ the $\hat{y}_i$ vary to decrease the global loss function $\mathcal{L}$?} \newli
 
 \subsection{Optimization algorithm}
 
-    \paragraph{Questions}
+\paragraph{Questions}
 
-    \begin{enumerate}[resume]
-        \item \textbf{What seem to be the advantages and disadvantages of the various variants of gradient descent
-                    between the classic, mini-batch stochastic and online stochastic versions? Which one seems the most
-                    reasonable to use in the general case?} \newline
-        TODO 
-    \end{enumerate}
+\begin{enumerate}[resume]
+    \item \textbf{What seem to be the advantages and disadvantages of the various variants of gradient descent
+                between the classic, mini-batch stochastic and online stochastic versions? Which one seems the most
+                reasonable to use in the general case?} 
+    \begin{tabularx}{0.9\textwidth}{l X X}
+        \hline
+        \textbf{Method} & \textbf{Advantages} & \textbf{Disadvantages} \\ \hline
+        Batch GD & Stable convergence, accurate gradients & High memory usage, slow \& expensive for large datasets, possible local minimum \\ \hline
+        Mini-batch SGD & faster convergence, no local minima, better 'exploration' of the dataset & batch size tuning, noise \\ \hline
+        Online SGD & Fast updates, low memory usage & Noisy gradients, less stable convergence \\ \hline
+    \end{tabularx} \newline
+    \newline
+    Overall it is pretty safe to conclude that Mini-batch SGD is the most reasonable method to use in the general case,
+    because it essentially is a mix of the two other methods: faster convergence and lower computational cost.
+
+    \item \textbf{$\star$ What is the influence of the learning rate $\eta$ on learning?} \newline
+    Recap: the learning rate $\eta$ is a hyperparameter that controls how strongly the weights are updated during training. \newline
+    A high learning rate means that the weights are updated strongly at each training step, which can lead to fast convergence but also 
+    to the overshooting of the optimal solution. Overshooting means that the model will diverge, or jump around the optimal solution without actually reaching it. \newline
+    On the contrary, a low learning rate means that each update step changes the weights only slightly, which can lead to slow convergence.
+    This can be helpful to explore the local minima, but can also lead to getting stuck there. \newline
+    To address these drawbacks, one good technique is to change $\eta$ over time. By starting with a high learning rate, and then
+    decreasing it as we get closer to the optimal solution (over time), we allow the model to make bigger steps at the beginning of the training, 
+    and to then make smaller careful steps when we are close to the optimal solution.
+
+    \item \textbf{$\star$ Compare the complexity (depending on the number of layers in the network) of calculating the
+            gradients of the loss with respect to the parameters, using the naive approach and the backprop algorithm} \newline
+    For the naive approach, the gradient of the loss is calculated for each parameter independently. 
+    For example, for the weights of the second layer, we would calculate the gradient of the loss with respect to each weight $w_{ij}$ in 
+    the weight matrix $W_2$. And for the gradients of the first layer, we would re-calculate the gradients of the second layer, 
+    and then compute the gradients with respect to the first layer. Even for a two-layer network, we can see that this approach is very computationally 
+    expensive, since we keep calculating the same gradients over and over. \newline
+    With the backpropagation algorithm, each gradient is calculated only once. If we take our previous example with only two layers, 
+    after calculating the gradients of the second layer, we keep those gradients in memory and use them to calculate the gradients of the first layer. 
+    In essence, this means that all of the gradients are calculated in a single backward pass, 
+    without having to recompute the gradients of the loss like in the naive method. \newline
+    This backpropagation algorithm is much more efficient and becomes mandatory for deep networks with many layers. \newline
+    Remark on the $\mathcal{O}$ complexity: \newline
+    For a network with $L$ layers, let $n_l$ be the number of parameters in layer $l$.  
+
+    \begin{itemize}
+        \item computing $\frac{\partial \mathcal{L}}{\partial W_l}$ for each layer separately (naive):  
+        \[
+        \mathcal{O}\Big(\sum_{l=1}^L \sum_{k=l}^L n_k\Big) = n \Big(\sum_{l=1}^{L} (L - l + 1)) = n(1 + 2 + \text{\dots} + L) = n \frac{L(L+1)}{2}
+        \sim \mathcal{O}(L^2 \cdot n_\text{avg})
+        \]  
+        where $n_\text{avg}$ is the average number of parameters per layer.  
+
+        \item For the backpropagation algorithm:  
+        \[
+        \mathcal{O}\Big(\sum_{l=1}^L n_l\Big) = n + n + \text{\dots} + n = L \cdot n  = \sim \mathcal{O}(L \cdot n_\text{avg})
+        \]  
+    \end{itemize}
+
+    \item \textbf{What criteria must the network architecture meet to allow such an optimization procedure ?} \newline
+    Each layer (linear, activation, cost $\dots$) must be differentiable in order for the backpropagation to be possible.
+    There also needs to be some form of memory to save every input and output of each layer during the forward pass as they are
+    needed for the backward pass. Finally, the gradients produced must not be either extremely small or large, as they would break 
+    the backpropagation (vanishing or exploding gradients).
+
+    \item \textbf{The function SoftMax and the loss of cross-entropy are often used together and their gradient is very simple. Show that the loss can be simpliﬁed by:
+    $$ l = - \sum_{i}y_i \tilde{y}_i + \log (\sum_{i} e^{\bar{y}_i}) $$} \newline
+    Recap: we write the cross-entropy loss as:
+    \[
+    l = - \sum_{i} y_i \log(\hat{y}_i)
+    \]
+    Here $\hat{y}_i$ is the output of the SoftMax function, so we can replace it in the loss:
+    \begin{align*}
+    l &= - \sum_{i} y_i \log\Big(\frac{e^{\tilde{y}_i}}{\sum_{j} e^{\tilde{y}_j}}\Big) \\
+    l &= - \sum_{i} y_i \Big(\log(e^{\tilde{y}_i}) - \log(\sum_{j} e^{\tilde{y}_j})\Big) \\
+    l &= - \sum_{i} y_i \Big(\tilde{y}_j - \log(\sum_{j} e^{\tilde{y}_j})\Big) \\
+    l &= - \sum_{i} y_i \tilde{y}_i + \sum_{i} y_i \log(\sum_{j} e^{\tilde{y}_j}) \\
+    \end{align*}
+    Since $y$ is the label vector, composed of zeros except for the true class which is 1, then we know that the sum of all the $y_i$ is equal to 1, so:
+    \[
+    l = - \sum_{i} y_i \tilde{y}_i + \log(\sum_{j} e^{\tilde{y}_j})
+    \]
+
+    \item \textbf{Write the gradient of the loss (cross-entropy ) relative to the intermediate outputs $\tilde{y}$:
+    $$ \frac{\partial l}{\partial \tilde{y}_i} = \dots \implies \nabla_{\bar{y}} l =  
+    \begin{bmatrix}
+    \frac{\partial \ell}{\partial \tilde{y}_1} \\
+    \vdots \\
+    \frac{\partial \ell}{\partial \tilde{y}_n}
+    \end{bmatrix}
+    = \dots$$} \newline
+    % Reminder: \[ \sum_{i} y_i = 1 \]
+    We are trying to find:
+    \begin{align*}
+        \frac{\partial l}{\partial \tilde{y}_i} = \sum_{k} \frac{\partial l}{\partial \hat{y}_k}  \frac{\partial \hat{y}_k}{\partial \tilde{y}_i}
+    \end{align*}
+    We need to compute $ \frac{\partial l}{\partial \hat{y}_k} $:
+    \begin{align*}
+        \frac{\partial l}{\partial \hat{y}_k} &= \frac{\partial}{\partial \hat{y}_k} \Big(- \sum_{k} y_k \log(\hat{y}_k)\Big) \\
+        &= - y_k \frac{\partial}{\partial \hat{y}_k} (\log(\hat{y}_k)) \\
+        &= - y_k \frac{1}{\hat{y}_k} \\
+        &= - \frac{y_k}{\hat{y}_k}
+    \end{align*}
+    Next we compute $ \frac{\partial \hat{y}_k}{\partial \tilde{y}_i} $, which is the derivative of the SoftMax function
+    (the explanation was taken from this \href{https://eli.thegreenplace.net/2016/the-softmax-function-and-its-derivative/}{source}).
+    The derivative has two cases, when $i = k$ and when $i \neq k$, which are:
+    \[
+        \frac{\partial \hat{y}_i}{\partial \tilde{y}_i} = \hat{y}_i (1 - \hat{y}_i) \quad \text{and} \quad
+        \frac{\partial \hat{y}_k}{\partial \tilde{y}_i} = - \hat{y}_i \hat{y}_k 
+    \]
+    So if we combine all of this:
+    \begin{align*}
+        \frac{\partial \ell}{\partial \tilde{y}_i} 
+        &= \sum_{k=i} \Big(- \frac{y_k}{\hat{y}_k} \cdot \hat{y}_i (1 - \hat{y}_k) \Big)
+        + \sum_{k \neq i} \Big(- \frac{y_k}{\hat{y}_k} \cdot \hat{y}_i (0 - \hat{y}_k) \Big) \\
+        &= \sum_{k=i} \Big(- y_i \frac{\hat{y}_i (1 - \hat{y}_i)}{\hat{y}_i} \Big)
+        + \sum_{k \neq i} \Big(- y_k \frac{\hat{y}_i (- \hat{y}_k)}{\hat{y}_k} \Big) \tag{1}\\
+        &= \sum_{k=i} \Big(- y_i (1 - \hat{y}_i) \Big)
+        + \sum_{k \neq i} \Big(y_k \hat{y}_i \Big) \\
+        &= -y_i (1 - \hat{y}_i) + \sum_{k \neq i} y_k \hat{y}_i \\
+        &= -y_i + y_i \hat{y}_i + \hat{y}_i \sum_{k \neq i} y_k \\
+        &= -y_i + y_i \hat{y}_i + \hat{y}_i (1 - y_i) \\[1mm]
+        &= \hat{y}_i - y_i
+    \end{align*}
+
+    In terms of matrices, the gradient of the loss than simply be expressed as $y - \hat{y}$
+
+    Note: at the equation (1), we change the index from k to i for the term where k=i. 
+    This is because the sum only includes the case k=i, so k is effectively fixed to i. 
+    All other terms do not appear in this sum. 
+    This simplification allows us to replace k with i and remove the index from the expression.
+
+    \item \textbf{Using backpropagation, write the gradient of the loss with respect to the weights of the output 
+    layer $\mathbf{W}_y$. Note that computing this gradient uses $\nabla_{\tilde{\mathbf{y}}} \ell$. Do the same for $\mathbf{b}_y$.} \newline
+    hi
+
+
+\end{enumerate}
 
 \end{document}
