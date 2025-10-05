@@ -236,7 +236,14 @@ the $\hat{y}_i$ vary to decrease the global loss function $\mathcal{L}$?} \newli
         &= \hat{y}_i - y_i
     \end{align*}
 
-    In terms of matrices, the gradient of the loss than simply be expressed as $y - \hat{y}$
+    In terms of matrices, the gradient of the loss than simply be expressed as: 
+    $$\nabla_{\bar{y}} l =  
+    \begin{bmatrix}
+    \frac{\partial \ell}{\partial \tilde{y}_1} \\
+    \vdots \\
+    \frac{\partial \ell}{\partial \tilde{y}_n}
+    \end{bmatrix}
+    = \hat{y} - y$$
 
     Note: at the equation (1), we change the index from k to i for the term where k=i. 
     This is because the sum only includes the case k=i, so k is effectively fixed to i. 
@@ -245,8 +252,99 @@ the $\hat{y}_i$ vary to decrease the global loss function $\mathcal{L}$?} \newli
 
     \item \textbf{Using backpropagation, write the gradient of the loss with respect to the weights of the output 
     layer $\mathbf{W}_y$. Note that computing this gradient uses $\nabla_{\tilde{\mathbf{y}}} \ell$. Do the same for $\mathbf{b}_y$.} \newline
-    hi
+    \[
+    \frac{\partial \ell}{\partial W_{y,ij}} 
+    = \sum_k \frac{\partial \ell}{\partial \tilde{y}_k} \frac{\partial \tilde{y}_k}{\partial W_{y,ij}}
+    = \dots 
+    \quad \implies \quad
+    \nabla_{\mathbf{W}_y} \ell =
+    \begin{bmatrix}
+    \frac{\partial \ell}{\partial W_{y,11}} & \dots & \frac{\partial \ell}{\partial W_{y,1n_h}} \\
+    \vdots & \ddots & \vdots \\
+    \frac{\partial \ell}{\partial W_{y,n_y1}} & \dots & \frac{\partial \ell}{\partial W_{y,n_y n_h}}
+    \end{bmatrix}
+    = \dots
+    \]
 
+    So first of all,
+    \[
+    \tilde{y} = W_y h + b_y \quad \text{with} \quad h \in \mathbb{R}^{n_h}
+    \]
+    then by defining,
+    \[
+    \tilde{y}_k = \sum_{j=1}^{n_h} W_{y,ij}\,h_j + b_{y,k} ,
+    \]
+
+    We will now be able to simplify $ \frac{\partial \tilde{y}_k}{\partial W_{y,ij}} $ :
+    
+    \[
+    \frac{\partial \ell}{\partial W_{y,ij}}
+    = \sum_{k=1}^{n_y} \frac{\partial \ell}{\partial \tilde{y}_k}\,\frac{\partial \tilde{y}_k}{\partial W_{y,ij}}
+    = \frac{\partial \ell}{\partial \tilde{y}_i}\,h_j 
+    \]
+
+    In matrix form:
+    \[
+    \nabla_{\mathbf{W}_y}\ell =
+    \begin{bmatrix}
+    \frac{\partial \ell}{\partial \tilde{y}_1} h_1 & \cdots & \frac{\partial \ell}{\partial \tilde{y}_1} h_{n_h}\\
+    \vdots & \ddots & \vdots\\
+    \frac{\partial \ell}{\partial \tilde{y}_{n_y}} h_1 & \cdots & \frac{\partial \ell}{\partial \tilde{y}_{n_y}} h_{n_h}
+    \end{bmatrix}
+    = \big(\nabla_{\tilde{\mathbf{y}}}\ell\big)\,\mathbf{h}^{\!\top}
+    \]
+    This means that the gradient of the weights is obtained by multiplying the loss gradient with the output of the hidden layer
+
+    For the biases $b_y$:
+    \[
+    \frac{\partial \ell}{\partial b_{y,i}}
+    = \sum_{k=1}^{n_y} \frac{\partial \ell}{\partial \tilde{y}_k}\,\frac{\partial \tilde{y}_k}{\partial b_{y,i}}
+    = \frac{\partial \ell}{\partial \tilde{y}_i}
+    \]
+    so in vector form
+    \[
+    \nabla_{\mathbf{b}_y}\ell = \nabla_{\tilde{\mathbf{y}}}\ell .
+    \]
+
+    \item \textbf{$\star$ Compute the gradients: $\nabla_{\tilde{h}}\ell, \nabla_{W_h}\ell, \nabla_{b_h}\ell$}
+
+    \begin{enumerate}
+        \item \[ 
+        \nabla_{\tilde{h}_i}\ell = \frac{\partial \ell}{\partial \tilde{h}_i}  
+        = \sum_{k} \frac{\partial \ell}{\partial h_k} \frac{\partial h_k}{\partial \tilde{h}_i}
+        \]
+        For $h$ and $\tilde{h}$, the activation function is now $\tanh$. So:
+        \[
+        \frac{\partial h_k}{\partial \tilde{h}_i} = \frac{\partial \tanh(\tilde{h}_k)}{\partial \tilde{h}_i}
+        \]
+        Similarly to the case with Softmax, here the derivative of $\tanh$ only exists when $k=i$. And the derivative
+        of $tanh(x)$ is: $1 - \tanh^2(x)$.
+        So now we can replace with $\tilde{h}_k$:
+        \[
+        \frac{\partial h_k}{\partial \tilde{h}_i}
+        = \frac{\partial \tanh(\tilde{h}_k)}{\partial \tilde{h}_i} \tag{1}
+        = (1 - \tanh^2(\tilde{h}_i))
+        = 1 - h_i^2
+        \]
+        Note: In (1), if we refer back to the figure of our neural network, we see that $h_i = \tanh(\tilde{h}_i)$, so $\tanh^2(\tilde{h}_i) = h_i^2$, 
+        and like earlier since this equality only exists when $i=k$ then we can change the index 
+        from $\tilde{h}_k$ to $\tilde{h}_i$ \newline
+        So,
+        \[
+        \frac{\partial \ell}{\partial \tilde{h}_i}
+        = \sum_k \frac{\partial \ell}{\partial h_k} \frac{\partial h_k}{\partial \tilde{h}_i}
+        \]
+
+        Since $\frac{\partial h_k}{\partial \tilde{h}_i}$ is nonzero only when $k = i$, the sum reduces to a single term:
+        \[
+        \frac{\partial \ell}{\partial \tilde{h}_i}
+        = \frac{\partial \ell}{\partial h_i} \cdot (1 - h_i^2) 
+        = \nabla_{\mathbf{h}}\ell \cdot (1 - h_i^2) 
+        \]
+        
+        \item $\nabla_{W_h}\ell$ TODO
+        \item $\nabla_{b_h}\ell$ TODO
+    \end{enumerate}
 
 \end{enumerate}
 
