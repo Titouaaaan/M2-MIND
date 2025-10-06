@@ -31,5 +31,3 @@ writer.add_image(f'samples', images, 0)
 
 
 savepath = Path("model.pch")
-
-#  TODO: 

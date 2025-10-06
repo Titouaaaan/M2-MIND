@@ -25,18 +25,17 @@ class MSE(Function):
         ## Garde les valeurs nécessaires pour le backwards
         ctx.save_for_backward(yhat, y)
 
-        return 1/yhat.shape[0] * ((yhat - y) ** 2) 
+        return ((yhat - y) ** 2).mean()
 
     @staticmethod
     def backward(ctx, grad_output):
         ## Calcul du gradient du module par rapport a chaque groupe d'entrées
         yhat, y = ctx.saved_tensors
-        gradyhat = 2/yhat.shape[0] * (yhat - y) 
-        grady = -2/yhat.shape[0] * (yhat - y)
+        N = yhat.numel()  # nombre total d'éléments dans yhat
+        gradyhat = 2.0 / N * (yhat - y) * grad_output
+        grady = -2.0 / N * (yhat - y) * grad_output
         return gradyhat, grady
     
-#  TODO:  Implémenter la fonction Linear(X, W, b)sur le même modèle que MSE
-
 class Linear(Function): 
     @staticmethod
     def forward(ctx, X, W, b):
@@ -47,7 +46,7 @@ class Linear(Function):
     def backward(ctx, grad_output):
         X, W, b = ctx.saved_tensors
         grad_X = grad_output @ W.T
-        grad_W = grad_output @ X.T
+        grad_W =  X.T @ grad_output 
         grad_b = grad_output.sum(0)
         return grad_X, grad_W, grad_b
 
@@ -62,10 +61,7 @@ y = torch.randn(50, 3)
 # Les paramètres du modèle à optimiser
 w = torch.randn(13, 3)
 b = torch.randn(3)
-context = Context()
+context_linear = Context()
+context_mse = Context()
 
-forwardpass = Linear.forward(context, x, w, b)
-loss = MSE.forward(context, forwardpass, y)
-backwardpass = MSE.backward(context, None)
-gx, gw, gb = Linear.backward(context, backwardpass)
 
