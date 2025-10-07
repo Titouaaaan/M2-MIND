@@ -1,10 +1,11 @@
 # This file contains classes implemented from the previous tp
-
+from datamaestro import prepare_dataset
 import torch
 from torch.autograd import Function
 from torch.autograd import gradcheck
 from torch.utils.tensorboard import SummaryWriter
 
+# for tp 2 we dont actually need this anymore, since the torch optimizer deals with it
 class Context:
     """Un objet contexte très simplifié pour simuler PyTorch
 
@@ -43,17 +44,50 @@ class Linear(Function):
     def forward(ctx, X, W, b):
         ctx.save_for_backward(X, W, b)
 
-        fwd = X @ W.T + b
+        fwd = X @ W + b
         return fwd
     
     @staticmethod
     def backward(ctx, grad_output):
         X, W, b = ctx.saved_tensors
 
-        grad_X = grad_output @ W
-        grad_W =  grad_output.T @ X 
+        grad_X = grad_output @ W.T
+        grad_W =  X.T @ grad_output 
         grad_b = grad_output.sum(0, keepdims=True)
         return grad_X, grad_W, grad_b
+
+class ComplexNN(torch.nn.Module):
+    def __init__(self, in_features, out_features):
+        super(ComplexNN, self).__init__()
+        # layers
+        self.first_layer = torch.nn.Linear(in_features,100)
+        self.activation1 = torch.nn.Tanh()
+        self.second_layer = torch.nn.Linear(100, out_features)
+    def forward(self, x):
+        return self.second_layer(self.activation1(self.first_layer(x)))
+
+class MNISTDataLoader():
+    def __init__(self, batch_size = 1, shuffle = False):
+        ds = prepare_dataset("com.lecun.mnist");
+
+        self.train_images, self.train_labels = ds.train.images.data(), ds.train.labels.data()
+        self.test_images, self.test_labels =  ds.test.images.data(), ds.test.labels.data()
+
+    def preprocess(self):
+        # preprocess xtrain and test
+        x_train = torch.tensor(self.train_images, dtype=torch.double).reshape(-1, 28*28) / 255.0
+        x_test = torch.tensor(self.test_images, dtype=torch.double).reshape(-1, 28*28) / 255.0
+        
+        # get labels as torch tensors
+        y_train= torch.tensor(self.train_labels, dtype=torch.long)
+        y_test = torch.tensor(self.test_labels, dtype=torch.long)
+
+        #one hot encode the labels 
+        y_train = torch.zeros(y_train.size(0), 10, dtype=torch.double)
+        y_test = torch.zeros(y_test.size(0), 10, dtype=torch.double)
+
+        return 
+
 
 # this is probably going to be outdated very quickly but its from the first tp, tp1_descente.py
 """ def gradient_descent(x, y, w, b, eps):
@@ -83,7 +117,7 @@ class Linear(Function):
     writer.close()
     return None """
 
-def optim_GD(x, y, w, b, eps, opt):
+def optim_GD(x, y, w, b, eps, opt, niter):
     # no need for context anymore
     if opt == 'SGD':
         optim = torch.optim.SGD(params=[w,b], lr=eps)
@@ -93,7 +127,7 @@ def optim_GD(x, y, w, b, eps, opt):
         return 'Invalid optimizer!!'
     optim.zero_grad()
     writer = SummaryWriter()
-    for n in range(100):
+    for n in range(niter):
         ypred = Linear.apply(x, w, b)
         loss = MSE.apply(ypred, y)
         writer.add_scalar('Loss/train', loss.item(), n)
@@ -103,7 +137,12 @@ def optim_GD(x, y, w, b, eps, opt):
         optim.step()
         optim.zero_grad()
     writer.close()
+    # now we gotta save the model
+    torch.save({'w': w, 'b': b}, 'simpleMNIST.pth')
     return None
+
+def evaluate_model(w, b, x_test, y_test):
+    pass
 
 def test_optimizer(optim='SGD'):
     # Les données supervisées
@@ -118,5 +157,5 @@ def test_optimizer(optim='SGD'):
     b = torch.nn.Parameter(torch.randn(output_size))
 
     epsilon = 0.05
-    optim_GD(x,y,w,b,epsilon,optim)
+    optim_GD(x,y,w,b,epsilon,optim, niter=100)
 
