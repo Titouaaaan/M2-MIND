@@ -8,6 +8,7 @@ import torch.nn.functional as F
 from torch.utils.tensorboard import SummaryWriter
 import numpy as np
 import datetime
+from utils import *
 # Téléchargement des données
 
 from datamaestro import prepare_dataset
@@ -31,3 +32,18 @@ writer.add_image(f'samples', images, 0)
 
 
 savepath = Path("model.pch")
+
+""" ### Test optimizer SGD
+# Les données supervisées
+x = torch.randn(50, 13)
+y = torch.randn(50, 3)
+
+# Les paramètres du modèle à optimiser
+w = torch.randn(13, 3, requires_grad=True)
+b = torch.randn(3, requires_grad=True)
+
+epsilon = 0.05
+gradient_descent(x,y,w,b,epsilon) """
+
+test_optimizer('SGD')
+test_optimizer('Adam')

@@ -32,27 +32,31 @@ class MSE(Function):
     def backward(ctx, grad_output):
         ## Calcul du gradient du module par rapport a chaque groupe d'entrées
         yhat, y = ctx.saved_tensors
-        N = yhat.numel()  # nombre total d'éléments dans yhat
-        gradyhat = 2.0 / N * (yhat - y) * grad_output
-        grady = -2.0 / N * (yhat - y) * grad_output
+
+        N = yhat.numel()  # nombre total d'éléments dans yhat pour la normalisation
+        gradyhat = (2.0 / N) * (yhat - y) * grad_output
+        grady = (-2.0 / N) * (yhat - y) * grad_output
         return gradyhat, grady
     
 class Linear(Function): 
     @staticmethod
     def forward(ctx, X, W, b):
         ctx.save_for_backward(X, W, b)
-        return X @ W + b
+
+        fwd = X @ W.T + b
+        return fwd
     
     @staticmethod
     def backward(ctx, grad_output):
         X, W, b = ctx.saved_tensors
-        grad_X = grad_output @ W.T
-        grad_W =  X.T @ grad_output 
-        grad_b = grad_output.sum(0)
+
+        grad_X = grad_output @ W
+        grad_W =  grad_output.T @ X 
+        grad_b = grad_output.sum(0, keepdims=True)
         return grad_X, grad_W, grad_b
 
 # this is probably going to be outdated very quickly but its from the first tp, tp1_descente.py
-def gradient_descent(x, y, w, b, eps):
+""" def gradient_descent(x, y, w, b, eps):
     writer = SummaryWriter()
 
     for n_iter in range(100): # on pourrait meme aller vers 150 iterations pcq ca pourrait peut etre converger un peu plus
@@ -77,4 +81,42 @@ def gradient_descent(x, y, w, b, eps):
             w -= eps * grad_w
             b -= eps * grad_b
     writer.close()
+    return None """
+
+def optim_GD(x, y, w, b, eps, opt):
+    # no need for context anymore
+    if opt == 'SGD':
+        optim = torch.optim.SGD(params=[w,b], lr=eps)
+    elif opt == 'Adam':
+        optim = torch.optim.Adam(params=[w,b], lr=eps)
+    else:
+        return 'Invalid optimizer!!'
+    optim.zero_grad()
+    writer = SummaryWriter()
+    for n in range(100):
+        ypred = Linear.apply(x, w, b)
+        loss = MSE.apply(ypred, y)
+        writer.add_scalar('Loss/train', loss.item(), n)
+        print(f"Itérations {n}: loss {loss.item()}")
+        loss.backward()
+
+        optim.step()
+        optim.zero_grad()
+    writer.close()
     return None
+
+def test_optimizer(optim='SGD'):
+    # Les données supervisées
+    features = 13
+    data_size = 50
+    output_size = 3
+    x = torch.randn(data_size, features)
+    y = torch.randn(data_size, output_size)
+
+    # Les paramètres du modèle à optimiser
+    w = torch.nn.Parameter(torch.randn(output_size,features))
+    b = torch.nn.Parameter(torch.randn(output_size))
+
+    epsilon = 0.05
+    optim_GD(x,y,w,b,epsilon,optim)
+
