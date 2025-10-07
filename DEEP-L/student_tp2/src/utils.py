@@ -3,6 +3,7 @@ from datamaestro import prepare_dataset
 import torch
 from torch.autograd import Function
 from torch.autograd import gradcheck
+import numpy as np
 from torch.utils.tensorboard import SummaryWriter
 
 # for tp 2 we dont actually need this anymore, since the torch optimizer deals with it
@@ -67,27 +68,65 @@ class ComplexNN(torch.nn.Module):
         return self.second_layer(self.activation1(self.first_layer(x)))
 
 class MNISTDataLoader():
-    def __init__(self, batch_size = 1, shuffle = False):
+    def __init__(self, batch_size=32, shuffle=True, train=True):
         ds = prepare_dataset("com.lecun.mnist");
+        if train:
+            images, labels = ds.train.images.data(), ds.train.labels.data()
+        else:
+            images, labels = ds.test.images.data(), ds.test.labels.data()
 
-        self.train_images, self.train_labels = ds.train.images.data(), ds.train.labels.data()
-        self.test_images, self.test_labels =  ds.test.images.data(), ds.test.labels.data()
+        self.x = torch.tensor(images, dtype=torch.long).reshape(-1, 28*28) / 255.0
+        self.y = torch.tensor(labels, dtype=torch.long)
 
-    def preprocess(self):
-        # preprocess xtrain and test
-        x_train = torch.tensor(self.train_images, dtype=torch.double).reshape(-1, 28*28) / 255.0
-        x_test = torch.tensor(self.test_images, dtype=torch.double).reshape(-1, 28*28) / 255.0
-        
-        # get labels as torch tensors
-        y_train= torch.tensor(self.train_labels, dtype=torch.long)
-        y_test = torch.tensor(self.test_labels, dtype=torch.long)
+        self.batch_size = batch_size
+        self.shuffle = shuffle
+        self.indices = np.arange(len(self.x)) # creates a list will all the indices, likely 0 to 60000 in our case
+    
+    def __getitem__(self, index):
+        # return a specific data point with its label
+        return self.x[index], self.y[index]
 
-        #one hot encode the labels 
-        y_train = torch.zeros(y_train.size(0), 10, dtype=torch.double)
-        y_test = torch.zeros(y_test.size(0), 10, dtype=torch.double)
+    def __len__(self): # we get the length according to the batch size and we round it (to not get a float)
+        return int(np.ceil(len(self.x) / self.batch_size))
+    
+    def __iter__(self): # used before starting the iteration on the data
+        # we take the list of the indices and shuffle them: ([0,1,2,3]) -> ([2,1,0,3]) forexample
+        if self.shuffle:
+            np.random.shuffle(self.indices)
+        self.current_idx = 0
+        return self
+    
+    def __next__(self): # the iteration
+        if self.current_idx >= len(self.x): #check to see that we're around out of bounds of the DS
+            raise StopIteration
 
-        return 
+        # get the start and ending index of the batch
+        start = self.current_idx 
+        end = min(start + self.batch_size, len(self.x))
+        batch_idx = self.indices[start:end]
+        self.current_idx = end
+        #fetch the data
+        x_batch = self.x[batch_idx]
+        y_batch = self.y[batch_idx]
+        return x_batch, y_batch
 
+class AutoEncoder(torch.nn.Module):
+    def __init__(self, in_features, out_features):
+        super(AutoEncoder, self).__init__()
+        self.in_features = in_features
+        self.out_features = out_features
+        self.encoder = torch.nn.Linear(self.in_features, self.out_features) # encoder linear layer
+        self.activation = torch.nn.ReLU() 
+        # here we dont specify the weights for the decoder since we will just reuse the weights of enc in forward()
+        self.decoder_b = torch.nn.Parameter(torch.zeros(self.in_features)) # just the b bias for the decoder
+
+    def forward(self, x):
+        enc_fwd = self.activation(self.encoder(x)) # the encoder forward pass
+        # here the decoder forward is the sigmoid activation function times (enc_output @ enc weights + bias dec)
+        # here i think the reason why we can just use the weights is bc in the encoder forward pass,
+        # we do x @ W.T, so technically using the 'tied' transposed weights means we just so z @ W for the decoder
+        dec_fwd = torch.sigmoid((enc_fwd @ self.encoder.weight) + self.decoder_b)
+        return dec_fwd # this is the f(x) reconstructed data 
 
 # this is probably going to be outdated very quickly but its from the first tp, tp1_descente.py
 """ def gradient_descent(x, y, w, b, eps):

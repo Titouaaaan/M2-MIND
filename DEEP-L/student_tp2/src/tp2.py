@@ -11,6 +11,9 @@ import datetime
 from utils import *
 # Téléchargement des données
 
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu') # only if we have a gpu
+# need to add .to(device) to all the tensors to the gpu. This needs to be on all tensors or it crashes :(
+
 from datamaestro import prepare_dataset
 ds = prepare_dataset("com.lecun.mnist");
 train_images, train_labels = ds.train.images.data(), ds.train.labels.data()
@@ -88,7 +91,8 @@ b = loaded_model['b'] """
 # Test same as previously but with our more complex NN
 # also here we wanna test on the mnist numbers, no classification
 # hence we use CE instead of MSE, so the y labels should not be one hot encoded
-y_train_classif = torch.tensor(train_labels, dtype=torch.long)
+
+""" y_train_classif = torch.tensor(train_labels, dtype=torch.long)
 x_train_classif = x_train.float()
 model = ComplexNN(in_features=x_train.shape[1], out_features=10)
 loss_module = torch.nn.CrossEntropyLoss()
@@ -104,7 +108,7 @@ for n in range(400):
 
     optim.step()
     optim.zero_grad()
-writer.close()
+writer.close() """
 
 # concerning the Sequential, i directly made the class 
 # (didn't understand we had to do it manually at first)
@@ -119,3 +123,40 @@ writer.close()
 # Question 3
 # So here we can reuse the work i did above, but just organise 
 # it better and put it into a class    
+# we created a dataloader, that gives batches of data in a shuffled way (if we want)
+batch_size=32
+data = MNISTDataLoader(batch_size=batch_size, shuffle=True, train=True)
+""" for x,y in data:
+    print(x.shape, y.shape) """
+# this returns batches of this shape: torch.Size([32, 784]) torch.Size([32])
+# ====================================================================
+
+# Question 4
+# see class AutoEncoder(torch.nn.Module) in utils.py
+# ====================================================================
+
+# Question 5
+# test de l'autoencoder avec une couche lineaire
+autoencoder = AutoEncoder(in_features=28*28, out_features=128)
+# here we are going to work with batches of size 32
+# so in input of the autoencoder will be (28*28, 128), we are reducing from 784 to 128
+loss_module = torch.nn.MSELoss()
+optim = torch.optim.Adam(autoencoder.parameters(), lr=0.001)
+optim.zero_grad()
+writer = SummaryWriter()
+for n in range(100):
+    epoch_loss = 0
+    for x, _ in data:
+        ypred = autoencoder(x)
+        loss = loss_module(ypred, x)
+        epoch_loss += loss.item()
+        loss.backward()
+
+        optim.step()
+        optim.zero_grad()
+        #print(epoch_loss)
+    loss = epoch_loss/len(data)
+    writer.add_scalar('Average Loss/train', loss)
+    print(f"Itérations {n}: loss {loss}")
+
+writer.close() 
