@@ -335,15 +335,62 @@ the $\hat{y}_i$ vary to decrease the global loss function $\mathcal{L}$?} \newli
         = \sum_k \frac{\partial \ell}{\partial h_k} \frac{\partial h_k}{\partial \tilde{h}_i}
         \]
 
-        Since $\frac{\partial h_k}{\partial \tilde{h}_i}$ is nonzero only when $k = i$, the sum reduces to a single term:
+        so since $\frac{\partial h_k}{\partial \tilde{h}_i}$ is nonzero only when $k = i$, the sum reduces to a single term:
         \[
         \frac{\partial \ell}{\partial \tilde{h}_i}
         = \frac{\partial \ell}{\partial h_i} \cdot (1 - h_i^2) 
         = \nabla_{\mathbf{h}}\ell \cdot (1 - h_i^2) 
         \]
+
+        to develop this form a bit more, we can express $\frac{\partial \ell}{\partial h_i}$ as:
+        \[
+        \frac{\partial \ell}{\partial h_i} = \sum_j \frac{\partial \ell}{\partial \hat{y}_j} \frac{\partial \hat{y}_j}{\partial h_i}
+        = \sum_j \delta_{j}^{(y)} W_{j,i}^{(y)} 
+        \]
+        with $\delta_{j}^{(y)} = \frac{\partial \ell}{\partial \tilde{y}_j}$
+
+        and if we plug it back into the gradient of $\tilde{h}_i$, we obtain:
+        \[
+        \frac{\partial \ell}{\partial \tilde{h}_i} 
+        = (1 - h_i^2) \frac{\partial \ell}{\partial h_i}
+        = (1 - h_i^2) \sum_j \delta_{j}^{(y)} W_{j,i}^{(y)}
+        \]
+        which we can also write in vector form as:
+        \[
+        \nabla_{\tilde{\mathbf{h}}}\ell 
+        = (1 - \mathbf{h}^2) \cdot \left( (W^{(y)})^\top \boldsymbol{\delta}^{(y)} \right)
+        \]
         
-        \item $\nabla_{W_h}\ell$ TODO
-        \item $\nabla_{b_h}\ell$ TODO
+        \item $\nabla_{W_h}\ell$ \newline 
+        Recall,
+        \[
+        \delta^{(h)}_i \equiv \frac{\partial \ell}{\partial \tilde{h}_i}
+        = (1-h_i^2)\,\frac{\partial \ell}{\partial h_i}.
+        \]
+        for one weight \(W^{(h)}_{i j}\), we have,
+        \[
+        \frac{\partial \ell}{\partial W^{(h)}_{i j}}
+        = \frac{\partial \ell}{\partial \tilde{h}_i}\,\frac{\partial \tilde{h}_i}{\partial W^{(h)}_{i j}}.
+        \]
+        and ecause \(\tilde{h}_i = \sum_{j} W^{(h)}_{i j} x_j + b^{(h)}_i\), we have $\frac{\partial \tilde{h}_i}{\partial W^{(h)}_{i j}} = x_j$, we arrive at:
+        \[
+        \frac{\partial \ell}{\partial W^{(h)}_{i j}} = \delta^{(h)}_i x_j
+        \]
+        This shows each weight-gradient is the product of the corresponding hidden delta and the input value that feeds that weight.
+
+        
+        \item $\nabla_{b_h}\ell$ \newline
+        each bias \(b^{(h)}_i\) affects only its input of the activation function \(\tilde{h}_i\), so:
+        \[
+        \frac{\partial \ell}{\partial b^{(h)}_i}
+        = \frac{\partial \ell}{\partial \tilde{h}_i}\,\frac{\partial \tilde{h}_i}{\partial b^{(h)}_i}.
+        \]
+        and we know that the second partial is equal to 1 because of the form of $\tilde{h}_i$ (see previous questions), we can write it as:
+        \[
+        \frac{\partial \ell}{\partial b^{(h)}_i} = \delta^{(h)}_i = \nabla_{\tilde{h}}\ell
+        \]
+        Note: $\delta^{(h)}_i = \frac{\partial \ell}{\partial \tilde{h}_i}$ is the same as for the previous questions
+        
     \end{enumerate}
 
 \end{enumerate}
