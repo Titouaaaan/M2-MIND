@@ -309,87 +309,35 @@ the $\hat{y}_i$ vary to decrease the global loss function $\mathcal{L}$?} \newli
     \item \textbf{$\star$ Compute the gradients: $\nabla_{\tilde{h}}\ell, \nabla_{W_h}\ell, \nabla_{b_h}\ell$}
 
     \begin{enumerate}
-        \item \[ 
-        \nabla_{\tilde{h}_i}\ell = \frac{\partial \ell}{\partial \tilde{h}_i}  
-        = \sum_{k} \frac{\partial \ell}{\partial h_k} \frac{\partial h_k}{\partial \tilde{h}_i}
-        \]
-        For $h$ and $\tilde{h}$, the activation function is now $\tanh$. So:
+        \item $ \nabla_{\tilde{h}_i}\ell $ \newline
+        First new define the deltas: 
         \[
-        \frac{\partial h_k}{\partial \tilde{h}_i} = \frac{\partial \tanh(\tilde{h}_k)}{\partial \tilde{h}_i}
+        \delta_i^{(4)} = \frac{\partial \ell}{\partial \tilde{y}_i} \implies \delta_i^{(3)} = 
+        \frac{\partial \ell}{\partial W_y} = \sum_j \delta_j^{(4)} \frac{\partial \tilde{y}_j}{\partial W_y} =
+        \sum_j \delta_j^{(4)} h_{ij} 
         \]
-        Similarly to the case with Softmax, here the derivative of $\tanh$ only exists when $k=i$. And the derivative
-        of $tanh(x)$ is: $1 - \tanh^2(x)$.
-        So now we can replace with $\tilde{h}_k$:
+        and
         \[
-        \frac{\partial h_k}{\partial \tilde{h}_i}
-        = \frac{\partial \tanh(\tilde{h}_k)}{\partial \tilde{h}_i} \tag{1}
-        = (1 - \tanh^2(\tilde{h}_i))
-        = 1 - h_i^2
+        \delta_i^{(2)} = \frac{\partial \ell}{\partial \tilde{h}_i} = \sum_j \delta_j^{(3)} \frac{\partial h_j}{\partial \tilde{h}_i} =
+        \delta_i^{(3)} (1 - \tanh^2(\tilde{h}_i))
         \]
-        Note: In (1), if we refer back to the figure of our neural network, we see that $h_i = \tanh(\tilde{h}_i)$, so $\tanh^2(\tilde{h}_i) = h_i^2$, 
-        and like earlier since this equality only exists when $i=k$ then we can change the index 
-        from $\tilde{h}_k$ to $\tilde{h}_i$ \newline
-        So,
-        \[
-        \frac{\partial \ell}{\partial \tilde{h}_i}
-        = \sum_k \frac{\partial \ell}{\partial h_k} \frac{\partial h_k}{\partial \tilde{h}_i}
-        \]
-
-        so since $\frac{\partial h_k}{\partial \tilde{h}_i}$ is nonzero only when $k = i$, the sum reduces to a single term:
-        \[
-        \frac{\partial \ell}{\partial \tilde{h}_i}
-        = \frac{\partial \ell}{\partial h_i} \cdot (1 - h_i^2) 
-        = \nabla_{\mathbf{h}}\ell \cdot (1 - h_i^2) 
-        \]
-
-        to develop this form a bit more, we can express $\frac{\partial \ell}{\partial h_i}$ as:
-        \[
-        \frac{\partial \ell}{\partial h_i} = \sum_j \frac{\partial \ell}{\partial \hat{y}_j} \frac{\partial \hat{y}_j}{\partial h_i}
-        = \sum_j \delta_{j}^{(y)} W_{j,i}^{(y)} 
-        \]
-        with $\delta_{j}^{(y)} = \frac{\partial \ell}{\partial \tilde{y}_j}$
-
-        and if we plug it back into the gradient of $\tilde{h}_i$, we obtain:
-        \[
-        \frac{\partial \ell}{\partial \tilde{h}_i} 
-        = (1 - h_i^2) \frac{\partial \ell}{\partial h_i}
-        = (1 - h_i^2) \sum_j \delta_{j}^{(y)} W_{j,i}^{(y)}
-        \]
-        which we can also write in vector form as:
-        \[
-        \nabla_{\tilde{\mathbf{h}}}\ell 
-        = (1 - \mathbf{h}^2) \cdot \left( (W^{(y)})^\top \boldsymbol{\delta}^{(y)} \right)
-        \]
+        so $\delta_i^{(3)} (1 - \tanh^2(\tilde{h}_i)) = \nabla_{\tilde{h}_i}\ell $
         
         \item $\nabla_{W_h}\ell$ \newline 
-        Recall,
+        We define:
         \[
-        \delta^{(h)}_i \equiv \frac{\partial \ell}{\partial \tilde{h}_i}
-        = (1-h_i^2)\,\frac{\partial \ell}{\partial h_i}.
+        \delta_i^{(1)} = \frac{\partial \ell}{\partial W_h} = \sum_j \delta_j^{(2)} \frac{\partial \tilde{h}_j}{\partial W_h} =
+        \sum_j \delta_j^{(2)} x_{ij}
         \]
-        for one weight \(W^{(h)}_{i j}\), we have,
-        \[
-        \frac{\partial \ell}{\partial W^{(h)}_{i j}}
-        = \frac{\partial \ell}{\partial \tilde{h}_i}\,\frac{\partial \tilde{h}_i}{\partial W^{(h)}_{i j}}.
-        \]
-        and ecause \(\tilde{h}_i = \sum_{j} W^{(h)}_{i j} x_j + b^{(h)}_i\), we have $\frac{\partial \tilde{h}_i}{\partial W^{(h)}_{i j}} = x_j$, we arrive at:
-        \[
-        \frac{\partial \ell}{\partial W^{(h)}_{i j}} = \delta^{(h)}_i x_j
-        \]
-        This shows each weight-gradient is the product of the corresponding hidden delta and the input value that feeds that weight.
-
+        So $\nabla_{W_h}\ell = \sum_j \delta_j^{(2)} x_{ij}$
         
         \item $\nabla_{b_h}\ell$ \newline
-        each bias \(b^{(h)}_i\) affects only its input of the activation function \(\tilde{h}_i\), so:
+        And finally,
         \[
-        \frac{\partial \ell}{\partial b^{(h)}_i}
-        = \frac{\partial \ell}{\partial \tilde{h}_i}\,\frac{\partial \tilde{h}_i}{\partial b^{(h)}_i}.
+        \frac{\partial \ell}{\partial b_h} = \sum_j \delta_j^{(2)} \frac{\partial \tilde{h}_j}{\partial b_h} = 
+        \sum_j \delta_j^{(2)}
         \]
-        and we know that the second partial is equal to 1 because of the form of $\tilde{h}_i$ (see previous questions), we can write it as:
-        \[
-        \frac{\partial \ell}{\partial b^{(h)}_i} = \delta^{(h)}_i = \nabla_{\tilde{h}}\ell
-        \]
-        Note: $\delta^{(h)}_i = \frac{\partial \ell}{\partial \tilde{h}_i}$ is the same as for the previous questions
+        So $\nabla_{b_h}\ell = \sum_j \delta_j^{(2)} $
         
     \end{enumerate}
 
