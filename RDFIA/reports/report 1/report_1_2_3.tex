@@ -10,6 +10,7 @@
 \usepackage{enumitem}
 \usepackage[a4paper, top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry} % the margins
 \usepackage{tabularx}
+\usepackage{mathtools}
 
 
 % Title info
@@ -154,27 +155,33 @@ the $\hat{y}_i$ vary to decrease the global loss function $\mathcal{L}$?} \newli
     without having to recompute the gradients of the loss like in the naive method. \newline
     This backpropagation algorithm is much more efficient and becomes mandatory for deep networks with many layers. \newline
     Remark on the $\mathcal{O}$ complexity: \newline
-    For a network with $L$ layers, let $n_l$ be the number of parameters in layer $l$.  
+    For a network with $L$ layers, let $n_l$ be the number of parameters in layer $l$.  \newline
+    Let $t_{avg} = $ the time to calculate the gradient for one parameter,
 
     \begin{itemize}
         \item computing $\frac{\partial \mathcal{L}}{\partial W_l}$ for each layer separately (naive):  
-        \[
-        \mathcal{O}\Big(\sum_{l=1}^L \sum_{k=l}^L n_k\Big) = n \Big(\sum_{l=1}^{L} (L - l + 1)) = n(1 + 2 + \text{\dots} + L) = n \frac{L(L+1)}{2}
-        \sim \mathcal{O}(L^2 \cdot n_\text{avg})
-        \]  
+        \begin{align*}
+            T_1 &= t_{avg} \cdot \Big(\sum_{l=1}^L \sum_{k=l}^L n_k\Big) \\
+            T_1 &= t_{avg} \cdot n \Big(\sum_{l=1}^{L} (L - l + 1)) \\
+            T_1 &= t_{avg} \cdot n(1 + 2 + \text{\dots} + L) = n \frac{L(L+1)}{2} \\
+            T_1 &= L^2 \cdot t_{avg} \cdot n_{avg} \sim \mathcal{O}(L^2)
+        \end{align*} 
         where $n_\text{avg}$ is the average number of parameters per layer.  
 
         \item For the backpropagation algorithm:  
-        \[
-        \mathcal{O}\Big(\sum_{l=1}^L n_l\Big) = n + n + \text{\dots} + n = L \cdot n  = \sim \mathcal{O}(L \cdot n_\text{avg})
-        \]  
+        \begin{align*}
+            T_2 &= t_{avg} \cdot \Big(\sum_{l=1}^L n_l\Big) \\
+            T_2 &= t_{avg} \cdot (n + n + \text{\dots} + n) \\
+            T_2 &= t_{avg} \cdot L \cdot n_{avg}  \sim \mathcal{O}(L)
+        \end{align*}
+
     \end{itemize}
 
     \item \textbf{What criteria must the network architecture meet to allow such an optimization procedure ?} \newline
     Each layer (linear, activation, cost $\dots$) must be differentiable in order for the backpropagation to be possible.
     There also needs to be some form of memory to save every input and output of each layer during the forward pass as they are
-    needed for the backward pass. Finally, the gradients produced must not be either extremely small or large, as they would break 
-    the backpropagation (vanishing or exploding gradients).
+    needed for the backward pass. Finally, the gradients produced must not be either extremely small or large, as they would stop
+    the backpropagation (a.k.a the vanishing gradient problem) or the algorithm diverges (a.k.a the exploding gradient problem).
 
     \item \textbf{The function SoftMax and the loss of cross-entropy are often used together and their gradient is very simple. Show that the loss can be simpliﬁed by:
     $$ l = - \sum_{i}y_i \tilde{y}_i + \log (\sum_{i} e^{\bar{y}_i}) $$} \newline
@@ -214,9 +221,22 @@ the $\hat{y}_i$ vary to decrease the global loss function $\mathcal{L}$?} \newli
         &= - y_k \frac{1}{\hat{y}_k} \\
         &= - \frac{y_k}{\hat{y}_k}
     \end{align*}
-    Next we compute $ \frac{\partial \hat{y}_k}{\partial \tilde{y}_i} $, which is the derivative of the SoftMax function
-    (the explanation was taken from this \href{https://eli.thegreenplace.net/2016/the-softmax-function-and-its-derivative/}{source}).
-    The derivative has two cases, when $i = k$ and when $i \neq k$, which are:
+    Next we compute $ \frac{\partial \hat{y}_k}{\partial \tilde{y}_i} $, which is the derivative of the SoftMax function. \newline
+    The derivative of the softmax has two forms: \newline
+    $ \frac{\partial \frac{e^{a_i}}{\sum_{k=1}^{N} e^{a_k}}}{\partial a_j} 
+    = \frac{e^{a_i}\sum - e^{a_j}e^{a_i}}{\sum^2} 
+    = \frac{e^{a_i}}{\sum} \frac{\sum - e^{a_j}}{\sum} = S_i(1 - S_j)
+    \quad \text{if i = j and } \sum = \sum_{k=1}^{N} e^{a_k} 
+    $
+    \newline
+    $ \frac{\partial \frac{e^{a_i}}{\sum_{k=1}^{N} e^{a_k}}}{\partial a_j} 
+    = \frac{0 - e^{a_j}e^{a_i}}{\sum^2} 
+    = - \frac{e^{a_j}}{\sum} \frac{e^{a_i}}{\sum} = -S_j S_i
+    \quad \text{if i $\neq$ j}
+    $ \newline
+    
+
+    So in our case, the derivative is:
     \[
         \frac{\partial \hat{y}_i}{\partial \tilde{y}_i} = \hat{y}_i (1 - \hat{y}_i) \quad \text{and} \quad
         \frac{\partial \hat{y}_k}{\partial \tilde{y}_i} = - \hat{y}_i \hat{y}_k 
@@ -226,9 +246,9 @@ the $\hat{y}_i$ vary to decrease the global loss function $\mathcal{L}$?} \newli
         \frac{\partial \ell}{\partial \tilde{y}_i} 
         &= \sum_{k=i} \Big(- \frac{y_k}{\hat{y}_k} \cdot \hat{y}_i (1 - \hat{y}_k) \Big)
         + \sum_{k \neq i} \Big(- \frac{y_k}{\hat{y}_k} \cdot \hat{y}_i (0 - \hat{y}_k) \Big) \\
-        &= \sum_{k=i} \Big(- y_i \frac{\hat{y}_i (1 - \hat{y}_i)}{\hat{y}_i} \Big)
+        &= \Big(- y_i \frac{\hat{y}_i (1 - \hat{y}_i)}{\hat{y}_i} \Big)
         + \sum_{k \neq i} \Big(- y_k \frac{\hat{y}_i (- \hat{y}_k)}{\hat{y}_k} \Big) \tag{1}\\
-        &= \sum_{k=i} \Big(- y_i (1 - \hat{y}_i) \Big)
+        &= \Big(- y_i (1 - \hat{y}_i) \Big)
         + \sum_{k \neq i} \Big(y_k \hat{y}_i \Big) \\
         &= -y_i (1 - \hat{y}_i) + \sum_{k \neq i} y_k \hat{y}_i \\
         &= -y_i + y_i \hat{y}_i + \hat{y}_i \sum_{k \neq i} y_k \\
@@ -293,9 +313,9 @@ the $\hat{y}_i$ vary to decrease the global loss function $\mathcal{L}$?} \newli
     \end{bmatrix}
     = \big(\nabla_{\tilde{\mathbf{y}}}\ell\big)\,\mathbf{h}^{\!\top}
     \]
-    This means that the gradient of the weights is obtained by multiplying the loss gradient with the output of the hidden layer
+    This means that the gradient of the weights is obtained by multiplying the loss gradient with the output of the hidden layer.
 
-    For the biases $b_y$:
+    For the bias $b_y$:
     \[
     \frac{\partial \ell}{\partial b_{y,i}}
     = \sum_{k=1}^{n_y} \frac{\partial \ell}{\partial \tilde{y}_k}\,\frac{\partial \tilde{y}_k}{\partial b_{y,i}}
@@ -337,8 +357,7 @@ the $\hat{y}_i$ vary to decrease the global loss function $\mathcal{L}$?} \newli
         \frac{\partial \ell}{\partial b_h} = \sum_j \delta_j^{(2)} \frac{\partial \tilde{h}_j}{\partial b_h} = 
         \sum_j \delta_j^{(2)}
         \]
-        So $\nabla_{b_h}\ell = \sum_j \delta_j^{(2)} $
-        
+        So $\nabla_{b_h}\ell = \sum_j \delta_j^{(2)} $        
     \end{enumerate}
 
 \end{enumerate}
