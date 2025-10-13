@@ -207,3 +207,45 @@ writer.close()
 #          with one extra layer, but above that i doubt we will see a big difference since this 
 #          simple architecture already works well well. Just looking at the reconstructed images
 #          let's us see that just 5 iterations already gives very good reconstructions (thanks batch learning!)
+# ==================================================
+
+# Question 6 - Highway network
+# Implementation of the paper that introduces a NN with gates
+class HighwayNetwork(torch.nn.Module):
+    def __init__(self, input_size, num_layers=3, activation=torch.nn.ReLU()):
+        super(HighwayNetwork, self).__init__()
+        self.num_layers = num_layers
+        self.activation = activation
+        self.nonlinear = torch.nn.ModuleList([torch.nn.Linear(input_size, input_size) for _ in range(num_layers)])
+        self.the_gate = torch.nn.ModuleList([torch.nn.Linear(input_size, input_size) for _ in range(num_layers)])
+        self.output_layer = torch.nn.Linear(input_size, 10)  # couche finale de classification
+
+    def forward(self, x): # rappel: y = H(x) * T(x) + x * (1 - T(x))
+        for i in range(self.num_layers):
+            H = self.activation(self.nonlinear[i](x))
+            T = torch.sigmoid(self.the_gate[i](x))
+            x = H * T + x * (1 - T)
+        return self.output_layer(x)
+
+model = HighwayNetwork(input_size=784, num_layers=3, activation=nn.ReLU()).to(device)
+ce_loss = nn.CrossEntropyLoss()
+optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
+writer = SummaryWriter("runs/highway_"+curr_date)
+n_epochs = 15
+
+for epoch in range(n_epochs):
+    somme_loss = 0.0
+    for xb, yb in data:
+        xb, yb = xb.to(device), yb.to(device)
+        optimizer.zero_grad()
+        y_pred = model(xb)
+        loss = ce_loss(y_pred, yb)
+        loss.backward()
+        optimizer.step()
+        somme_loss += loss.item()
+
+    avg_loss = somme_loss / len(data)
+    writer.add_scalar('Loss/train', avg_loss, epoch)
+    print(f"Époque {epoch+1}/{n_epochs} - Loss moyenne : {avg_loss:.4f}")
+
+writer.close()
