@@ -5,6 +5,7 @@ from torch.autograd import Function
 from torch.autograd import gradcheck
 import numpy as np
 from torch.utils.tensorboard import SummaryWriter
+import datetime
 
 # for tp 2 we dont actually need this anymore, since the torch optimizer deals with it
 class Context:
@@ -165,7 +166,7 @@ def optim_GD(x, y, w, b, eps, opt, niter):
     else:
         return 'Invalid optimizer!!'
     optim.zero_grad()
-    writer = SummaryWriter()
+    writer = SummaryWriter("runs/optim_gd_"+datetime.datetime.now().strftime("%Y%m%d-%H%M%S"))
     for n in range(niter):
         ypred = Linear.apply(x, w, b)
         loss = MSE.apply(ypred, y)
@@ -192,7 +193,7 @@ def test_optimizer(optim='SGD'):
     y = torch.randn(data_size, output_size)
 
     # Les paramètres du modèle à optimiser
-    w = torch.nn.Parameter(torch.randn(output_size,features))
+    w = torch.nn.Parameter(torch.randn(features,output_size))
     b = torch.nn.Parameter(torch.randn(output_size))
 
     epsilon = 0.05
