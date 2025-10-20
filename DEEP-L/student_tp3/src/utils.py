@@ -14,7 +14,7 @@ class RNN(nn.Module):
         # bias = latent
         # so ze need two linear layers, one for Wi and one for Wh
 
-    def __init__(self, input_size: int, latent_size: int, output_size: int, decode_activation: nn.Module):
+    def __init__(self, input_size: int, latent_size: int, output_size: int, decode_activation: nn.Module | None):
         super().__init__()
         self.input_size = input_size
         self.latent_size = latent_size
@@ -26,12 +26,13 @@ class RNN(nn.Module):
     
     def one_step(self, x, h):
         # ht = input x latent
-        ht = nn.Tanh(self.Wi(x) + self.Wh(h))
+        ht = torch.tanh(self.Wi(x) + self.Wh(h))
         return ht
 
     def forward(self, x, h):
         # for each elem x in the batch X, we want to one_step it with h
         # output = batch_size x latent_size 
+        x = x.transpose(0, 1)
         length = x.size(0)
         batch_size = x.size(1)
         h_output = torch.zeros(length, batch_size, self.latent_size).to(device) 
@@ -42,7 +43,10 @@ class RNN(nn.Module):
 
     def decode(self, h):
         # yt = d(h) = latent x output
-        return self.d_a(self.decoder(h))
+        if self.d_a is None:
+            return self.decoder(h)
+        else:
+            return self.d_a(self.decoder(h))
 
         
 
