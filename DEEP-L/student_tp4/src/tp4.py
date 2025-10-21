@@ -7,6 +7,7 @@ from torch.utils.tensorboard import SummaryWriter
 from textloader import *
 from generate import *
 import time
+from tqdm import tqdm
 
 #  TODO: 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
@@ -18,6 +19,17 @@ def maskedCrossEntropy(output: torch.Tensor, target: torch.LongTensor, padcar: i
     :param padcar: index du caractere de padding
     """
     #  TODO:  Implémenter maskedCrossEntropy sans aucune boucle, la CrossEntropy qui ne prend pas en compte les caractères de padding.
+    seq_len, batch, vocab_size = output.size()
+    output = output.reshape(-1, vocab_size)  # seq_len * batch, vocab_size
+    target = target.reshape(-1)              # seq_len * batch
+
+    mask = (target != padcar).float()     # seq_len * batch
+
+    loss = nn.functional.cross_entropy(output, target, reduction='none')
+
+    loss = (loss * mask).sum() / mask.sum()
+
+    return loss
     # first we create the mask where its 1 if not padding, 0 else
     mask = target != padcar # 1 if target different than padcar else 0 -> [1, 1, 1, 1, 0, 0, 0, 0...]
     output *= mask
@@ -50,7 +62,7 @@ class RNN(nn.Module):
     def forward(self, x, h):
         # for each elem x in the batch X, we want to one_step it with h
         # output = batch_size x latent_size 
-        x = x.transpose(0, 1)
+        # remove the transpose of x here since we already do it in the training loop (maybe here would be better idk?)
         length = x.size(0)
         batch_size = x.size(1)
         h_output = torch.zeros(length, batch_size, self.latent_size).to(device) 
@@ -106,19 +118,18 @@ DIM_INPUT = 1
 DIM_OUTPUT = len(id2lettre) # "la dimension de sortie du RNN soit égale au nombre de symboles considéré"
 EMBEDDING_DIM = DIM_OUTPUT//2 # would have to round if DIM_OUTPUT is odd
 print(f'Embedding dim: {EMBEDDING_DIM}')
-LATENT_SIZE = 30
+LATENT_SIZE = 20
 lr = 0.001
-n_iter = 50
+n_iter = 20
 
 print(f'Using device: {device}')
 
 # load dtaset
-data_trump = DataLoader(TrumpDataset(open(DATA_PATH,"rb").read().decode(),maxlen=1000), batch_size= batch_size, shuffle=True)
+data_trump = DataLoader(TrumpDataset(open(DATA_PATH,"rb").read().decode(),maxlen=500), batch_size= batch_size, shuffle=True)
 
 # setup the model and optimizer
 model = RNN(EMBEDDING_DIM,LATENT_SIZE,DIM_OUTPUT,decode_activation=nn.Softmax(dim=1)).to(device)
 optimizer = torch.optim.Adam(model.parameters(), lr=lr)
-loss_module = nn.CrossEntropyLoss()
 
 # embedding
 # donc ici on veut apprednre une representation de nos symboles dans un espace plus peit que celui de base
@@ -127,38 +138,50 @@ embedding = nn.Embedding(DIM_OUTPUT, EMBEDDING_DIM).to(device)
 
 train_losses = []
 
+# also for convenience i lowered the latent space, n_iter and maxlen. We just can increase those params if running on gpu
 def train_model():
     model_name = "RNN_trump_exo4"
     for epoch in range(n_iter):
         model.train()
-        epoch_loss = 0
+        epoch_loss = 0.0
         time_start = time.time()
-        for x, y in data_trump:
-            x = nn.functional.one_hot(x, num_classes=DIM_OUTPUT).float().to(device)
-            x = embedding(x) 
+
+        # we do one p bar per epoch that way we can track it nicely
+        progress_bar = tqdm(data_trump, desc=f"Epoch {epoch+1}/{n_iter}", leave=False)
+
+        for x, y in progress_bar: # so we iterate over the pbar since it wraps the dataset
+            x = x.to(device).long()
+            x = embedding(x)
+            x = x.transpose(0, 1)  # length x batch x emb_dim
 
             y = y.to(device).long()
+            y = y.transpose(0, 1)  # length x batch
             
+            #print(f'x shape: {x.shape}, y shape: {y.shape}')
+
             optimizer.zero_grad()
 
-            h = torch.zeros((x.size(0), LATENT_SIZE), device=device)  
+            h = torch.zeros((x.size(1), LATENT_SIZE), device=device)
             h = model(x, h)
             y_hat = model.decode(h)
 
-            y_hat = y_hat.transpose(0, 1).transpose(1, 2)
- 
-            loss = loss_module(y_hat, y)
+            loss = maskedCrossEntropy(y_hat, y, padcar=0)
             loss.backward()
             optimizer.step()
+
             epoch_loss += loss.item()
-            # print("batch loss:", loss.item())
-        time_batch = time.time() - time_start
-        print(f"Epoch {epoch} completed in {time_batch:.2f} seconds.")
-        train_losses.append(epoch_loss / len(data_trump))
-        print("step:", epoch)
-        print("Loss_train:", float(train_losses[-1]))
-    # save the model
+            progress_bar.set_postfix(loss=loss.item())
+
+        time_epoch = time.time() - time_start
+        avg_loss = epoch_loss / len(data_trump)
+        train_losses.append(avg_loss)
+
+        print(f"Epoch {epoch+1}/{n_iter} | Loss: {avg_loss:.4f} | Time: {time_epoch:.2f}s")
+
+    # Save model
     torch.save(model.state_dict(), f"{model_name}.pt")
     torch.save(embedding.state_dict(), f"{model_name}_embedding.pt")
+    print(f"Model saved as {model_name}.pt")
 
 train_model()
+# coudln't rly train on my laptop cuz it uses cpu, but gpu should be much faster, ill try at home
