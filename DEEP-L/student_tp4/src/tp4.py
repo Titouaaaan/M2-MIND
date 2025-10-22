@@ -116,16 +116,16 @@ DATA_PATH = "../student_tp3/data/trump_full_speech.txt" #run from the src folder
 batch_size = 32
 DIM_INPUT = 1
 DIM_OUTPUT = len(id2lettre) # "la dimension de sortie du RNN soit égale au nombre de symboles considéré"
-EMBEDDING_DIM = DIM_OUTPUT//2 # would have to round if DIM_OUTPUT is odd
+EMBEDDING_DIM = DIM_OUTPUT # would have to round if DIM_OUTPUT is odd
 print(f'Embedding dim: {EMBEDDING_DIM}')
-LATENT_SIZE = 20
+LATENT_SIZE = 30
 lr = 0.001
 n_iter = 20
 
 print(f'Using device: {device}')
 
 # load dtaset
-data_trump = DataLoader(TrumpDataset(open(DATA_PATH,"rb").read().decode(),maxlen=500), batch_size= batch_size, shuffle=True)
+data_trump = DataLoader(TrumpDataset(open(DATA_PATH,"rb").read().decode(),maxlen=1000), batch_size= batch_size, shuffle=True)
 
 # setup the model and optimizer
 model = RNN(EMBEDDING_DIM,LATENT_SIZE,DIM_OUTPUT,decode_activation=nn.Softmax(dim=1)).to(device)
