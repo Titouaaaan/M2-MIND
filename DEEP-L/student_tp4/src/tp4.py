@@ -112,7 +112,7 @@ class TrumpDataset(Dataset):
         return t[:-1],t[1:]
 
 # hyperparameters
-DATA_PATH = "../student_tp3/data/trump_full_speech.txt" #run from the src folder
+DATA_PATH = "student_tp3/data/trump_full_speech.txt" #run from the src folder
 batch_size = 32
 DIM_INPUT = 1
 DIM_OUTPUT = len(id2lettre) # "la dimension de sortie du RNN soit égale au nombre de symboles considéré"
@@ -178,7 +178,11 @@ def train_model():
 
         print(f"Epoch {epoch+1}/{n_iter} | Loss: {avg_loss:.4f} | Time: {time_epoch:.2f}s")
 
-    # Save model
+        # Save model every n epoch epoch for safety
+        if epoch % 5 == 0:
+            torch.save(model.state_dict(), f"{model_name}.pt")
+            torch.save(embedding.state_dict(), f"{model_name}_embedding.pt")
+            
     torch.save(model.state_dict(), f"{model_name}.pt")
     torch.save(embedding.state_dict(), f"{model_name}_embedding.pt")
     print(f"Model saved as {model_name}.pt")
