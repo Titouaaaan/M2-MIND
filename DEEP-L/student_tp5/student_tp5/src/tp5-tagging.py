@@ -197,3 +197,43 @@ def train_seq2seq(model: seq2seq, train:DataLoader, dev: DataLoader, test: DataL
 
 train_seq2seq(seq2seq_model, train_loader, dev_loader, test_loader, 30)
 # the run is available in the 'runs' folder !
+
+""" 
+data_file = open(DATA_PATH+"fr_gsd-ud-train.conllu",encoding="utf-8")
+train_data = TaggingDataset(parse_incr(data_file), words, tags, True)
+
+data_file = open(DATA_PATH+"fr_gsd-ud-dev.conllu",encoding='utf-8')
+dev_data = TaggingDataset(parse_incr(data_file), words, tags, True)
+
+data_file = open(DATA_PATH+"fr_gsd-ud-test.conllu",encoding="utf-8")
+test_data = TaggingDataset(parse_incr(data_file), words, tags, False)
+
+model = seq2seq(len(words), 128, 64, device).to(device)
+model.load_state_dict(torch.load("tagger.pt", map_location=device))
+model.eval()
+
+def test_tagger(model, dataloader, idx2word, idx2tag, device, num_examples=3):
+    model.eval()
+    shown = 0
+
+    with torch.no_grad():
+        for x, y in dataloader:
+            x, y = x.to(device), y.to(device)
+            pred = model(x).argmax(dim=-1)  # seq_len x batch
+
+            for b in range(x.shape[1]):
+                tokens = [idx2word[i.item()] for i in x[:, b]]
+                gold_tags = [idx2tag[i.item()] for i in y[:, b]]
+                pred_tags = [idx2tag[i.item()] for i in pred[:, b]]
+
+                print(f"Sentence {shown+1}")
+                print("Words:     ", " ".join(tokens))
+                print("Gold tags: ", " ".join(gold_tags))
+                print("Pred tags: ", " ".join(pred_tags))
+                print("-" * 100)
+
+                shown += 1
+                if shown >= num_examples:
+                    return
+
+test_tagger(model, train_loader, words.id2word, tags.id2word, device, num_examples=5) """
