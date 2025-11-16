@@ -158,7 +158,7 @@ class Decoder(nn.Module):
         output = self.to_vocab(output)
         return output, h
 
-    def forward(self, encoder_outputs, encoder_hidden, lens_seq, target_tensor=None):
+    def forward(self, encoder_outputs, encoder_hidden, lens_seq, target_tensor, teacher_forcing_rate):
         batch_size = encoder_outputs.size(1)
         decoder_input = torch.empty(
             1, batch_size, dtype=torch.long, device=device
@@ -166,25 +166,33 @@ class Decoder(nn.Module):
         decoder_hidden = encoder_hidden
         decoder_outputs = []
 
-        for i in range(lens_seq):
-            decoder_output, decoder_hidden = self.one_step(
-                decoder_input, decoder_hidden
-            )
+        for t in range(lens_seq):
+            decoder_output, decoder_hidden = self.one_step(decoder_input, decoder_hidden)
 
             if target_tensor is not None:
-                decoder_input = target_tensor[i, :].unsqueeze(0)  #teacher forcing
+                # random teacher forcing
+                use_teacher_forcing = torch.rand(batch_size, device=device) < teacher_forcing_rate
+
+                # Prepare next decoder input
+                next_input = torch.where(
+                    use_teacher_forcing,
+                    target_tensor[t, :],              
+                    decoder_output.argmax(dim=-1).squeeze(0)  # use decoder prediction if no teacher forcing
+                )
+                decoder_input = next_input.unsqueeze(0)
             else:
-                #if not then the decoder preds are the used inputs
+                # in case there is no tgt
                 _, topi = decoder_output.topk(1)
-                decoder_input = topi.squeeze(-1).detach() 
-            decoder_outputs.append(decoder_output) #save it
+                decoder_input = topi.squeeze(-1).detach()
+
+            decoder_outputs.append(decoder_output)
 
         decoder_outputs = torch.cat(decoder_outputs, dim=0)
         return decoder_outputs, decoder_hidden
 
 def train_traduction(
     encoder, decoder, train_loader,
-    n_epochs, teacher_forcing_rate=0.5, lr=0.002, max_grad_norm=1.0
+    n_epochs, lr=0.002, max_grad_norm=1.0
 ):
     encoder = encoder.to(device)
     decoder = decoder.to(device)
@@ -215,15 +223,15 @@ def train_traduction(
 
             encoder_outputs, encoder_hidden = encoder(src)
 
-            #random teacher forcing
-            use_teacher_forcing = torch.rand(1).item() < teacher_forcing_rate
-            tgt_tensor = tgt if use_teacher_forcing else None
+            # better teacher forcing, done in the decoder class
+            teacher_forcing_rate_epoch = max(0.5 * (1 - epoch / n_epochs), 0.1)
 
             decoder_outputs, _ = decoder(
                 encoder_outputs,
                 encoder_hidden,
-                tgt.size(0),  # max target length
-                target_tensor=tgt_tensor
+                tgt.size(0),             
+                target_tensor=tgt,       
+                teacher_forcing_rate=teacher_forcing_rate_epoch
             )
 
             loss = criterion(decoder_outputs.view(-1, decoder_outputs.size(-1)), tgt.view(-1))
@@ -264,12 +272,13 @@ def train_traduction(
     with open("vocFra.pkl", "wb") as f:
         pickle.dump(vocFra, f)
 
-train_traduction(
+""" train_traduction(
     Encoder(len(vocEng), 128, 64).to(device),
     Decoder(len(vocFra), 128, 64).to(device),
     train_loader,
     50,
-)   
+)   """ 
+# got a loss of 1.5 after 50 epochs, for it to decrease more it would take forver bc its very slow at this point
 
 def translate_sentence(encoder, decoder, sentence, src_vocab, tgt_vocab, max_len=MAX_LEN):
     # make sure its in eval
@@ -318,7 +327,7 @@ decoder = Decoder(len(vocFra), 128, 64).to(device)
 encoder.load_state_dict(torch.load("encoder.pt"))
 decoder.load_state_dict(torch.load("decoder.pt"))
 
-english_sentence = "Hello how are you" 
+english_sentence = "It is cold today ." 
 french_translation = translate_sentence(encoder, decoder, english_sentence, vocEng, vocFra)
 print("Predicted French:", french_translation)
 
