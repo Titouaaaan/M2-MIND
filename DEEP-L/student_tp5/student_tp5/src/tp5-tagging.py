@@ -11,9 +11,10 @@ import torch
 from typing import List
 import time
 from conllu import parse_incr
+import pickle
 logging.basicConfig(level=logging.INFO)
 
-DATA_PATH = "../data/"
+DATA_PATH = "../../data/"
 
 
 # Format de sortie décrit dans
@@ -108,7 +109,7 @@ test_data = TaggingDataset(parse_incr(data_file), words, tags, False)
 logging.info("Vocabulary size: %d", len(words))
 
 
-BATCH_SIZE=100
+BATCH_SIZE=50
 
 train_loader = DataLoader(train_data, collate_fn=collate_fn, batch_size=BATCH_SIZE, shuffle=True)
 dev_loader = DataLoader(dev_data, collate_fn=collate_fn, batch_size=BATCH_SIZE)
@@ -194,46 +195,60 @@ def train_seq2seq(model: seq2seq, train:DataLoader, dev: DataLoader, test: DataL
         
     writer.close()
     torch.save(model.state_dict(), 'tagger.pt') # this saves it in outside of the src folder
+    # Save vocab after training
+    with open("words_vocab.pkl", "wb") as f:
+        pickle.dump(words, f)
+    with open("tags_vocab.pkl", "wb") as f:
+        pickle.dump(tags, f)
 
-train_seq2seq(seq2seq_model, train_loader, dev_loader, test_loader, 30)
+# train_seq2seq(seq2seq_model, train_loader, dev_loader, test_loader, 10)
 # the run is available in the 'runs' folder !
 
-""" 
-data_file = open(DATA_PATH+"fr_gsd-ud-train.conllu",encoding="utf-8")
-train_data = TaggingDataset(parse_incr(data_file), words, tags, True)
+with open("words_vocab.pkl", "rb") as f:
+    words = pickle.load(f)
+with open("tags_vocab.pkl", "rb") as f:
+    tags = pickle.load(f)
 
-data_file = open(DATA_PATH+"fr_gsd-ud-dev.conllu",encoding='utf-8')
-dev_data = TaggingDataset(parse_incr(data_file), words, tags, True)
+with open(DATA_PATH+"fr_gsd-ud-test.conllu", encoding="utf-8") as f:
+    test_data = TaggingDataset(parse_incr(f), words, tags, adding=False)
+test_loader = DataLoader(test_data, collate_fn=collate_fn, batch_size=100)
 
-data_file = open(DATA_PATH+"fr_gsd-ud-test.conllu",encoding="utf-8")
-test_data = TaggingDataset(parse_incr(data_file), words, tags, False)
+# Load model
+seq2seq_model = seq2seq(len(words), 128, 64, device).to(device)
+seq2seq_model.load_state_dict(torch.load("tagger.pt", map_location=device))
+seq2seq_model.eval()
 
-model = seq2seq(len(words), 128, 64, device).to(device)
-model.load_state_dict(torch.load("tagger.pt", map_location=device))
-model.eval()
-
-def test_tagger(model, dataloader, idx2word, idx2tag, device, num_examples=3):
+# Testing function (unchanged)
+def test_tagger(model, dataloader, idx2word, idx2tag, device, num_examples=5):
     model.eval()
     shown = 0
-
     with torch.no_grad():
         for x, y in dataloader:
             x, y = x.to(device), y.to(device)
             pred = model(x).argmax(dim=-1)  # seq_len x batch
-
             for b in range(x.shape[1]):
                 tokens = [idx2word[i.item()] for i in x[:, b]]
                 gold_tags = [idx2tag[i.item()] for i in y[:, b]]
                 pred_tags = [idx2tag[i.item()] for i in pred[:, b]]
-
                 print(f"Sentence {shown+1}")
                 print("Words:     ", " ".join(tokens))
                 print("Gold tags: ", " ".join(gold_tags))
                 print("Pred tags: ", " ".join(pred_tags))
                 print("-" * 100)
-
                 shown += 1
                 if shown >= num_examples:
                     return
 
-test_tagger(model, train_loader, words.id2word, tags.id2word, device, num_examples=5) """
+# Call test_tagger on test set, not train set
+test_tagger(seq2seq_model, test_loader, words.id2word, tags.id2word, device, num_examples=1)
+
+'''
+exemple du test:
+Sentence 1
+Words:      Je sens qu' entre ça et les films de médecins et scientifiques fous que nous avons déjà vus , nous __OOV__ __OOV__ un autre chemin pour l' origine . PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD
+Gold tags:  PRON VERB SCONJ ADP PRON CCONJ DET NOUN ADP NOUN CCONJ NOUN ADJ PRON PRON AUX ADV VERB PUNCT PRON VERB VERB DET ADJ NOUN ADP DET NOUN PUNCT PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD
+Pred tags:  PRON VERB SCONJ ADP PRON CCONJ DET NOUN ADP NOUN CCONJ NOUN NOUN SCONJ PRON AUX ADV VERB PUNCT PRON VERB VERB DET ADJ NOUN ADP DET NOUN PUNCT PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD
+
+les predictions sont bonnes!
+et le PAD c'est juste pour remplir par rapport au longest sentence
+'''
