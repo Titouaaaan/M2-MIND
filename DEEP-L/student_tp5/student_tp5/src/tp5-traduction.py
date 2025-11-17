@@ -10,19 +10,34 @@ import string
 from tqdm import tqdm
 from pathlib import Path
 from typing import List
+import pickle
 
 import time
 import re
 from torch.utils.tensorboard import SummaryWriter
-
+import sentencepiece as spm
 
 
 
 logging.basicConfig(level=logging.INFO)
 
-FILE = "../data/en-fra.txt"
+FILE = "../../data/en-fra.txt"
 
-writer = SummaryWriter("/tmp/runs/tag-"+time.asctime())
+sp_model_prefix = "spm_model_files"
+sp_model_file = f"{sp_model_prefix}.model"
+
+if not Path(sp_model_file).exists():
+    print("Training sentence piece model")
+    spm.SentencePieceTrainer.train(
+        input=FILE,                
+        model_prefix=sp_model_prefix,
+        vocab_size=8000,           
+        user_defined_symbols=[] # no extra sym
+    )
+
+sp = spm.SentencePieceProcessor(model_file=sp_model_file)
+
+writer = SummaryWriter('/student_tp5/runs')
 
 def normalize(s):
     return re.sub(' +',' ', "".join(c if c in string.ascii_letters else " "
@@ -98,6 +113,25 @@ class TradDataset():
     def __len__(self):return len(self.sentences)
     def __getitem__(self,i): return self.sentences[i]
 
+class NewTradDatasetSP():
+    def __init__(self, data, sp_src, sp_tgt, max_len=100):
+        self.sentences = []
+        for s in tqdm(data.split("\n")):
+            if len(s.strip()) == 0:
+                continue
+            orig, dest = s.split("\t")[:2]
+            orig_ids = sp_src.encode(orig.lower().strip(), out_type=int) + [1]  # EOS
+            dest_ids = sp_tgt.encode(dest.lower().strip(), out_type=int) + [1]  # EOS
+            if len(orig_ids) > max_len or len(dest_ids) > max_len:
+                continue
+            self.sentences.append((torch.tensor(orig_ids), torch.tensor(dest_ids)))
+
+    def __len__(self):
+        return len(self.sentences)
+
+    def __getitem__(self, i):
+        return self.sentences[i]
+
 
 
 def collate_fn(batch):
@@ -119,12 +153,272 @@ idxTrain = int(0.8*len(lines))
 vocEng = Vocabulary(True)
 vocFra = Vocabulary(True)
 MAX_LEN=100
-BATCH_SIZE=100
+BATCH_SIZE=32
 
-datatrain = TradDataset("".join(lines[:idxTrain]),vocEng,vocFra,max_len=MAX_LEN)
-datatest = TradDataset("".join(lines[idxTrain:]),vocEng,vocFra,max_len=MAX_LEN)
+datatrain = NewTradDatasetSP("".join(lines[:idxTrain]), sp, sp, max_len=MAX_LEN)
+datatest  = NewTradDatasetSP("".join(lines[idxTrain:]), sp, sp, max_len=MAX_LEN)
 
 train_loader = DataLoader(datatrain, collate_fn=collate_fn, batch_size=BATCH_SIZE, shuffle=True)
 test_loader = DataLoader(datatest, collate_fn=collate_fn, batch_size=BATCH_SIZE, shuffle=True)
 
 #  TODO:  Implémenter l'encodeur, le décodeur et la boucle d'apprentissage
+class Encoder(nn.Module):
+    def __init__(self, input_vocab_size, hidden_size, embedding_dim):
+        super().__init__()
+        self.hidden_size = hidden_size
+        self.embedding = nn.Embedding(input_vocab_size, embedding_dim)
+        self.gru = nn.GRU(embedding_dim, hidden_size)
+
+    def forward(self, input):
+        embedded = self.embedding(input)
+        return self.gru(embedded)
+
+class Decoder(nn.Module):
+    def __init__(
+        self, output_vocab_size, hidden_size, embedding_dim, max_length=MAX_LEN
+    ):
+        super().__init__()
+        self.hidden_size = hidden_size
+        self.max_length = max_length
+
+        self.embedding = nn.Embedding(output_vocab_size, hidden_size)
+        self.gru = nn.GRU(hidden_size, hidden_size)
+        self.to_vocab = nn.Linear(hidden_size, output_vocab_size)
+
+    def one_step(self, input, hidden):
+        output = self.embedding(input)
+        output, h = self.gru(output, hidden)
+        output = self.to_vocab(output)
+        return output, h
+
+    def forward(self, encoder_outputs, encoder_hidden, lens_seq, target_tensor, teacher_forcing_rate):
+        batch_size = encoder_outputs.size(1)
+        decoder_input = torch.empty(
+            1, batch_size, dtype=torch.long, device=device
+        ).fill_(Vocabulary.SOS)
+        decoder_hidden = encoder_hidden
+        decoder_outputs = []
+
+        for t in range(lens_seq):
+            decoder_output, decoder_hidden = self.one_step(decoder_input, decoder_hidden)
+
+            if target_tensor is not None:
+                # random teacher forcing
+                use_teacher_forcing = torch.rand(batch_size, device=device) < teacher_forcing_rate
+
+                # Prepare next decoder input
+                next_input = torch.where(
+                    use_teacher_forcing,
+                    target_tensor[t, :],              
+                    decoder_output.argmax(dim=-1).squeeze(0)  # use decoder prediction if no teacher forcing
+                )
+                decoder_input = next_input.unsqueeze(0)
+            else:
+                # in case there is no tgt
+                _, topi = decoder_output.topk(1)
+                decoder_input = topi.squeeze(-1).detach()
+
+            decoder_outputs.append(decoder_output)
+
+        decoder_outputs = torch.cat(decoder_outputs, dim=0)
+        return decoder_outputs, decoder_hidden
+
+def train_traduction(
+    encoder, decoder, train_loader,
+    n_epochs, file_name, lr=0.001, max_grad_norm=1.0
+):
+    encoder = encoder.to(device)
+    decoder = decoder.to(device)
+
+    encoder_optimizer = optim.Adam(encoder.parameters(), lr=lr)
+    decoder_optimizer = optim.Adam(decoder.parameters(), lr=lr)
+
+    encoder_scheduler = optim.lr_scheduler.ReduceLROnPlateau(
+        encoder_optimizer, mode='min', factor=0.5, patience=2
+    )
+    decoder_scheduler = optim.lr_scheduler.ReduceLROnPlateau(
+        decoder_optimizer, mode='min', factor=0.5, patience=2
+    )
+
+    criterion = nn.CrossEntropyLoss(ignore_index=Vocabulary.PAD)
+
+    for epoch in range(n_epochs):
+        encoder.train()
+        decoder.train()
+        total_loss = 0
+        progress = tqdm(train_loader, desc=f"Epoch {epoch+1}/{n_epochs}")
+
+        for batch_idx, (src, src_len, tgt, tgt_len) in enumerate(progress):
+            src, tgt = src.to(device), tgt.to(device)
+
+            encoder_optimizer.zero_grad()
+            decoder_optimizer.zero_grad()
+
+            encoder_outputs, encoder_hidden = encoder(src)
+
+            # better teacher forcing, done in the decoder class
+            """ if epoch < 10:
+                teacher_forcing_rate_epoch = 1.0
+            elif epoch < 20:
+                teacher_forcing_rate_epoch = 0.7
+            else:
+                teacher_forcing_rate_epoch = 0.5 """
+            teacher_forcing_rate_epoch = max(0, 1.0 - (epoch / n_epochs))
+
+            decoder_outputs, _ = decoder(
+                encoder_outputs,
+                encoder_hidden,
+                tgt.size(0),             
+                target_tensor=tgt,       
+                teacher_forcing_rate=teacher_forcing_rate_epoch
+            )
+
+            loss = criterion(decoder_outputs.view(-1, decoder_outputs.size(-1)), tgt.view(-1))
+
+            loss.backward()
+
+            # bonus clip
+            nn.utils.clip_grad_norm_(encoder.parameters(), max_grad_norm)
+            nn.utils.clip_grad_norm_(decoder.parameters(), max_grad_norm)
+
+            encoder_optimizer.step()
+            decoder_optimizer.step()
+
+            total_loss += loss.item()
+            progress.set_postfix(loss=loss.item())
+
+            writer.add_scalar(
+                "Loss/batch",
+                loss.item(),
+                epoch * len(train_loader) + batch_idx
+            )
+
+        avg_loss = total_loss / len(train_loader)
+        logging.info(f"Epoch {epoch+1}, Loss: {avg_loss:.4f}")
+
+        encoder_scheduler.step(avg_loss)
+        decoder_scheduler.step(avg_loss)
+
+        writer.add_scalar("Loss/train", avg_loss, epoch)
+
+    writer.close()
+    torch.save(encoder.state_dict(), f"{file_name}_encoder.pt")
+    torch.save(decoder.state_dict(), f"{file_name}_decoder.pt")
+    
+    #save the vocabulary
+    with open("vocEng.pkl", "wb") as f:
+        pickle.dump(vocEng, f)
+    with open("vocFra.pkl", "wb") as f:
+        pickle.dump(vocFra, f)
+
+""" 
+print("Training base model")
+train_traduction(
+    Encoder(len(vocEng), 128, 64).to(device),
+    Decoder(len(vocFra), 128, 64).to(device),
+    train_loader,
+    50,
+    file_name="base",
+)    """
+# got a loss of 1.5 after 50 epochs, for it to decrease more it would take forver bc its very slow at this point
+# also i changed the naming convention after so the basic one is not actually called base_decoder or encoder but just encoder/decoder
+# new sp model does get that naming convention
+
+print("Training spm model")
+train_traduction(
+    Encoder(len(sp), 256, 128).to(device),
+    Decoder(len(sp), 256, 128).to(device),   
+    train_loader,
+    50,
+    file_name="spm_model",
+)
+
+def translate_sentence(encoder, decoder, sentence, src_vocab, tgt_vocab, max_len=MAX_LEN):
+    # make sure its in eval
+    encoder.eval()
+    decoder.eval()
+
+    # very basic tokenizing on the sentence
+    tokens = sentence.lower().strip().split()  
+    src_indices = [src_vocab.get(tok, adding=False) for tok in tokens] # convert to indices
+    src_tensor = torch.tensor(src_indices, dtype=torch.long).unsqueeze(1).to(device)  # proper dim convertion
+
+    with torch.no_grad():
+        _, encoder_hidden = encoder(src_tensor) # we only need the hidden state
+
+    decoder_input = torch.tensor([[Vocabulary.SOS]], device=device)  # start token
+    decoder_hidden = encoder_hidden
+    predicted_indices = []
+
+    for _ in range(max_len):
+        with torch.no_grad():
+            decoder_output, decoder_hidden = decoder.one_step(decoder_input, decoder_hidden)
+            # pick most probable token
+            _ , topi = decoder_output.topk(1)
+            next_idx = topi.item()
+            if next_idx == Vocabulary.EOS:  # stop at EOS
+                break
+            predicted_indices.append(next_idx)
+            # feed the predicted token as next input
+            decoder_input = torch.tensor([[next_idx]], device=device)
+
+    # convert back to words to print
+    translated_tokens = [tgt_vocab.getword(idx) for idx in predicted_indices]
+    translated_sentence = " ".join(translated_tokens)
+    return translated_sentence
+
+# make sure to load the vocab otherwise the indices could be wrong from one instance to another
+with open("vocEng.pkl", "rb") as f:
+    vocEng = pickle.load(f)
+with open("vocFra.pkl", "rb") as f:
+    vocFra = pickle.load(f)
+
+# same arch is before
+encoder = Encoder(len(vocEng), 128, 64).to(device)
+decoder = Decoder(len(vocFra), 128, 64).to(device)
+
+encoder.load_state_dict(torch.load("encoder.pt"))
+decoder.load_state_dict(torch.load("decoder.pt"))
+
+english_sentence = "It is cold today ." 
+print("\nTesting base model without spm")
+french_translation = translate_sentence(encoder, decoder, english_sentence, vocEng, vocFra)
+print("Predicted French:", french_translation)
+
+# Now in the case of the spm model\
+def translate_sentence_sp(encoder, decoder, sentence, sp_src, sp_tgt, max_len=MAX_LEN):
+    encoder.eval()
+    decoder.eval()
+    src_indices = sp_src.encode(sentence.lower().strip(), out_type=int)
+    src_tensor = torch.tensor(src_indices + [1], dtype=torch.long).unsqueeze(1).to(device)  # EOS
+
+    with torch.no_grad():
+        _, encoder_hidden = encoder(src_tensor)
+
+    decoder_input = torch.tensor([[2]], device=device)  # SOS
+    decoder_hidden = encoder_hidden
+    predicted_indices = []
+
+    for _ in range(max_len):
+        with torch.no_grad():
+            decoder_output, decoder_hidden = decoder.one_step(decoder_input, decoder_hidden)
+            _, topi = decoder_output.topk(1)
+            next_idx = topi.item()
+            if next_idx == 1:  # EOS
+                break
+            predicted_indices.append(next_idx)
+            decoder_input = torch.tensor([[next_idx]], device=device)
+
+    translated_sentence = sp_tgt.decode(predicted_indices)
+    return translated_sentence
+
+encoder = Encoder(len(sp), 256, 128).to(device)
+decoder = Decoder(len(sp), 256, 128).to(device)
+
+encoder.load_state_dict(torch.load("spm_model_encoder.pt"))
+decoder.load_state_dict(torch.load("spm_model_decoder.pt"))
+
+print("\nTesting spm model")
+french_translation = translate_sentence_sp(encoder, decoder, english_sentence, sp, sp)
+print("Predicted French:", french_translation)
+
