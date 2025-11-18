@@ -95,19 +95,22 @@ class Model(nn.Module):
     def forward(self, x):
         # inside here we also need to add a retain grad 
         x = x.view(-1, input_dim)  # Flatten the input
-        self.x1 = x
+        x1 = self.fc1(x)
+        #self.x1_grad = store_grad(x1)
+        x1 = F.relu(x1)
 
-        x = F.relu(self.fc1(x))
-        self.x2 = x
-        x = F.relu(self.fc2(x))
+        x2 = self.fc2(x1)
+        #self.x2_grad = store_grad(x2)
+        x2 = F.relu(x2)
 
-        self.x3 = x
-        x = F.relu(self.fc3(x))
+        x3 = self.fc3(x2)
+        #self.x3_grad = store_grad(x3)
+        x3 = F.relu(x3)
 
-        self.x4 = x
-        x = self.fc4(x)
+        x4 = self.fc4(x3)
+        #self.x4_grad = store_grad(x4)
 
-        return x
+        return x4
 
 def run(num_epochs, model, train_loader, test_loader):
     writer = SummaryWriter('runs/')
@@ -130,10 +133,10 @@ def run(num_epochs, model, train_loader, test_loader):
             loss.backward()
             
             """ if epoch % 20 == 0:
-                writer.add_histogram("Grads/Input_fc1", model.x1.grad, epoch)
-                writer.add_histogram("Grads/Input_fc2", model.x2.grad, epoch)
-                writer.add_histogram("Grads/Input_fc3", model.x3.grad, epoch)
-                writer.add_histogram("Grads/Input_fc4", model.x4.grad, epoch) """
+                writer.add_histogram("Grads/Input_fc1", model.x1_grad.grad, epoch)
+                writer.add_histogram("Grads/Input_fc2", model.x2_grad.grad, epoch)
+                writer.add_histogram("Grads/Input_fc3", model.x3_grad.grad, epoch)
+                writer.add_histogram("Grads/Input_fc4", model.x4_grad.grad, epoch) """
 
             optimizer.step()
             epoch_loss += loss.item()
