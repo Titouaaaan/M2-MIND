@@ -1,4 +1,5 @@
 venv/
-data/
+PART1/TME2/data
+PART1/TME2/datasets
 __pycache__/
 */datasets
