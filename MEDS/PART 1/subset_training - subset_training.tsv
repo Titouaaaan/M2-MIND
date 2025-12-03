@@ -1,0 +1,101 @@
+id	utterance	context	targetValue	type
+nt-4378	what is the total number of awards that the film won or was nominated for?	csv/203-csv/650.csv	12	ARTH
+nt-4319	what was the difference between her qualifying scores for balance beam between boston and philadelphia?	csv/204-csv/975.csv	0.4	ARTH
+nt-7275	which country has the lowest 2012 gdp at ppp in 2012?	csv/203-csv/530.csv	Comoros	SUPER
+nt-5069	who had the most touchdowns: jerel myers or cecil moore?	csv/203-csv/8.csv	Jerel Myers	COMP
+nt-339	debuted for great britain (rl) in 1999 then for ireland (ru) in 2007	csv/204-csv/387.csv	Brian Carney	LOOKUP
+nt-8000	what is the total number of players that transferred to ajax?	csv/204-csv/402.csv	7	AGG
+nt-9131	which nations won at least 6 medals?	csv/204-csv/771.csv	Venezuela|Bolivia|Chile|Peru	LOOKUP
+nt-6264	in what year was the best year end ranking achieved?	csv/204-csv/153.csv	2011	COMP
+nt-5104	what other airline commenced operations the same year as eagle air?	csv/204-csv/163.csv	Uganda Air Cargo	COMP
+nt-4178	what is the code for a unisex restroom?	csv/203-csv/130.csv	U+1F6BB	LOOKUP
+nt-11759	how many have won at least 2 gold medals?	csv/203-csv/308.csv	3	ARTH
+nt-8326	how many times has a british driver competed?	csv/203-csv/367.csv	8	other
+nt-7268	the difference in years from 1882 to 1889	csv/203-csv/665.csv	7	ARTH
+nt-10090	who was the oldest player on the squad in the 2011-12 season?	csv/204-csv/753.csv	Andrés Scotti	SUPER
+nt-983	what was the top speed in miles per hour?	csv/203-csv/688.csv	4,510	SUPER
+nt-11173	what year is at least on the list?	csv/204-csv/117.csv	2007	SUPER
+nt-3828	how many locations are bird sanctuaries.	csv/204-csv/752.csv	2	AGG
+nt-698	what country has won at least eight silvers?	csv/204-csv/360.csv	Argentina	ARTH
+nt-10907	when was the first baseplate issued?	csv/203-csv/379.csv	1913	SUPER
+nt-7314	how many currency does the region of africa have	csv/204-csv/321.csv	4	AGG
+nt-11383	how many cities are there in rizal?	csv/204-csv/987.csv	14	ARTH
+nt-8626	how many players transferred from sweden?	csv/203-csv/440.csv	1	AGG
+nt-8881	which nationality had the larger amount of names listed?	csv/204-csv/698.csv	American	AGG
+nt-6950	what was the total number of competitors?	csv/204-csv/862.csv	41	ARTH
+nt-13863	what is the difference between germany and spains total medals?	csv/203-csv/374.csv	4	ARTH
+nt-1374	which country had a release with the same label as germany?	csv/204-csv/17.csv	France	COMP
+nt-10329	what is the names of the shows in which sharad kelkar was not himself?	csv/203-csv/173.csv	Saat Phere|Sarvggun Sampanna|Bairi Piya|Sinndoor Tere Naam Ka|Uttaran|Kuch Toh Log Kahenge	LOOKUP
+nt-8484	what is the number of votes that megan leslie received?	csv/204-csv/786.csv	19,252	LOOKUP
+nt-536	how many movies have less than 20 episodes?	csv/204-csv/671.csv	1	ARTH
+nt-6833	did kurt thomas play more or less than 2126 minutes?	csv/203-csv/621.csv	less	COMP
+nt-4381	how many points were scored in the final round of the 2012 summer olympics afc qualification?	csv/204-csv/930.csv	12	LOOKUP
+nt-1136	who were the chumps in the kitchen?	csv/204-csv/269.csv	Chantelle and Steve	LOOKUP
+nt-6337	which college has the largest non-sectarian enrollment	csv/203-csv/610.csv	Cornell University	SUPER
+nt-1908	in which year were the most steam locomotives built?	csv/204-csv/30.csv	1898	SUPER
+nt-2734	which is the top african nation that earns the most gdp in billions?	csv/203-csv/296.csv	South Africa	SUPER
+nt-3399	how many years did he play in less than 16 games?	csv/204-csv/756.csv	2	ARTH
+nt-10920	what is the only location of early sawmill?	csv/204-csv/176.csv	On W. Side NYS 52 At Southern End of Youngsville	LOOKUP
+nt-3411	how many finalist were in season af3?	csv/203-csv/288.csv	3	ARTH
+nt-4771	what is the number of football classes lafayette high school has?	csv/204-csv/624.csv	4	LOOKUP
+nt-1114	what was the first route formed in the 1960's?	csv/204-csv/178.csv	Oregon Route 18 Business	SUPER
+nt-1833	which ethnicity has more followers of islam: tatar or tajik?	csv/204-csv/984.csv	Tajik	COMP
+nt-3038	by how much does the macintosh cyrillic encoding differ in decimals between the small letter em and the capital letter em?	csv/202-csv/159.csv	96	ARTH
+nt-9775	what is the number of live-action american superhero movies released in 1978?	csv/203-csv/79.csv	3	AGG
+nt-8019	which month is the most humid?	csv/202-csv/57.csv	December	SUPER
+nt-4501	who had the most number of total assists?	csv/204-csv/575.csv	Luke Summerfield	SUPER
+nt-3736	what are the number of times nc appears under the comp column?	csv/204-csv/453.csv	32	AGG
+nt-9209	what is the difference in attendance between the first two games in september?	csv/203-csv/598.csv	31,037	ARTH
+nt-11242	how many riders earned at lease 20 points?	csv/204-csv/114.csv	2	COMP
+nt-8748	what cities are served by the nîmes-alès-camargue-cévennes airport?	csv/200-csv/26.csv	Nîmes / Garons	LOOKUP
+nt-6149	who is the only country to win only golds?	csv/204-csv/211.csv	Brazil	COMP
+nt-7615	which is the difference between kw for allenheads and seaham	csv/204-csv/270.csv	0.057	ARTH
+nt-8030	who is the only winning driver to appear once from team target racing?	csv/204-csv/63.csv	Christiano Citron	AGG
+nt-4711	which single was released before "dopeman"?	csv/203-csv/661.csv	Automatic	LOOKUP
+nt-1494	how many 4x 100m relays were run?	csv/203-csv/299.csv	3	AGG
+nt-10857	what was the first public middle school established in hawaii?	csv/203-csv/416.csv	Washington Middle School	SUPER
+nt-1822	what is russia's total number of non-gold medals?	csv/203-csv/374.csv	2	ARTH
+nt-1067	did the detriot lions win before the chicago bears in 1982?	csv/204-csv/855.csv	yes	Next
+nt-5923	which contest was held in the same site as the game versus western carolina?	csv/204-csv/436.csv	vs. Gardner-Webb	LOOKUP
+nt-3867	how many times did camerin oppose maria sharapova in singles finals?	csv/204-csv/562.csv	1	AGG
+nt-7408	which province is the only province with a higher population than malaga?	csv/203-csv/3.csv	Seville	COMP
+nt-1246	what is the number of times rowell has won the naacp image award?	csv/204-csv/504.csv	10	AGG
+nt-9295	what year had the least us peak chart positions?	csv/203-csv/11.csv	2009	SUPER
+nt-8410	in what years between 1194-1997 did habte jifar not compete in a marathon race?	csv/203-csv/189.csv	1996	COMP
+nt-12452	what driver was below jo vonlanthen in the grid?	csv/203-csv/804.csv	Jean-Pierre Jarier	Next
+nt-13939	how many historic places were listed in the 1980's?	csv/203-csv/649.csv	17	AGG
+nt-3735	what album is listed before 21?	csv/204-csv/949.csv	Chillaa	Next
+nt-6066	who was the tallest fullback?	csv/204-csv/170.csv	Cedric C. Smith	SUPER
+nt-9136	which surname is listed above the duke of albuquerque?	csv/203-csv/172.csv	Lorena	Next
+nt-7608	how many total points were scored during the inaugural maggie dixon classic by all 4 teams?	csv/203-csv/177.csv	271	AGG
+nt-12266	after pick #123 paul ames being picked for defense, what was the next united states defense pick named?	csv/203-csv/824.csv	Craig Mack	Next
+nt-12542	how many stadiums are located in belfast?	csv/203-csv/420.csv	11	AGG
+nt-11549	how many seasons were finished in 3rd place?	csv/204-csv/79.csv	2	AGG
+nt-8267	what is the difference in uci points between nikolas maes and john degenkolb?	csv/204-csv/199.csv	66	ARTH
+nt-13691	what is the number of games from produced from 1963 to 1973?	csv/204-csv/121.csv	2	COMP
+nt-1300	mark ferrandino, frank ferri, joe fitzpatrick and ed flanagan were each what profession?	csv/204-csv/866.csv	Politician	LOOKUP
+nt-10792	what is the only team to have 2005 in qld cup premierships?	csv/204-csv/661.csv	North Queensland Young Guns	LOOKUP
+nt-13981	other than sadie what models start with an s?	csv/204-csv/309.csv	SUSIE	COMP
+nt-11557	which publisher had the most projects?	csv/204-csv/398.csv	Electronic Arts	AGG
+nt-11258	name a member number with a latitude above 60 s.	csv/204-csv/206.csv	1	COMP
+nt-3173	how many countries have at least 2 bronze medals?	csv/204-csv/320.csv	3	COMP
+nt-11923	how many consecutive records has stacy dragila held	csv/204-csv/678.csv	5	AGG
+nt-696	how many consecutive players weigh less than 200 lbs?	csv/204-csv/490.csv	21	AGG
+nt-131	what week had the most attendance?	csv/203-csv/691.csv	15	SUPER
+nt-6474	how many deaths were in year 2012 due to plan accidents?	csv/200-csv/10.csv	794	LOOKUP
+nt-6000	in puerto villarroel, which language is spoken more, quechua or spanish?	csv/204-csv/359.csv	Quechua	COMP
+nt-8160	how many networks do not air sports?	csv/204-csv/779.csv	2	AGG
+nt-8635	which athlete had a race time above 1:00?	csv/204-csv/169.csv	Lyubomir Popov	AGG
+nt-6945	who was the next minister of transport after c.d. howe?	csv/203-csv/317.csv	Arthur Cardin	Next
+nt-10635	what team had the best gd?	csv/200-csv/4.csv	Sweden	SUPER
+nt-11287	which nation placed above russia?	csv/203-csv/160.csv	Botswana	ARTH
+nt-3715	how many film roles did mandy patinkin play in 1991?	csv/202-csv/15.csv	3	AGG
+nt-9459	what was the total number of singles that the band released?	csv/203-csv/723.csv	8	AGG
+nt-1261	how do you say 'do you speak afrikaans?' in afrikaans?	csv/200-csv/7.csv	Praat jy Afrikaans?	LOOKUP
+nt-9673	what country has 4 consecutive drivers on the roster?	csv/204-csv/378.csv	France	other
+nt-2957	priests	csv/204-csv/284.csv	54,382	LOOKUP
+nt-704	how many wrestlers had a time of 6:47?	csv/203-csv/277.csv	3	AGG
+nt-7092	in what year did the eighth place team have no wins?	csv/204-csv/110.csv	1971	LOOKUP
+nt-7595	what was the average attendance in 2008?	csv/204-csv/237.csv	10,031	AGG
+nt-1439	at which date was the highest attendance recorded?	csv/204-csv/615.csv	Jan. 26	SUPER
+nt-12802	what country makes the most tourist income?	csv/203-csv/54.csv	Dominican Republic	SUPER

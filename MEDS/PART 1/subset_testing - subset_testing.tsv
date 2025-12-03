@@ -1,0 +1,100 @@
+id	utterance	context	targetValue	type
+nt-13894	what was the total number of days for the tour?	csv/203-csv/25.csv	23	AGG
+nt-10173	what album came out in the year previous to the album ofa'a haia?	csv/203-csv/325.csv	Kmo HaRuach	Next
+nt-2649	how many times have the lions played in the playoffs?	csv/203-csv/462.csv	1	AGG
+nt-5548	what is the difference between the number times the result was "won" and the number of times the result was "nominated?"	csv/204-csv/948.csv	18	ARTH
+nt-9371	who has the fastest recorded finish for the men's bupa great south run, between 1990 and 2013?	csv/204-csv/286.csv	Joseph Ebuya (KEN)	SUPER
+nt-12318	how many times was poland the opponent?	csv/204-csv/453.csv	2	AGG
+nt-10290	high noise generation and too large consumption led to what train being scrapped?	csv/204-csv/751.csv	Transrapid 03	LOOKUP
+nt-10445	what is the number of properties on the list that have been demolished?	csv/204-csv/558.csv	2	AGG
+nt-4136	what was the date of the first international goal?	csv/203-csv/14.csv	24 December 2005	SUPER
+nt-13595	how many games did the 1981 atlanta falcons win?	csv/203-csv/257.csv	7	AGG
+nt-7396	what spot was listed immediately after the russell a. alger, jr. house?	csv/204-csv/831.csv	Annapolis Park Historic District	Next
+nt-7424	other than the 10th episode, which other episode has a 14% rating?	csv/204-csv/768.csv	Ep. 8	COMP
+nt-11498	how many times in total did ikangaa run the marathon in the olympic games?	csv/203-csv/370.csv	3	AGG
+nt-1392	which urban area has the least people per square kilometer?	csv/203-csv/74.csv	Livingston	SUPER
+nt-1490	how many world championships has he been in?	csv/203-csv/429.csv	3	AGG
+nt-3765	how many cities have a land area of 92 km^2?	csv/204-csv/322.csv	5	AGG
+nt-13429	did dallas or ottawa win the december 9, 1993 game?	csv/203-csv/343.csv	Dallas	COMP
+nt-3444	what settlement is listed right after oulu?	csv/204-csv/563.csv	Tervalaakso, Vaasa	Next
+nt-5025	how many episodes were written by matt nix?	csv/203-csv/349.csv	5	AGG
+nt-9328	which is the only defendant who was tried and found not guilty?	csv/204-csv/479.csv	Paris Martin	LOOKUP
+nt-2190	name the species that has the longest years since divergence from human.	csv/204-csv/358.csv	Albugo laibachii	SUPER
+nt-6040	what episode had the highest rating?	csv/204-csv/384.csv	March 2, 2008	SUPER
+nt-5265	who is the first winner according to this chart?	csv/204-csv/777.csv	Carrickshock	SUPER
+nt-6323	what is the combined population of makeleketla and theunissen?	csv/204-csv/64.csv	8296	ARTH
+nt-13808	what is the total of silver for cairo	csv/204-csv/75.csv	0	AGG
+nt-6395	name two people whose height is at least 174 cm	csv/204-csv/490.csv	Brianne McLaughlin|Molly Schaus	COMP
+nt-9856	previous to 2007 what tier was the team in?	csv/204-csv/42.csv	Tier 5	COMP
+nt-10228	what unrsgn is listed previous to the o?	csv/204-csv/564.csv	e	Next
+nt-12258	how many ships were built after ardent?	csv/204-csv/568.csv	1	AGG
+nt-6794	what is the first band number listed on this chart?	csv/203-csv/868.csv	5	LOOKUP
+nt-1318	how many singles did celine dion sing?	csv/203-csv/7.csv	4	AGG
+nt-3071	who sings the last song on this album?	csv/204-csv/573.csv	K-Ci & JoJo	Next
+nt-6959	was strosacker hall or presidents house made in 1965?	csv/204-csv/240.csv	Strosacker Hall	COMP
+nt-4925	how many films grossed over five million in their first week?	csv/203-csv/180.csv	6	AGG
+nt-13015	what was the total number of events held in 1966?	csv/204-csv/536.csv	29	AGG
+nt-12249	total appearances by masakatsu miyamoto?	csv/203-csv/456.csv	38	AGG
+nt-178	which province is the top consumer of wine?	csv/204-csv/533.csv	Yukon	SUPER
+nt-13275	the total amount of riders who did not qualify	csv/204-csv/352.csv	2	AGG
+nt-1323	only one championship in which he participated was held outside europe. where was this?	csv/204-csv/445.csv	Tokyo, Japan	COMP
+nt-1906	where did japan only score four goals?	csv/204-csv/371.csv	2006 AFC U-17 Championship	LOOKUP
+nt-12862	what is the only part to be first released in 2008?	csv/203-csv/679.csv	ISO/IEC 15938-12	LOOKUP
+nt-6660	what driver finished before tristan gommendy?	csv/203-csv/452.csv	Bruno Junqueira	Next
+nt-4506	at most how many people took office their second time	csv/203-csv/694.csv	3	AGG
+nt-2181	how many awards did whitney win that were above gold for her album whitney?	csv/203-csv/799.csv	9	COMP
+nt-1058	what is the total kilometers that separates the mahanayim junction and the shipon junction?	csv/203-csv/333.csv	23	LOOKUP
+nt-8372	name an element that does not have the letter "e" in its name.	csv/204-csv/39.csv	scandium	COMP
+nt-2457	how many more adherents does constantinople have compared to jerusalem?	csv/204-csv/284.csv	4500000	ARTH
+nt-13032	what was the total attendance in january 2009?	csv/203-csv/290.csv	55,603	AGG
+nt-9444	what is the winner name and team for the copa américa de ciclismo race?	csv/204-csv/48.csv	Francisco Chamorro (ARG)|Funvic Brasilinvest-São José dos Campos	LOOKUP
+nt-7945	what was the number of wins the philadelphia flyers had?	csv/203-csv/31.csv	35	AGG
+nt-1540	how many weeks did season 15 of comedy central presents span?	csv/203-csv/784.csv	9	ARTH
+nt-2994	what other album did eddie harris &les mccain had besides swiss movement	csv/204-csv/193.csv	Second Movement	COMP
+nt-8885	which party or parties had the same number of seats as it did before?	csv/203-csv/494.csv	Liberal and Country League|Independent	AGG
+nt-1652	which party got the most votes?	csv/203-csv/494.csv	Australian Labor Party	SUPER
+nt-5939	how many times did gene sarazen win?	csv/203-csv/327.csv	3	AGG
+nt-11744	what secretary of state served under both prime minister laurier and prime minister king?	csv/201-csv/27.csv	Charles Murphy	LOOKUP
+nt-3588	does the crest white strips classic last at least one year?	csv/204-csv/625.csv	yes	SUPER
+nt-5291	what is the total number of members whose term expires in 1989?	csv/203-csv/407.csv	9	AGG
+nt-5456	how many voters did mccain have in boone county?	csv/203-csv/660.csv	36,849	LOOKUP
+nt-3617	in what year did jon stewart have the highest number of roles?	csv/202-csv/7.csv	1997	SUPER
+nt-11778	how many subjects are there?	csv/204-csv/265.csv	38	AGG
+nt-7465	was the the number of canadian players more or less than the number of other players?	csv/203-csv/824.csv	more	AGG
+nt-7983	which urban area ranks first in population density?	csv/203-csv/74.csv	Edinburgh	LOOKUP
+nt-9564	what is the only crown entity monitored by the department of labour?	csv/204-csv/988.csv	Accident Compensation Corporation	LOOKUP
+nt-4114	joe hennessy and finbarr delaney both scored how many points?	csv/204-csv/952.csv	14	AGG
+nt-7652	what city ranks first in altitude?	csv/203-csv/731.csv	Albino	LOOKUP
+nt-11238	what is the english american name that the most people have?	csv/203-csv/573.csv	Smith	LOOKUP
+nt-3342	how many civil parishes have population counts of at least 10,000?	csv/204-csv/600.csv	4	AGG
+nt-7152	where is the location (city) of the last u.s. post office and court house on the chart?	csv/204-csv/749.csv	Windsor	LOOKUP
+nt-4190	how much larger was the attendance on 11/25/2013 than 12/21/2013?	csv/204-csv/168.csv	4368	ARTH
+nt-7977	which site was designated first, bank of montreal or bonsecours market?	csv/204-csv/776.csv	Bank of Montreal	COMP
+nt-3189	which year in this golfer's career saw her have the most 2nd place finishes?	csv/204-csv/940.csv	2010	SUPER
+nt-3534	team that won before mazowszanka pekaes pruszków	csv/203-csv/341.csv	Śląsk Eska Wrocław	Next
+nt-9050	which is taller, mount humphreys or mount kaweah.	csv/204-csv/25.csv	Mount Humphreys	COMP
+nt-7390	did 2010/11 or 2011/12 make more in grand total value?	csv/204-csv/666.csv	2011/12	COMP
+nt-10868	what is the number of women that have been executed in oklahoma?	csv/204-csv/867.csv	3	AGG
+nt-9627	how many total opposition votes were cast after august 2010?	csv/204-csv/639.csv	188	AGG
+nt-7046	what was the number of silver medals won by pakistan?	csv/203-csv/497.csv	36	LOOKUP
+nt-13326	which farm grew the larger amount on 9 feb, gamini maha vidyalayam or nelukkulam kalaimahal maha vidyalayam?	csv/204-csv/217.csv	Nelukkulam Kalaimahal Maha Vidyalayam	COMP
+nt-13938	which year was more successful, 2010 or 2013?	csv/204-csv/426.csv	2013	COMP
+nt-11926	what was the average in 2001	csv/204-csv/237.csv	17,956	AGG
+nt-13334	how many years did boston college win with john kelley as coach?	csv/203-csv/13.csv	8	AGG
+nt-2834	lucy millard and lynsey harley were both from which nation?	csv/204-csv/663.csv	Scotland	LOOKUP
+nt-13201	how many schools in the acrl have at least 20 varsity sports?	csv/204-csv/442.csv	6	AGG
+nt-834	who was the first american to enter their respective office?	csv/204-csv/782.csv	Richard B. Russell	SUPER
+nt-2136	what is the only destination served by american eagle airlines?	csv/204-csv/215.csv	Dallas/Fort Worth	LOOKUP
+nt-9432	what party has the highest number of mps?	csv/203-csv/139.csv	Serbian Progressive Party	AGG
+nt-12534	what was the total number of gold awards won between spain and egypt?	csv/203-csv/548.csv	3	AGG
+nt-9358	homochitto river bridge is in the same county as what other bridge built in 1920?	csv/204-csv/799.csv	Bayou Pierre Bridge	LOOKUP
+nt-13194	what is the radio with the least about of mhz?	csv/204-csv/164.csv	DYAP 88.3 Cebu	SUPER
+nt-1568	how many consecutive tour of qatar did tom boonen win a stage?	csv/204-csv/4.csv	2	AGG
+nt-12770	who is listed before wong kam-po?	csv/204-csv/694.csv	Victor Espiritu (PHI)	Next
+nt-14137	how many total titles were won?	csv/204-csv/129.csv	8	AGG
+nt-9711	how many times did kansas beat kansas state before 1910?	csv/203-csv/703.csv	7	AGG
+nt-2839	what is the number of titles in which the surface played on was carpet?	csv/204-csv/196.csv	9	AGG
+nt-258	how many spanish champions have there been?	csv/204-csv/351.csv	3	AGG
+nt-4974	name a destination that began in 1971 that is not kristiansund?	csv/203-csv/323.csv	Florø	LOOKUP
+nt-13731	how long after his first best actor academy award, did mr. borgnine receive his screen actors guild life acheivement award?	csv/204-csv/970.csv	56 years	ARTH
+nt-6615	who has the most votes?	csv/204-csv/786.csv	Sackville-Eastern Shore	SUPER
