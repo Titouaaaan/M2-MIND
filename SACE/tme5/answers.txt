@@ -1,0 +1,32 @@
+Exercice 1:
+
+2. Write two prolog queries and show the outputs:
+For the first one:
+
+1 ?- permitted_to_disclose(alice,bob).
+true.
+
+2 ?- permitted_to_disclose(bob,alice).
+false.
+
+3 ?- permitted_to_disclose(alice,alice).
+false.
+
+4 ?- permitted_to_disclose(john,bob).
+false.
+
+We can see that 1 holds because we defined alice to be the doctor and bob the patient that alice treats.
+In the other 3 scenarios, there is no doctor-patient relationship that is determined between them.
+
+For the second one:
+1 ?- forbidden_to_disclose(charlie,bob).
+true.
+
+2 ?- forbidden_to_disclose(alice,bob).
+false.
+
+Added a new fact where charlie is a doctor but doesnt treat bob. So in that case, 
+since charlie isnt bob's doctor he cant disclose info (1) but since alice is bob's doctor
+then she can disclose hence not forbidden so false (2).
+
+Exercice 2:
