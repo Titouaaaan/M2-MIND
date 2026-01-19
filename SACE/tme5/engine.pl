@@ -1,45 +1,82 @@
-% now we want to add exceptions (proleg like)
-% holds(+Atom) : atom is derivable from facts and rules with exceptions
-% holds(+Atom, -Trace) : same but with an explanantion trace (tree)
-% applicable(+RuleId, -WhyNot) : rule RuleId can be applied
-% supporting_rule(+Atom, +M, -RuleId) : atom has a supporting rule wrt interpretation M
-
-% so we want a new rule: rule(C, H, Body) that is applicable iiff
-% every item in body holds and no exception(C,E) such that E holds
-
-% its broken because 
-% 1 ?- holds(permitted_to_disclose(alice,bob)).
-% returns false.
-% rest seems to be fine? Also havent defined the holds/2
-% coudlnt finish exo 2...
-
-rule(r1, permitted_to_disclose(Doctor,Patient), 
+%doctor can disclose if they treat the patient
+rule(r1, permitted_to_disclose(Doctor,Patient),
      [doctor(Doctor), patient(Patient), treats(Doctor,Patient)]).
 
-rule(e1, forbidden_to_disclose(Doctor,Patient), 
+% doctor is forbidden to disclose if suspended
+rule(e1, forbidden_to_disclose(Doctor,Patient),
      [doctor(Doctor), patient(Patient), treats(Doctor,Patient), suspended(Doctor)]).
-
-holds(Atom) :- 
-    fact(Atom).
-
-holds(Atom) :-
-    rule(RuleId, Atom, Body),
-    applicable(RuleId),
-    holds_body(Body).
-
-holds_body([B | T]) :-
-    holds(B),
-    holds_body(T).
-
-holds_body([]). % true for empty body to end the recursion
-
-applicable(RuleId) :- % applicable(+rudeid, -whynot) where whynot will be the returned info (string?) 
-    \+ (exception(RuleId, Exception), holds(Exception)).
 
 fact(doctor(alice)).
 fact(doctor(charlie)).
 fact(patient(bob)).
 fact(treats(alice,bob)).
-fact(suspended(charlie)). % charlie is suspended
-fact(treats(charlie,bob)). % but still treats bob
-exception(r1, forbidden_to_disclose(charlie,bob)). % idk if this is correct cuz i think i only want facts?
+fact(treats(charlie,bob)).
+fact(suspended(charlie)). % should trigger charlie not allowed to disclose bob execption
+
+% if forbid disclose holds, then permit disclose is blocked
+exception(r1, permitted_to_disclose(Doctor,Patient), forbidden_to_disclose(Doctor,Patient)).
+
+
+% holds/1 just checks if atom is true (i.e a fact)
+holds(A) :-
+    fact(A).
+
+% checks if atom is true through a rule (which should trigger holds/1 eventually)
+holds(A) :-
+    rule(RuleId, A, Body),
+    body_holds(Body, _),
+    \+ is_rule_defeated(RuleId, A).
+
+% the recursion to check if all the body contents hold (or not)
+body_holds([], []). % empty body holds to end recusion
+body_holds([H|T], [HTrace|TTraces]) :-
+    holds(H, HTrace),
+    body_holds(T, TTraces).
+
+% check if a rule is defeated by an exception
+is_rule_defeated(RuleId, HeadAtom) :-
+    exception(RuleId, HeadPattern, BlockingCondition),
+    HeadPattern = HeadAtom, % check the rule name matches the one found in the exception
+    % check condition of exception holds to trigger it
+    holds(BlockingCondition).
+
+% now we deal with traces
+holds(A, fact(A)) :-
+    fact(A).
+
+% success trace - succeeds only if body holds AND rule is not defeated
+holds(A, rule(RuleId, A, BodyTraces)) :-
+    rule(RuleId, A, Body),
+    body_holds(Body, BodyTraces),
+    \+ is_rule_defeated(RuleId, A).
+
+% defeated trace - shows that a rule was defeated by a blocking condition
+% kinda same as before
+holds(A, defeated(RuleId, by(BlockingCondition, BlockingTrace))) :-
+    rule(RuleId, A, Body),
+    body_holds(Body, _),  % og rule body succeeds
+    exception(RuleId, HeadPattern, BlockingCondition),
+    HeadPattern = A, 
+    holds(BlockingCondition, BlockingTrace).  
+
+
+% rule is applicable
+applicable(RuleId, HeadAtom, applicable) :-
+    rule(RuleId, HeadAtom, Body),
+    body_holds(Body, _),
+    \+ is_rule_defeated(RuleId, HeadAtom).
+
+applicable(RuleId, _HeadAtom, missing(MissingAtom)) :-
+    rule(RuleId, _, Body),
+    member(MissingAtom, Body),
+    \+ holds(MissingAtom).
+
+applicable(RuleId, HeadAtom, blocked_by_exception(BlockingCondition)) :-
+    rule(RuleId, HeadAtom, Body),
+    body_holds(Body, _),  % Original rule body holds
+    exception(RuleId, HeadPattern, BlockingCondition),
+    HeadPattern = HeadAtom,  % Head pattern matches
+    holds(BlockingCondition).  % Blocking condition holds
+
+supporting_rule(Atom, RuleId, Trace) :-
+    holds(Atom, rule(RuleId, Atom, Trace)).
