@@ -6,12 +6,31 @@ rule(r1, permitted_to_disclose(Doctor,Patient),
 rule(e1, forbidden_to_disclose(Doctor,Patient),
      [doctor(Doctor), patient(Patient), treats(Doctor,Patient), suspended(Doctor)]).
 
+% this is our default prohibition 
+rule(c1, forbidden_to_disclose(alice,bob), [doctor(alice), patient(bob), treats(alice,bob), info_medical(bob)]).
+
+% add new exception -> disclosure is allowed if patient consents
+exception(c1, forbidden_to_disclose(alice,bob), consent(bob)).
+
+% exception to exception -> consent is invalid if coerced
+rule(c2, coerced_consent(bob), [coercion(bob)]).
+exception(consent(bob), consent(bob), coerced_consent(bob)).
+
 fact(doctor(alice)).
 fact(doctor(charlie)).
 fact(patient(bob)).
 fact(treats(alice,bob)).
 fact(treats(charlie,bob)).
 fact(suspended(charlie)). % should trigger charlie not allowed to disclose bob execption
+fact(info_medical(bob)).
+fact(request_disclose(alice,bob)).
+
+% variant A bob consents
+fact(consent(bob)). % keep this for variant A and uncomment below
+
+% variant B bob is coerced to consent
+fact(coercion(bob)). % keep for variant B and comment above!
+
 
 % if forbid disclose holds, then permit disclose is blocked
 exception(r1, permitted_to_disclose(Doctor,Patient), forbidden_to_disclose(Doctor,Patient)).

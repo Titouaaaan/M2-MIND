@@ -30,3 +30,24 @@ since charlie isnt bob's doctor he cant disclose info (1) but since alice is bob
 then she can disclose hence not forbidden so false (2).
 
 Exercice 2:
+...
+
+Exercice 3:
+Variant A: we have fact(consent(bob)).
+
+?- holds(forbidden_to_disclose(alice,bob), Trace).
+Trace = defeated(c1, by(consent(bob), fact(consent(bob))))
+
+So it returned false and defeated by bob's consent
+
+Variant B: replaced fact(consent(bob)) with fact(coerced(bob))
+
+18 ?- holds(forbidden_to_disclose(alice,bob), Trace).
+Trace = rule(c1, forbidden_to_disclose(alice, bob), [fact(doctor(alice)), fact(patient(bob)), fact(treats(alice, bob)), fact(info_medical(bob))])
+
+We can see that it holds because consent(bob) is not a fact
+
+Monotonicity -> when fact is verified (like with a rule), adding new facts doesnt change the conlusion.
+Here it is not the case because adding new facts does change the result. Variant B outputs True,
+but if we add consent(bob) on top of coerced, it changes to False, which means a conclusion can
+change when adding facts. Thus -> non-monotonicity
