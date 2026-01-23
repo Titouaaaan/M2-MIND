@@ -26,11 +26,10 @@ fact(info_medical(bob)).
 fact(request_disclose(alice,bob)).
 
 % variant A bob consents
-fact(consent(bob)). % keep this for variant A and uncomment below
+fact(consent(bob)). % only this for variant A (and remove below)
 
 % variant B bob is coerced to consent
-fact(coercion(bob)). % keep for variant B and comment above!
-
+% fact(coercion(bob)). % switch this with above for B
 
 % if forbid disclose holds, then permit disclose is blocked
 exception(r1, permitted_to_disclose(Doctor,Patient), forbidden_to_disclose(Doctor,Patient)).
@@ -63,13 +62,13 @@ is_rule_defeated(RuleId, HeadAtom) :-
 holds(A, fact(A)) :-
     fact(A).
 
-% success trace - succeeds only if body holds AND rule is not defeated
+% success trace which succeeds only if body holds AND rule is not defeated
 holds(A, rule(RuleId, A, BodyTraces)) :-
     rule(RuleId, A, Body),
     body_holds(Body, BodyTraces),
     \+ is_rule_defeated(RuleId, A).
 
-% defeated trace - shows that a rule was defeated by a blocking condition
+% defeated trace which shows that a rule was defeated by a blocking condition
 % kinda same as before
 holds(A, defeated(RuleId, by(BlockingCondition, BlockingTrace))) :-
     rule(RuleId, A, Body),
@@ -92,10 +91,10 @@ applicable(RuleId, _HeadAtom, missing(MissingAtom)) :-
 
 applicable(RuleId, HeadAtom, blocked_by_exception(BlockingCondition)) :-
     rule(RuleId, HeadAtom, Body),
-    body_holds(Body, _),  % Original rule body holds
+    body_holds(Body, _),  % original rule body holds
     exception(RuleId, HeadPattern, BlockingCondition),
-    HeadPattern = HeadAtom,  % Head pattern matches
-    holds(BlockingCondition).  % Blocking condition holds
+    HeadPattern = HeadAtom,  % heads match
+    holds(BlockingCondition).  % and block verified
 
 supporting_rule(Atom, RuleId, Trace) :-
     holds(Atom, rule(RuleId, Atom, Trace)).
