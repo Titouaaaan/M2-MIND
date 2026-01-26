@@ -1,0 +1,476 @@
+\documentclass[compress,xcolor=table]{beamer}
+
+% Packages
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{datetime}
+\usepackage{multicol}
+
+% Possible options of the package (add/remove below in \usetheme call):
+%  - nosectionpages: no pages between sections
+%  - flama: use flama font, requires xelatex/lualatex + the font to compile
+%  - compressminiframes: put the heading list bullets indications pages on 1 line
+\usetheme[compressminiframes]{sorbonne}
+
+% Title page
+\title{\Huge Formalisation and\\Evaluation of\\Properties for\\Consequentialist\\Machine Ethics}
+
+\foottitle{} % optional, printed at the bottom of the slides, by default same as title, can be useful to rewrite when title has a newline for example
+\subtitle{} % optional subtitle
+\date{\formatdate{16}{05}{2024}}
+\author{Titouan Guerin}
+% \institute{LIP6 - Sorbonne Université} % Optional
+
+% Biblatex
+\usepackage[backend=bibtex, style=authoryear, citestyle=authoryear]{biblatex}
+\bibliography{library.bib}
+\renewcommand*{\bibfont}{\footnotesize}
+
+
+%%%%
+%% BEGIN OF SLIDES
+%%%%
+\setbeamerfont{section in head/foot}{size={\fontsize{5}{3}}}
+\begin{document}
+
+\begin{frame}[plain]
+	\titlepage
+	\setcounter{framenumber}{0}
+\end{frame}
+
+\section{Introduction}
+
+\begin{frame}{Contexte}
+
+    \begin{block}{Motivation}
+        \begin{itemize}
+            \item AI systems increasingly make decisions that impact humans’ lives (self-driving cars)
+            \item Need to follow ethical principles
+        \end{itemize}
+    \end{block}
+    \pause
+    \begin{block}{Problem}
+        \begin{itemize}
+            \item Existing approaches lack rigorous justification and formal comparison.
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}{Ethics}
+    There are 3 main approaches to ethics:
+    \pause
+    \begin{itemize}
+        \item consequentialism: judges actions only based on their \textbf{consequences}
+        \item deontology: notion of \textbf{duty} to determine whether an action/ sequence of actions is right or wrong
+        \item virtue ethics: uses agent’s \textbf{character and intention} to determine the appropriateness of their actions
+    \end{itemize}
+    \pause
+    \begin{block}{}
+        We will focus on \textbf{consequentialism} because it is the dominant approach to machine ethics so far and the focus of this paper.
+    \end{block}
+\end{frame}
+
+\begin{frame}{Problematique}
+    \begin{alertblock}{Question}
+    How can machine ethics approaches properly validate their formalisation of ethical principles and determine the most appropriate principle(s) to apply in a given situation?
+    \end{alertblock}
+    \pause
+    \begin{block}{Contributions}
+        \begin{itemize}
+            \item Framework to evaluate ethical principles systematically,
+            \item Define formal principles and properties for decision-making.
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}{Running example}
+    \textit{We have available to us exactly \textbf{one smart robot}, designed to assist in decision-making when “incidents” occur. A \textbf{fire just started} on the top floor of a building \textbf{full of employees}. The robot needs to \textbf{keep everyone safe} but also to \textbf{minimise the damage by extinguishing the fire}. It has three choices:}
+    \begin{itemize}
+        \item \textit{(a) rush into the source of the fire and extinguish it,} 
+        \item \textit{(b) personally help the evacuation of employees until everyone is safe,}
+        \item \textit{(c) trigger the fire alarm while calling the fire department.}
+    \end{itemize}
+
+    \textbf{What should it do?}
+\end{frame}
+
+\section{Situation Calculus}
+
+\begin{frame}{Situation Calculus}
+    \begin{block}{What is it?}
+    \begin{itemize}
+        \item Formal framework to model and reason about changing environments 
+        \pause
+        \item Compute what happens if an agent performs a sequence of actions
+    \end{itemize}
+    \end{block}
+    \pause
+    Lets define the framework!
+\end{frame}
+
+\begin{frame}{Definitions}
+    \begin{block}{Fluents}
+        \textbf{What they are:} Properties of the world that can change over time, \\
+        \textbf{Example:} "The building is on fire", "Employees are safe", "The fire is extinguished", \\
+        \textbf{Formal notation:} $F(\vec{x},s)$ means "property $F$ with arguments $\vec{x}$ is true in situation $s$." 
+    \end{block}
+    \pause
+    \begin{block}{Situations}
+        \textbf{What they are:} Snapshots of the world at a given time, including the history of actions that led to it, \\
+        
+        \textbf{Example:} 
+        \begin{itemize}
+            \item $s_0$: Initial situation (building on fire, employees inside)
+            \item $do(a,s)$: The situation after performing action $a$ in situation $s$.
+        \end{itemize}
+
+        \textbf{Formal notation:} $do([evac,extg],s_0)$ means the situation after evacuating and then extinguishing the fire.
+    \end{block}
+\end{frame}
+
+\begin{frame}{Definitions}
+    \begin{block}{Actions}
+        \textbf{What they are:} Things that change the world, \\
+        \textbf{Example:} $evac$ (evacuate employees), $extg$ (extinguish fire), $call$ (call the fire department).
+    \end{block}
+    \pause
+    \begin{block}{Action Preconditions}
+        \textbf{What they are:} Conditions that must be true for an action to be possible.\\
+        \textbf{Example:} To $extg$, the robot must be near the fire source.\\
+        \textbf{Formal notation:} $Poss(a(\vec{x}),s) \equiv \pi_a(\vec{x}, s)$ means "action $a$ is possible in situation $s$ if $\pi_a$ is true."
+    \end{block}
+\end{frame}
+
+\begin{frame}{Definitions}
+    \begin{block}{ Effect Axioms}
+        \textbf{What they are:} Rules that describe how actions change fluents.\\
+        \begin{itemize}
+            \item Positive effect: $F$ becomes true after $a$.
+            \item Negative effect: $F$ becomes false after $a$.
+        \end{itemize}
+
+        \textbf{Example:}\\
+        \begin{itemize}
+            \item $do(evac,s)$ makes "employees are safe" true.
+            \item $do(extg,s)$ makes "building is on fire" false.
+        \end{itemize}
+        
+        \textbf{Formal notation:}\\
+        \begin{itemize}
+            \item $\gamma_F^+(\vec{x}, a, s) \rightarrow F(\vec{x}, do(a, s))$ (positive effect)
+            \item $\gamma_F^-(\vec{x}, a, s) \rightarrow \neg F(\vec{x}, do(a, s))$ (negative effect)
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}{Definitions}
+    \begin{block}{ Successor State Axiom}
+        \textbf{What it is:} A rule that fully describes how a fluent changes after an action,\\
+        \textbf{Example:} If $extg$ is performed, "building is on fire" becomes false, and all other fluents stay the same unless changed,\\
+        \textbf{Formal notation:}
+$F(\vec{x}, do(a, s)) \equiv \gamma_F^+(\vec{x}, a, s) \vee (F(\vec{x}, s) \wedge \neg \gamma_F^-(\vec{x}, a, s))$
+    \end{block}
+    \pause
+    \begin{block}{Plans}
+        \textbf{What they are:} Sequences of actions,\\
+        \textbf{Example:} $\pi = [evac, extg, call]$, \\
+        \textbf{Formal notation:} $do(\pi, s_0)$ is the situation after executing plan $\pi$ from $s_0$.
+    \end{block}
+\end{frame}
+
+\begin{frame}{Updated Example}
+    \textit{Consider an initial state of our example where the building is on fire and all employees are inside. The robot has options to extinguish the fire ($extg$), evacuate all employees ($evac$), and call the fire department ($call$). The employees will get injured if not evacuated immediately and the building will become more damaged the longer it is not extinguished.}\\
+    \pause
+    \begin{block}{}
+    Let's try and give some examples using the previous definition!    
+    \end{block}
+    
+\end{frame}
+
+\begin{frame}{Examples}
+    In $s_0$, we can say that:
+    \begin{itemize}
+        \item $OnFire(s0)$: True (the building is on fire),
+        \item $EmployeesSafe(s0)$: False (employees are not safe),
+        \item $FireExtinguished(s0)$: False (the fire is not extinguished),
+    \end{itemize}
+    \pause
+    And some action preconditions could be:
+    \begin{itemize}
+        \item $Poss(extg,s) \equiv OnFire(s)$: The robot can extinguish the fire only if the building is on fire,
+        \item $Poss(evac,s) \equiv \neg EmployeesSafe(s)$: The robot can evacuate employees only if they are not already safe.
+    \end{itemize}
+    \pause
+    And one positive effect axiom could be:
+    \begin{itemize}
+        \item $\gamma^{+}_{FireExtinguished}(extg,s) \rightarrow FireExtinguished(do(extg,s))$ which means that performing the extinguish action in $s$ always results in $FireExtinguished$ to become True.
+    \end{itemize}
+    
+\end{frame}
+
+\section{Formalisation of Ethical Principles}
+
+\begin{frame}{Definition}
+    \begin{alertblock}{Overview}
+        Objective here is not to achieve a \textbf{goal}, but rather to see 
+        if a plan satisfies an \textbf{ethical principle}. \\
+    \end{alertblock}
+    \pause
+    \begin{block}{Goodness}
+        We define a plan as \textbf{ethically permissable} based on its \textit{goodness}.\\
+        We introduce the function $goodness(state(s))$ which returns a $value$.\\
+        We also introduce $harmful(\varphi)$ which is true if $\varphi$ is a harmful fluent.\\
+    \end{block}
+    \pause
+    We simplify the notation for \textit{admissible} plans and goodness:
+    \begin{itemize}
+        \item $state(\pi) = state(do(\pi, s_0))$
+        \item $goodness(\pi) = goodness(state(\pi))$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Admissibility}
+    \begin{alertblock}{Ethical Admissibility}
+        We define a plan $\pi$ as \textbf{ethically admissible} if it is both possible 
+        and satisfies an ethical principle.
+    \end{alertblock}
+    The paper defines 5 ethical principles: \textbf{utilitarianism}, \textbf{hedonism}, \textbf{no new harm}, \textbf{remove harm} and \textbf{harm avoidance}.\\
+    Let's define them formally!
+\end{frame}
+
+\begin{frame}{Ethical Principles}
+    \small
+    \begin{block}{Utilitarianism}
+        It focuses on bringing the greatest good to the greatest number of people:
+        $$
+        \mathcal{E}\mathcal{P}_{util}(\Pi, s_0) =
+        \{ \pi \in \Pi \mid goodness(\pi) \geq goodness(\pi')
+        \text{ for all } \pi' \in \Pi \}
+        $$
+    \end{block}
+    \pause
+    Example: \\
+    If $goodness([evac,extg])>goodness([extg,call])$, then $[evac,extg]$ is  ethically permissible.
+\end{frame}
+
+\begin{frame}{Ethical Principles}
+    \small
+    \begin{block}{Hedonism}
+        Based on the overall consequences that it produces, a direct interpretation of consequentialism: any
+        plan is ethically permissible if it has more goodness at the
+        end state compared to the initial state.
+        $$
+        \mathcal{E}\mathcal{P}_{hedon}(\Pi, s_0) =
+        \{ \pi \in \Pi \mid goodness(\pi) \geq goodness(\emptyset)\}
+        $$
+    \end{block}
+    \pause
+    Example: \\
+    If $goodness([evac]) \geq goodness(\emptyset)$, then $[evac]$ is ethically permissible.
+\end{frame}
+
+\begin{frame}{Ethical Principles}
+    \small
+    \begin{block}{No New Harm}
+    It dictates that a plan should not cause any new harm, so an agent should not
+    be directly(or actively) responsible for any harm. This also means that we tolerate 
+    a harm that is unavoidable.       
+    $$
+    \begin{aligned}
+    \mathcal{E}\mathcal{P}_{\text{nnHarm}}(\Pi, s_0)
+    &= \{ \pi \in \Pi \mid \text{for all } \varphi,\ 
+    \text{if } harmful(\varphi) \text{ and } state(s_0) \not\vdash \varphi, \\
+    &\quad \text{then } \big(
+        state(\pi) \not\vdash \varphi
+        \ \text{or for all } \pi' \in \Pi,\ 
+        state(\pi') \vdash \varphi
+    \big) \}
+    \end{aligned}
+    $$
+
+    \end{block}
+    \pause
+    Explanation:\\
+    For every harmful predicate $\varphi$,
+
+If $\varphi$ is not true in the initial state ($state(s_0) \not\vdash \varphi$),
+Then $\varphi$ must not become true after executing $\pi$ ($state(\pi) \not\vdash \varphi$),
+unless $\varphi$ becomes true after every admissible plan (for all $\pi' \in \Pi$, $state(\pi') \vdash \varphi$), i.e unavoidable.
+
+\end{frame}
+
+\begin{frame}{Remove Harm}
+    \small
+    \begin{block}{Remove Harm}
+        A plan is ethically permissible if it removes existing harm in the initial situation. 
+        It requires the agent to mitigate harm whenever possible.
+        $$
+    \begin{aligned}
+    \mathcal{E}\mathcal{P}_{\text{nnHarm}}(\Pi, s_0)
+    &= \{ \pi \in \Pi \mid \text{for all } \varphi,\ 
+    \text{if } harmful(\varphi) \text{ and } state(s_0) \vdash \varphi, \\
+    &\quad \text{then } \big(
+        state(\pi) \not\vdash \varphi
+        \ \text{or for all } \pi' \in \Pi,\ 
+        state(\pi') \vdash \varphi
+    \big) \}
+    \end{aligned}
+    $$
+    \end{block}
+    \pause
+    Explanation:\\
+    For every harmful predicate $\varphi$, if it is found in the initial state ($state(s_0) \vdash \varphi$),
+    then an acceptable plan $\pi$ must remove it, or every possible plan must have it at the end (so unavoidable).
+    
+\end{frame}
+
+\begin{frame}{Harm Avoidance}
+    \small
+    \begin{block}{Harm Avoidance}
+        A plan is ethically permissible if it minimises the amount of harm in the end state.
+        $$
+        \begin{aligned}
+        \mathcal{E}\mathcal{P}_{\text{harmAvoid}}(\Pi, s_0)
+        &= \{ \pi \in \Pi \mid 
+        \text{for all } \varphi, \text{ if } harmful(\varphi), \\
+        &\quad \text{then } \big( state(\pi) \not\vdash \varphi 
+        \ \text{or for all } \pi' \in \Pi,\ state(\pi') \vdash \varphi \big) \}
+        \end{aligned}
+        $$
+    \end{block}
+    \pause
+    Explanation:\\
+    For every harmful predicate $\varphi$, an acceptable plan $\pi$ must ensure that $\varphi$ is not true in the end state,
+    or every possible plan must have it at the end (so unavoidable). It is a combination of the two previous principles.
+\end{frame}
+
+\begin{frame}{Example}
+    Let's define that the most important thing is to keep the employees safe. So we define the world as:\\
+    \begin{itemize}
+        \item $inside(emp, do(a, s)) \equiv inside(emp, s) \land a \neq evac$
+        \item $onfire(do(a, s)) \equiv onfire(s) \land a \neq extg$
+        \item $injured(emp, do(a, s)) \equiv inside(emp, s) \land onfire(s) \land a \neq evac$
+        \item $injured'emp, do(a, s)) \equiv injured(emp, s) \land a \neq evac \land inside(emp, s) \land onfire(s)$
+    \end{itemize}
+    Here $emp$ is the employee and $injured(emp)$ the penatly of letting someone get injured. 
+    $injured'(emp)$ means even more damage to an employee.\\
+\end{frame}
+
+\begin{frame}{Example}
+    According to our previous definitions, we model the goodness function as:
+    \begin{multicols}{2}
+    \tiny
+    \begin{itemize}
+        \item $goodness([call]) = -10$
+        \item $goodness([extg]) = -10$
+        \item $goodness([evac]) = 0$
+        \item $goodness([call, evac]) = -10$
+        \item $goodness([evac, call]) = 0$
+        \item $goodness([extg, call]) = -20$
+        \item $goodness([call, extg]) = -20$
+        \item $goodness([evac, extg]) = 0$
+        \item $goodness([extg, evac]) = -10$
+        \item $goodness([call, evac, extg]) = -10$
+        \item $goodness([evac, call, extg]) = 0$
+        \item $goodness([extg, call, evac]) = -20$
+        \item $goodness([call, extg, evac]) = -20$
+        \item $goodness([evac, extg, call]) = 0$
+        \item $goodness([extg, evac, call]) = -10$
+    \end{itemize}
+    \end{multicols}
+    Therefore, with the goodness of initial state set to 0, we have:\\
+    $$
+    \begin{aligned}
+    \mathcal{E}\mathcal{P}_{util}(\Pi, s_0) 
+    &= \{ [evac], [evac, call], [evac, call, extg],\\
+     [evac, extg], [evac, extg, call] \} \\
+    \mathcal{E}\mathcal{P}_{hedon}(\Pi, s_0) 
+    &= \{ \} 
+    \end{aligned}
+    $$
+\tiny
+\underline{Note:} Hedonism returns empty set because no plan has a goodness strictly 
+greater than the initial state, which has a goodness of 0.
+\end{frame}
+
+\section{Formalisation of Properties}
+
+\begin{frame}{Definition}
+    \begin{alertblock}{Overview}
+        We want to define properties that can be used to \textbf{evaluate and compare} ethical principles.\\
+        Based on which properties are verified, we can make an \textbf{educated choice} on what principle to follow
+        according to the context/situation.
+    \end{alertblock}
+    \pause
+    The authors define 8 properties which are directly derived from the principles we just saw.\\
+    7 more are presented, and are derived from properties found in social choice theory (we will define what this means later).
+    
+\end{frame}
+
+\section{Appendix}
+
+\begin{frame}{Full Example Definition}
+    \begin{block}{Fluents}
+        \begin{itemize}
+            \item $OnFire(s)$
+            \item $EmployeesSafe(s)$
+            \item $FireExtinguished(s)$
+            \item $FireDepartmentCalled(s)$
+            \item $BuildingDamaged(s)$
+            \item $EmployeesInjured(s)$
+        \end{itemize}
+    \end{block}
+
+    \begin{block}{Actions}
+    \begin{itemize}
+        \item $extg$
+        \item $evac$
+        \item $call$
+    \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}{Full Example Definition}
+\small
+    \begin{block}{Initial Definition}
+        \begin{itemize}
+            \item $OnFire(s_0)=True$
+            \item $EmployeesSafe(s_0)=False$
+            \item $FireExtinguished(s_0)=False$
+            \item $FireDepartmentCalled(s_0)=False$
+            \item $BuildingDamaged(s_0)=False$
+            \item $EmployeesInjured(s_0)=False$
+        \end{itemize}
+    \end{block}
+
+    \begin{block}{Action Precondition Axioms}
+        \begin{itemize}
+            \item $Poss(extg,s) \equiv OnFire(s)$
+            \item $Poss(evac,s) \equiv \neg EmployeesSafe(s)$
+            \item $Poss(call,s) \equiv \neg FireDepartmentCalled(s)$
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}
+\small
+    \begin{block}{Positive Effect Axioms}
+        \begin{itemize}
+            \item $\gamma_{FireExtinguished}^+(extg, s) \rightarrow FireExtinguished(do(extg,s))$
+            \item $\gamma_{EmployeesSafe}^+(evac, s) \rightarrow EmployeesSafe(do(evac,s))$
+            \item $\gamma_{FireDepartmentCalled}^+(call, s) \rightarrow FireDepartmentCalled(do(call,s))$
+        \end{itemize}
+    \end{block}
+
+    \begin{block}{Negative Effect Axioms}
+        \begin{itemize}
+            \item $\gamma_{OnFire}^-(extg, s) \rightarrow \neg OnFire(do(extg,s))$
+            \item $\gamma_{BuildingDamaged}^-(call, s) \rightarrow \neg BuildingDamaged(do(call,s))$
+            \item $\gamma_{EmployeesInjured}^-(evac, s) \rightarrow \neg EmployeesInjured(do(evac,s))$
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\end{document}
+
