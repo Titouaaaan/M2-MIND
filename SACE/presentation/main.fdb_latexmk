@@ -1,6 +1,6 @@
 # Fdb version 4
-["bibtex main"] 0 "main.aux" "main.bbl" "main" 1769455135.42781 0
-  "./main-blx.bib" 1769455134 342 73514f57ec3137b3b33c6de31c0e88f7 ""
+["bibtex main"] 0 "main.aux" "main.bbl" "main" 1769469559.79282 0
+  "./main-blx.bib" 1769469558 342 73514f57ec3137b3b33c6de31c0e88f7 ""
   "C:/Users/titou/AppData/Local/Programs/MiKTeX/bibtex/bst/biblatex/biblatex.bst" 1752408733 65510 9a2a51799b543ff279b8ea2dd91ec499 ""
   "library.bib" 0 -1 0 ""
   "main.aux" 0 -1 0 "pdflatex"
@@ -8,7 +8,7 @@
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1769455126.77935 "d:/Sorbonne/M2-MIND/SACE/presentation/main.tex" "main.pdf" "main" 1769455135.42881 0
+["pdflatex"] 1769469548.61677 "d:/Sorbonne/M2-MIND/SACE/presentation/main.tex" "main.pdf" "main" 1769469559.79383 0
   "C:/Users/titou/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1769440576 81088 29d6fa367ac022d1b69251d68c0742e6 ""
   "C:/Users/titou/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/eccc2488.pk" 1769440584 74644 75ee70899966f4c2df3e7e4c42fa54fb ""
   "C:/Users/titou/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ecsi1095.pk" 1769440580 26868 2d04c8885f93f0b15ecee9be6f8ccc0b ""
@@ -284,15 +284,15 @@
   "C:/Users/titou/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/xcolor.sty" 1729265222 55384 b454dec21c2d9f45ec0b793f0995b992 ""
   "C:/Users/titou/AppData/Local/Programs/MiKTeX/tex/latex/xkeyval/xkeyval.sty" 1656236919 4937 4ce600ce9bd4ec84d0250eb6892fcf4f ""
   "beamerthemesorbonne.sty" 1769439532 10700 c568d60a3abe6709bd5793659d414127 ""
-  "d:/Sorbonne/M2-MIND/SACE/presentation/main.tex" 1769455126 18755 1812f455dbeba6337decf96155886fd0 ""
+  "d:/Sorbonne/M2-MIND/SACE/presentation/main.tex" 1769469537 23593 ead5c455dd96fbaaa0393c0f91a19174 ""
   "images/background.pdf" 1769439536 604205 66e7e52ef1c76c2e746ee0b7521a409a ""
   "images/logoWhite.pdf" 1769439539 44203 2802ae92ac8fc10fac1d32aee2c875f9 ""
-  "main.aux" 1769455134 6108 bcfc33bbd7bdc8399d8a7fe2f3bed667 "pdflatex"
+  "main.aux" 1769469558 7262 1cb1b9ef3f2a06120a8395e1475d90dc "pdflatex"
   "main.bbl" 0 -1 0 "bibtex main"
-  "main.nav" 1769455134 3845 e9374e284fb17cff10f974819b6cb82c "pdflatex"
-  "main.out" 1769455134 733 2203e3cc89fc86980f035f4d5e9746e6 "pdflatex"
-  "main.run.xml" 1769455134 2525 9803ebd604f62977bcbf407a9ae19fce "pdflatex"
-  "main.tex" 1769455126 18755 1812f455dbeba6337decf96155886fd0 ""
+  "main.nav" 1769469558 4675 5cf4a882ce8d4435eaed87b1416ca098 "pdflatex"
+  "main.out" 1769469558 733 2203e3cc89fc86980f035f4d5e9746e6 "pdflatex"
+  "main.run.xml" 1769469558 2525 9803ebd604f62977bcbf407a9ae19fce "pdflatex"
+  "main.tex" 1769469537 23593 ead5c455dd96fbaaa0393c0f91a19174 ""
   (generated)
   "main-blx.bib"
   "main.aux"

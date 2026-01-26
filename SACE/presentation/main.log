@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.1.26)  26 JAN 2026 20:18
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.1.26)  27 JAN 2026 00:19
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1215,16 +1215,16 @@ No file main.bbl.
 Package biblatex Info: Reference section=0 on input line 35.
 Package biblatex Info: Reference segment=0 on input line 35.
 (main.nav)
-Overfull \hbox (50.47212pt too wide) detected at line 35
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) detected at line 35
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 
-Overfull \hbox (50.47212pt too wide) detected at line 40
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) detected at line 40
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
-<images/background.pdf, id=100, 722.7pt x 542.025pt>
+<images/background.pdf, id=118, 722.7pt x 542.025pt>
 File: images/background.pdf Graphic file (type pdf)
 <use images/background.pdf>
 Package pdftex.def Info: images/background.pdf  used on input line 40.
@@ -1256,8 +1256,8 @@ Overfull \vbox (20.04001pt too high) detected at line 40
 [1
 
 {C:/Users/titou/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map} <./images/background.pdf>]
-Overfull \hbox (50.47212pt too wide) detected at line 42
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) detected at line 42
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 
@@ -1267,18 +1267,18 @@ LaTeX Font Warning: Font shape `T1/cmss/m/sc' in size <24.88> not available
 [2
 
 ]
-Overfull \hbox (50.47212pt too wide) detected at line 58
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) detected at line 58
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
-<images/logoWhite.pdf, id=199, 560.53618pt x 230.98195pt>
+<images/logoWhite.pdf, id=235, 560.53618pt x 230.98195pt>
 File: images/logoWhite.pdf Graphic file (type pdf)
 <use images/logoWhite.pdf>
 Package pdftex.def Info: images/logoWhite.pdf  used on input line 58.
 (pdftex.def)             Requested size: 41.25641pt x 16.99864pt.
 
-Overfull \hbox (50.47212pt too wide) has occurred while \output is active
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 [3
@@ -1289,15 +1289,15 @@ File: images/logoWhite.pdf Graphic file (type pdf)
 Package pdftex.def Info: images/logoWhite.pdf  used on input line 58.
 (pdftex.def)             Requested size: 41.25641pt x 16.99864pt.
 
-Overfull \hbox (50.47212pt too wide) has occurred while \output is active
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 [4
 
 ]
-Overfull \hbox (50.47212pt too wide) detected at line 72
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) detected at line 72
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 File: images/logoWhite.pdf Graphic file (type pdf)
@@ -1305,8 +1305,8 @@ File: images/logoWhite.pdf Graphic file (type pdf)
 Package pdftex.def Info: images/logoWhite.pdf  used on input line 72.
 (pdftex.def)             Requested size: 41.25641pt x 16.99864pt.
 
-Overfull \hbox (50.47212pt too wide) has occurred while \output is active
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 [5
@@ -1317,8 +1317,8 @@ File: images/logoWhite.pdf Graphic file (type pdf)
 Package pdftex.def Info: images/logoWhite.pdf  used on input line 72.
 (pdftex.def)             Requested size: 41.25641pt x 16.99864pt.
 
-Overfull \hbox (50.47212pt too wide) has occurred while \output is active
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 [6
@@ -1329,15 +1329,15 @@ File: images/logoWhite.pdf Graphic file (type pdf)
 Package pdftex.def Info: images/logoWhite.pdf  used on input line 72.
 (pdftex.def)             Requested size: 41.25641pt x 16.99864pt.
 
-Overfull \hbox (50.47212pt too wide) has occurred while \output is active
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 [7
 
 ]
-Overfull \hbox (50.47212pt too wide) detected at line 85
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) detected at line 85
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 File: images/logoWhite.pdf Graphic file (type pdf)
@@ -1345,8 +1345,8 @@ File: images/logoWhite.pdf Graphic file (type pdf)
 Package pdftex.def Info: images/logoWhite.pdf  used on input line 85.
 (pdftex.def)             Requested size: 41.25641pt x 16.99864pt.
 
-Overfull \hbox (50.47212pt too wide) has occurred while \output is active
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 [8
@@ -1357,15 +1357,15 @@ File: images/logoWhite.pdf Graphic file (type pdf)
 Package pdftex.def Info: images/logoWhite.pdf  used on input line 85.
 (pdftex.def)             Requested size: 41.25641pt x 16.99864pt.
 
-Overfull \hbox (50.47212pt too wide) has occurred while \output is active
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 [9
 
 ]
-Overfull \hbox (50.47212pt too wide) detected at line 96
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) detected at line 96
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 File: images/logoWhite.pdf Graphic file (type pdf)
@@ -1373,22 +1373,22 @@ File: images/logoWhite.pdf Graphic file (type pdf)
 Package pdftex.def Info: images/logoWhite.pdf  used on input line 96.
 (pdftex.def)             Requested size: 41.25641pt x 16.99864pt.
 
-Overfull \hbox (50.47212pt too wide) has occurred while \output is active
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 [10
 
 ]
-Overfull \hbox (50.47212pt too wide) detected at line 98
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) detected at line 98
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 [11
 
 ]
-Overfull \hbox (50.47212pt too wide) detected at line 110
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) detected at line 110
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 File: images/logoWhite.pdf Graphic file (type pdf)
@@ -1396,8 +1396,8 @@ File: images/logoWhite.pdf Graphic file (type pdf)
 Package pdftex.def Info: images/logoWhite.pdf  used on input line 110.
 (pdftex.def)             Requested size: 41.25641pt x 16.99864pt.
 
-Overfull \hbox (50.47212pt too wide) has occurred while \output is active
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 [12
@@ -1408,8 +1408,8 @@ File: images/logoWhite.pdf Graphic file (type pdf)
 Package pdftex.def Info: images/logoWhite.pdf  used on input line 110.
 (pdftex.def)             Requested size: 41.25641pt x 16.99864pt.
 
-Overfull \hbox (50.47212pt too wide) has occurred while \output is active
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 [13
@@ -1420,15 +1420,15 @@ File: images/logoWhite.pdf Graphic file (type pdf)
 Package pdftex.def Info: images/logoWhite.pdf  used on input line 110.
 (pdftex.def)             Requested size: 41.25641pt x 16.99864pt.
 
-Overfull \hbox (50.47212pt too wide) has occurred while \output is active
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 [14
 
 ]
-Overfull \hbox (50.47212pt too wide) detected at line 130
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) detected at line 130
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 File: images/logoWhite.pdf Graphic file (type pdf)
@@ -1440,8 +1440,8 @@ Overfull \vbox (2.34756pt too high) detected at line 130
  []
 
 
-Overfull \hbox (50.47212pt too wide) has occurred while \output is active
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 [15
@@ -1456,15 +1456,15 @@ Overfull \vbox (2.34756pt too high) detected at line 130
  []
 
 
-Overfull \hbox (50.47212pt too wide) has occurred while \output is active
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 [16
 
 ]
-Overfull \hbox (50.47212pt too wide) detected at line 143
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) detected at line 143
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 File: images/logoWhite.pdf Graphic file (type pdf)
@@ -1472,8 +1472,8 @@ File: images/logoWhite.pdf Graphic file (type pdf)
 Package pdftex.def Info: images/logoWhite.pdf  used on input line 143.
 (pdftex.def)             Requested size: 41.25641pt x 16.99864pt.
 
-Overfull \hbox (50.47212pt too wide) has occurred while \output is active
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 [17
@@ -1484,15 +1484,15 @@ File: images/logoWhite.pdf Graphic file (type pdf)
 Package pdftex.def Info: images/logoWhite.pdf  used on input line 143.
 (pdftex.def)             Requested size: 41.25641pt x 16.99864pt.
 
-Overfull \hbox (50.47212pt too wide) has occurred while \output is active
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 [18
 
 ]
-Overfull \hbox (50.47212pt too wide) detected at line 165
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) detected at line 165
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 File: images/logoWhite.pdf Graphic file (type pdf)
@@ -1500,15 +1500,15 @@ File: images/logoWhite.pdf Graphic file (type pdf)
 Package pdftex.def Info: images/logoWhite.pdf  used on input line 165.
 (pdftex.def)             Requested size: 41.25641pt x 16.99864pt.
 
-Overfull \hbox (50.47212pt too wide) has occurred while \output is active
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 [19
 
 ]
-Overfull \hbox (50.47212pt too wide) detected at line 180
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) detected at line 180
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 File: images/logoWhite.pdf Graphic file (type pdf)
@@ -1516,8 +1516,8 @@ File: images/logoWhite.pdf Graphic file (type pdf)
 Package pdftex.def Info: images/logoWhite.pdf  used on input line 180.
 (pdftex.def)             Requested size: 41.25641pt x 16.99864pt.
 
-Overfull \hbox (50.47212pt too wide) has occurred while \output is active
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 [20
@@ -1528,15 +1528,15 @@ File: images/logoWhite.pdf Graphic file (type pdf)
 Package pdftex.def Info: images/logoWhite.pdf  used on input line 180.
 (pdftex.def)             Requested size: 41.25641pt x 16.99864pt.
 
-Overfull \hbox (50.47212pt too wide) has occurred while \output is active
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 [21
 
 ]
-Overfull \hbox (50.47212pt too wide) detected at line 189
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) detected at line 189
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 File: images/logoWhite.pdf Graphic file (type pdf)
@@ -1544,8 +1544,8 @@ File: images/logoWhite.pdf Graphic file (type pdf)
 Package pdftex.def Info: images/logoWhite.pdf  used on input line 189.
 (pdftex.def)             Requested size: 41.25641pt x 16.99864pt.
 
-Overfull \hbox (50.47212pt too wide) has occurred while \output is active
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 [22
@@ -1556,15 +1556,15 @@ File: images/logoWhite.pdf Graphic file (type pdf)
 Package pdftex.def Info: images/logoWhite.pdf  used on input line 189.
 (pdftex.def)             Requested size: 41.25641pt x 16.99864pt.
 
-Overfull \hbox (50.47212pt too wide) has occurred while \output is active
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 [23
 
 ]
-Overfull \hbox (50.47212pt too wide) detected at line 210
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) detected at line 210
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 File: images/logoWhite.pdf Graphic file (type pdf)
@@ -1572,8 +1572,8 @@ File: images/logoWhite.pdf Graphic file (type pdf)
 Package pdftex.def Info: images/logoWhite.pdf  used on input line 210.
 (pdftex.def)             Requested size: 41.25641pt x 16.99864pt.
 
-Overfull \hbox (50.47212pt too wide) has occurred while \output is active
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 [24
@@ -1584,8 +1584,8 @@ File: images/logoWhite.pdf Graphic file (type pdf)
 Package pdftex.def Info: images/logoWhite.pdf  used on input line 210.
 (pdftex.def)             Requested size: 41.25641pt x 16.99864pt.
 
-Overfull \hbox (50.47212pt too wide) has occurred while \output is active
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 [25
@@ -1596,22 +1596,22 @@ File: images/logoWhite.pdf Graphic file (type pdf)
 Package pdftex.def Info: images/logoWhite.pdf  used on input line 210.
 (pdftex.def)             Requested size: 41.25641pt x 16.99864pt.
 
-Overfull \hbox (50.47212pt too wide) has occurred while \output is active
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 [26
 
 ]
-Overfull \hbox (50.47212pt too wide) detected at line 212
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) detected at line 212
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 [27
 
 ]
-Overfull \hbox (50.47212pt too wide) detected at line 231
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) detected at line 231
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 File: images/logoWhite.pdf Graphic file (type pdf)
@@ -1619,8 +1619,8 @@ File: images/logoWhite.pdf Graphic file (type pdf)
 Package pdftex.def Info: images/logoWhite.pdf  used on input line 231.
 (pdftex.def)             Requested size: 41.25641pt x 16.99864pt.
 
-Overfull \hbox (50.47212pt too wide) has occurred while \output is active
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 [28
@@ -1631,8 +1631,8 @@ File: images/logoWhite.pdf Graphic file (type pdf)
 Package pdftex.def Info: images/logoWhite.pdf  used on input line 231.
 (pdftex.def)             Requested size: 41.25641pt x 16.99864pt.
 
-Overfull \hbox (50.47212pt too wide) has occurred while \output is active
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 [29
@@ -1643,15 +1643,15 @@ File: images/logoWhite.pdf Graphic file (type pdf)
 Package pdftex.def Info: images/logoWhite.pdf  used on input line 231.
 (pdftex.def)             Requested size: 41.25641pt x 16.99864pt.
 
-Overfull \hbox (50.47212pt too wide) has occurred while \output is active
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 [30
 
 ]
-Overfull \hbox (50.47212pt too wide) detected at line 240
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) detected at line 240
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 File: images/logoWhite.pdf Graphic file (type pdf)
@@ -1659,24 +1659,24 @@ File: images/logoWhite.pdf Graphic file (type pdf)
 Package pdftex.def Info: images/logoWhite.pdf  used on input line 240.
 (pdftex.def)             Requested size: 41.25641pt x 16.99864pt.
 
-Overfull \hbox (50.47212pt too wide) has occurred while \output is active
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 [31
 
 ]
-Overfull \hbox (50.47212pt too wide) detected at line 255
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) detected at line 259
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 File: images/logoWhite.pdf Graphic file (type pdf)
 <use images/logoWhite.pdf>
-Package pdftex.def Info: images/logoWhite.pdf  used on input line 255.
+Package pdftex.def Info: images/logoWhite.pdf  used on input line 259.
 (pdftex.def)             Requested size: 41.25641pt x 16.99864pt.
 
-Overfull \hbox (50.47212pt too wide) has occurred while \output is active
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 [32
@@ -1684,27 +1684,27 @@ Overfull \hbox (50.47212pt too wide) has occurred while \output is active
 ]
 File: images/logoWhite.pdf Graphic file (type pdf)
 <use images/logoWhite.pdf>
-Package pdftex.def Info: images/logoWhite.pdf  used on input line 255.
+Package pdftex.def Info: images/logoWhite.pdf  used on input line 259.
 (pdftex.def)             Requested size: 41.25641pt x 16.99864pt.
 
-Overfull \hbox (50.47212pt too wide) has occurred while \output is active
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 [33
 
 ]
-Overfull \hbox (50.47212pt too wide) detected at line 271
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) detected at line 275
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 File: images/logoWhite.pdf Graphic file (type pdf)
 <use images/logoWhite.pdf>
-Package pdftex.def Info: images/logoWhite.pdf  used on input line 271.
+Package pdftex.def Info: images/logoWhite.pdf  used on input line 275.
 (pdftex.def)             Requested size: 41.25641pt x 16.99864pt.
 
-Overfull \hbox (50.47212pt too wide) has occurred while \output is active
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 [34
@@ -1712,27 +1712,27 @@ Overfull \hbox (50.47212pt too wide) has occurred while \output is active
 ]
 File: images/logoWhite.pdf Graphic file (type pdf)
 <use images/logoWhite.pdf>
-Package pdftex.def Info: images/logoWhite.pdf  used on input line 271.
+Package pdftex.def Info: images/logoWhite.pdf  used on input line 275.
 (pdftex.def)             Requested size: 41.25641pt x 16.99864pt.
 
-Overfull \hbox (50.47212pt too wide) has occurred while \output is active
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 [35
 
 ]
-Overfull \hbox (50.47212pt too wide) detected at line 301
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) detected at line 305
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 File: images/logoWhite.pdf Graphic file (type pdf)
 <use images/logoWhite.pdf>
-Package pdftex.def Info: images/logoWhite.pdf  used on input line 301.
+Package pdftex.def Info: images/logoWhite.pdf  used on input line 305.
 (pdftex.def)             Requested size: 41.25641pt x 16.99864pt.
 
-Overfull \hbox (50.47212pt too wide) has occurred while \output is active
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 [36
@@ -1740,27 +1740,27 @@ Overfull \hbox (50.47212pt too wide) has occurred while \output is active
 ]
 File: images/logoWhite.pdf Graphic file (type pdf)
 <use images/logoWhite.pdf>
-Package pdftex.def Info: images/logoWhite.pdf  used on input line 301.
+Package pdftex.def Info: images/logoWhite.pdf  used on input line 305.
 (pdftex.def)             Requested size: 41.25641pt x 16.99864pt.
 
-Overfull \hbox (50.47212pt too wide) has occurred while \output is active
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 [37
 
 ]
-Overfull \hbox (50.47212pt too wide) detected at line 326
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) detected at line 330
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 File: images/logoWhite.pdf Graphic file (type pdf)
 <use images/logoWhite.pdf>
-Package pdftex.def Info: images/logoWhite.pdf  used on input line 326.
+Package pdftex.def Info: images/logoWhite.pdf  used on input line 330.
 (pdftex.def)             Requested size: 41.25641pt x 16.99864pt.
 
-Overfull \hbox (50.47212pt too wide) has occurred while \output is active
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 [38
@@ -1768,112 +1768,112 @@ Overfull \hbox (50.47212pt too wide) has occurred while \output is active
 ]
 File: images/logoWhite.pdf Graphic file (type pdf)
 <use images/logoWhite.pdf>
-Package pdftex.def Info: images/logoWhite.pdf  used on input line 326.
+Package pdftex.def Info: images/logoWhite.pdf  used on input line 330.
 (pdftex.def)             Requested size: 41.25641pt x 16.99864pt.
 
-Overfull \hbox (50.47212pt too wide) has occurred while \output is active
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 [39
 
 ]
-Overfull \hbox (50.47212pt too wide) detected at line 346
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) detected at line 350
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 
-Overfull \hbox (1.33476pt too wide) detected at line 346
+Overfull \hbox (1.33476pt too wide) detected at line 350
 [][]
  []
 
 File: images/logoWhite.pdf Graphic file (type pdf)
 <use images/logoWhite.pdf>
-Package pdftex.def Info: images/logoWhite.pdf  used on input line 346.
+Package pdftex.def Info: images/logoWhite.pdf  used on input line 350.
 (pdftex.def)             Requested size: 41.25641pt x 16.99864pt.
 
-Overfull \hbox (50.47212pt too wide) has occurred while \output is active
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 [40
 
 ]
-Overfull \hbox (1.33476pt too wide) detected at line 346
+Overfull \hbox (1.33476pt too wide) detected at line 350
 [][]
  []
 
 File: images/logoWhite.pdf Graphic file (type pdf)
 <use images/logoWhite.pdf>
-Package pdftex.def Info: images/logoWhite.pdf  used on input line 346.
+Package pdftex.def Info: images/logoWhite.pdf  used on input line 350.
 (pdftex.def)             Requested size: 41.25641pt x 16.99864pt.
 
-Overfull \hbox (50.47212pt too wide) has occurred while \output is active
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 [41
 
 ]
-Overfull \hbox (50.47212pt too wide) detected at line 358
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) detected at line 362
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 File: images/logoWhite.pdf Graphic file (type pdf)
 <use images/logoWhite.pdf>
-Package pdftex.def Info: images/logoWhite.pdf  used on input line 358.
+Package pdftex.def Info: images/logoWhite.pdf  used on input line 362.
 (pdftex.def)             Requested size: 41.25641pt x 16.99864pt.
 
-Overfull \hbox (50.47212pt too wide) has occurred while \output is active
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 [42
 
 ]
-Overfull \hbox (50.47212pt too wide) detected at line 395
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) detected at line 399
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 
-Overfull \hbox (12.31255pt too wide) detected at line 395
+Overfull \hbox (12.31255pt too wide) detected at line 399
 [][]
  []
 
 File: images/logoWhite.pdf Graphic file (type pdf)
 <use images/logoWhite.pdf>
-Package pdftex.def Info: images/logoWhite.pdf  used on input line 395.
+Package pdftex.def Info: images/logoWhite.pdf  used on input line 399.
 (pdftex.def)             Requested size: 41.25641pt x 16.99864pt.
 
-Overfull \vbox (7.53465pt too high) detected at line 395
+Overfull \vbox (7.53465pt too high) detected at line 399
  []
 
 
-Overfull \hbox (50.47212pt too wide) has occurred while \output is active
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 [43
 
 ]
-Overfull \hbox (50.47212pt too wide) detected at line 397
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) detected at line 401
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 [44
 
 ]
-Overfull \hbox (50.47212pt too wide) detected at line 409
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) detected at line 412
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 File: images/logoWhite.pdf Graphic file (type pdf)
 <use images/logoWhite.pdf>
-Package pdftex.def Info: images/logoWhite.pdf  used on input line 409.
+Package pdftex.def Info: images/logoWhite.pdf  used on input line 412.
 (pdftex.def)             Requested size: 41.25641pt x 16.99864pt.
 
-Overfull \hbox (50.47212pt too wide) has occurred while \output is active
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 [45
@@ -1881,69 +1881,213 @@ Overfull \hbox (50.47212pt too wide) has occurred while \output is active
 ]
 File: images/logoWhite.pdf Graphic file (type pdf)
 <use images/logoWhite.pdf>
-Package pdftex.def Info: images/logoWhite.pdf  used on input line 409.
+Package pdftex.def Info: images/logoWhite.pdf  used on input line 412.
 (pdftex.def)             Requested size: 41.25641pt x 16.99864pt.
 
-Overfull \hbox (50.47212pt too wide) has occurred while \output is active
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 [46
 
 ]
-Overfull \hbox (50.47212pt too wide) detected at line 411
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) detected at line 425
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
+ []
+
+File: images/logoWhite.pdf Graphic file (type pdf)
+<use images/logoWhite.pdf>
+Package pdftex.def Info: images/logoWhite.pdf  used on input line 425.
+(pdftex.def)             Requested size: 41.25641pt x 16.99864pt.
+
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 [47
 
 ]
-Overfull \hbox (50.47212pt too wide) detected at line 432
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) detected at line 436
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 File: images/logoWhite.pdf Graphic file (type pdf)
 <use images/logoWhite.pdf>
-Package pdftex.def Info: images/logoWhite.pdf  used on input line 432.
+Package pdftex.def Info: images/logoWhite.pdf  used on input line 436.
 (pdftex.def)             Requested size: 41.25641pt x 16.99864pt.
 
-Overfull \hbox (50.47212pt too wide) has occurred while \output is active
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 [48
 
 ]
-Overfull \hbox (50.47212pt too wide) detected at line 454
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) detected at line 445
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 File: images/logoWhite.pdf Graphic file (type pdf)
 <use images/logoWhite.pdf>
-Package pdftex.def Info: images/logoWhite.pdf  used on input line 454.
+Package pdftex.def Info: images/logoWhite.pdf  used on input line 445.
 (pdftex.def)             Requested size: 41.25641pt x 16.99864pt.
 
-Overfull \vbox (6.16547pt too high) detected at line 454
- []
-
-
-Overfull \hbox (50.47212pt too wide) has occurred while \output is active
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 [49
 
 ]
-Overfull \hbox (50.47212pt too wide) detected at line 473
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) detected at line 458
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
+File: images/logoWhite.pdf Graphic file (type pdf)
+<use images/logoWhite.pdf>
+Package pdftex.def Info: images/logoWhite.pdf  used on input line 458.
+(pdftex.def)             Requested size: 41.25641pt x 16.99864pt.
 
-Overfull \hbox (50.47212pt too wide) has occurred while \output is active
-  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][] [][][][][]  
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
  []
 
 [50
+
+]
+Overfull \hbox (86.32243pt too wide) detected at line 472
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
+ []
+
+File: images/logoWhite.pdf Graphic file (type pdf)
+<use images/logoWhite.pdf>
+Package pdftex.def Info: images/logoWhite.pdf  used on input line 472.
+(pdftex.def)             Requested size: 41.25641pt x 16.99864pt.
+
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
+ []
+
+[51
+
+]
+Overfull \hbox (86.32243pt too wide) detected at line 493
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
+ []
+
+File: images/logoWhite.pdf Graphic file (type pdf)
+<use images/logoWhite.pdf>
+Package pdftex.def Info: images/logoWhite.pdf  used on input line 493.
+(pdftex.def)             Requested size: 41.25641pt x 16.99864pt.
+
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
+ []
+
+[52
+
+]
+Overfull \hbox (86.32243pt too wide) detected at line 503
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
+ []
+
+File: images/logoWhite.pdf Graphic file (type pdf)
+<use images/logoWhite.pdf>
+Package pdftex.def Info: images/logoWhite.pdf  used on input line 503.
+(pdftex.def)             Requested size: 41.25641pt x 16.99864pt.
+
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
+ []
+
+[53
+
+]
+Overfull \hbox (86.32243pt too wide) detected at line 512
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
+ []
+
+File: images/logoWhite.pdf Graphic file (type pdf)
+<use images/logoWhite.pdf>
+Package pdftex.def Info: images/logoWhite.pdf  used on input line 512.
+(pdftex.def)             Requested size: 41.25641pt x 16.99864pt.
+
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
+ []
+
+[54
+
+]
+Overfull \hbox (86.32243pt too wide) detected at line 516
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
+ []
+
+File: images/logoWhite.pdf Graphic file (type pdf)
+<use images/logoWhite.pdf>
+Package pdftex.def Info: images/logoWhite.pdf  used on input line 516.
+(pdftex.def)             Requested size: 41.25641pt x 16.99864pt.
+
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
+ []
+
+[55
+
+]
+Overfull \hbox (86.32243pt too wide) detected at line 519
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
+ []
+
+[56
+
+]
+Overfull \hbox (86.32243pt too wide) detected at line 540
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
+ []
+
+File: images/logoWhite.pdf Graphic file (type pdf)
+<use images/logoWhite.pdf>
+Package pdftex.def Info: images/logoWhite.pdf  used on input line 540.
+(pdftex.def)             Requested size: 41.25641pt x 16.99864pt.
+
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
+ []
+
+[57
+
+]
+Overfull \hbox (86.32243pt too wide) detected at line 562
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
+ []
+
+File: images/logoWhite.pdf Graphic file (type pdf)
+<use images/logoWhite.pdf>
+Package pdftex.def Info: images/logoWhite.pdf  used on input line 562.
+(pdftex.def)             Requested size: 41.25641pt x 16.99864pt.
+
+Overfull \vbox (6.16547pt too high) detected at line 562
+ []
+
+
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
+ []
+
+[58
+
+]
+Overfull \hbox (86.32243pt too wide) detected at line 581
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
+ []
+
+
+Overfull \hbox (86.32243pt too wide) has occurred while \output is active
+  [] [][][][][][] [][][][][][][][][] [][][][][][][][][][][] [][][][][][][][][][][][] [][][][][]  
+ []
+
+[59
 
 ]
 \tf@nav=\write7
@@ -1972,17 +2116,17 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 35447 strings out of 467871
- 702508 string characters out of 5418376
- 1516378 words of memory out of 5000000
- 63574 multiletter control sequences out of 15000+600000
+ 35483 strings out of 467871
+ 702823 string characters out of 5418376
+ 1521376 words of memory out of 5000000
+ 63592 multiletter control sequences out of 15000+600000
  649237 words of font info for 91 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,19n,123p,1914b,1748s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\titou\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecss0700.pk> <C:\Users\titou\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecss1000.pk> <C:\Users\titou\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecso1095.pk> <C:\Users\titou\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecsi1095.pk> <C:\Users\titou\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecsx1095.pk> <C:\Users\titou\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecss1095.pk> <C:\Users\titou\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecss0500.pk> <C:\Users\titou\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\eccc2488.pk> <C:\Users\titou\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecss1200.pk> <C:\Users\titou\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecss0600.pk> <C:\Users\titou\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecss0800.pk> <C:\Users\titou\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecss2488.pk><C:/Users/titou/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/titou/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/titou/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/titou/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmss10.pfb><C:/Users/titou/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmss8.pfb><C:/Users/titou/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmssi10.pfb><C:/Users/titou/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmssi8.pfb><C:/Users/titou/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/titou/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Users/titou/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/titou/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on main.pdf (50 pages, 1252561 bytes).
+Output written on main.pdf (59 pages, 1438164 bytes).
 PDF statistics:
- 3352 PDF objects out of 3580 (max. 8388607)
- 106 named destinations out of 1000 (max. 500000)
+ 4854 PDF objects out of 5155 (max. 8388607)
+ 124 named destinations out of 1000 (max. 500000)
  93 words of extra memory for PDF output out of 10000 (max. 10000000)
 

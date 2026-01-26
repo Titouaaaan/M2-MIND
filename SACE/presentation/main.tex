@@ -252,6 +252,10 @@ $F(\vec{x}, do(a, s)) \equiv \gamma_F^+(\vec{x}, a, s) \vee (F(\vec{x}, s) \wedg
     \pause
     Example: \\
     If $goodness([evac,extg])>goodness([extg,call])$, then $[evac,extg]$ is  ethically permissible.
+
+    \tiny
+    \underline{Note:} $\mathcal{E}\mathcal{P}$ stands for ethical permissibility function.
+
 \end{frame}
 
 \begin{frame}{Ethical Principles}
@@ -405,8 +409,112 @@ greater than the initial state, which has a goodness of 0.
     \pause
     The authors define 8 properties which are directly derived from the principles we just saw.\\
     7 more are presented, and are derived from properties found in social choice theory (we will define what this means later).
+\end{frame}
+
+\begin{frame}{Ethical Properties}
+    \begin{block}{Consequential Equivalence}
+        We define this as moral actions that produce "good" consequences. It also states that two plans
+        with the same consequences should be considered equally ethical.
+    \end{block}
+    If $\pi \in \mathcal{EP}(\Pi, s_0)$ and $state(do(\pi, s_0)) = state(do(\pi', s_0))$, then $\pi' \in \mathcal{EP}(\Pi, s_0)$, for all $\pi' \in \Pi$
+    
+    Example: \\
+    Suppose $[evac,extg]$ and $[extg,evac]$ both result in the same final state (employees safe, fire extinguished).
+    If $[evac,extg] \in \mathcal{EP}(\Pi, s_0)$, then $[extg,evac] \in \mathcal{EP}(\Pi, s_0)$.
+
+\end{frame}
+
+\begin{frame}{Ethical Properties}
+    \begin{block}{Maximal Welfare}
+        An ethically permissible plan must produce at least as much goodness as any other plan that is ethically admissible.
+    \end{block}
+    if $\pi \in \mathcal{EP}(\Pi, s_0)$, then for all $\pi' \in \Pi$, $goodness(\pi) \geq goodness(\pi')$
+
+    Example: \\
+    If $[evac,extg] \in \mathcal{EP}(\Pi, s_0)$ and $[call]$ is a plan (not yet determined if ethical or not), 
+    then for $[call]$ to be ethically permissible, it must have at least as much goodness as $[evac,extg]$.
+\end{frame}
+
+\begin{frame}{Ethical Properties}
+    \begin{block}{Aggregationism}
+        If a plan is ethically permissible and another plan is even better (i.e greater goodness), 
+        then the better plan must also be ethically permissible.
+    \end{block}
+    if $\pi \in \mathcal{EP}(\Pi, s_0)$ and $goodness(\pi') \geq goodness(\pi)$, \\
+    then $\pi' \in \mathcal{EP}(\Pi, s_0)$ and for all $\pi' \in \Pi$,
+\end{frame}
+
+\begin{frame}{Ethical Properties}
+    \begin{block}{Independance}
+        The permissibility of a plan should not depend on irrelevant alternatives. 
+        If a plan is permissible in a larger set, 
+        it should remain permissible in any subset containing it.       
+    \end{block}
+    $\mathcal{EP}(\Pi, s_0) \cap \Pi' \subseteq \mathcal{EP}(\Pi', s_0)$
+
+    Intuition:\\
+    If a plan $\Pi$ is ethically permissible, and we consider the intersection between this plan and another set of plans $\Pi'$, 
+    then this intersection should be a subset of the ethically permissible plans in $\Pi'$.
+\end{frame}
+
+\begin{frame}{Ethical Properties}
+    \begin{block}{Beneficence}
+        A permissible plan must be better than doing nothing. 
+        In other words, the overall goodness at the end of the plan
+        must be better than the overall goodness at the beginning of the plan.
+    \end{block}
+    If $\pi \in \mathcal{EP}(\Pi, s_0)$, then $goodness(\pi) > goodness(\emptyset)$.
+
+    \vfill
+
+    \tiny
+    \underline{Note:} this property and Independance are closely tied to Hedonism. 
+\end{frame}
+
+\begin{frame}{Ethical Properties}
+    \begin{alertblock}{New Notations}
+        We define the following terms for the next three properties:
+        \begin{itemize}
+            \item $harms(\pi) = \{ \varphi \mid state(\pi) \vdash \varphi \wedge harmful(\varphi) \}$ 
+            \item $newState(\pi) = \{ F(\vec{x}) \mid F(\vec{x}, do(\pi, s_0)) \wedge \neg F(\vec{x}, s_0) \}$
+            \item $oldState(\pi) = \{ F(\vec{x}) \mid F(\vec{x}, do(\pi, s_0)) \wedge F(\vec{x}, s_0) \}$
+        \end{itemize}
+    \end{alertblock}
+
+    \begin{block}{Positive Responsibility}
+        This property defines that ethical permissibility should be determined only by the 
+        new state such actions produce. Together with Harmlessness, this property is closely aligned
+        with the No New Harm principle.
+    \end{block}
+
+    If $\pi \in EP(\Pi, s_0)$ and $newState(\pi) = newState(\pi')$, \\
+    then $\pi' \in EP(\Pi, s_0)$, for all $\pi' \in \Pi$.
     
 \end{frame}
+
+\begin{frame}{Ethical Properties}
+    \begin{block}{Negative Responsibility}
+    The property is requiring that an ethically plan should eliminate existing harm
+    or maintain the current good, and is closely aligned with the Remove Harm principle. I.e we want the agent
+    to be responsible for inaction or maintaining harm. 
+    \end{block}
+    If $\pi \in \mathcal{EP}(\Pi, s_0)$ and $oldState(\pi) = oldState(\pi')$, \\
+    then $\pi' \in \mathcal{EP}(\Pi, s_0)$, for all $\pi' \in \Pi$.
+\end{frame}
+
+\begin{frame}{Ethical Properties}
+    \begin{block}{Harmlessness}
+        This property focuses on the harm of a plan. We should only allow plans that aim to prevent harm,
+        and so the harm at the end of the plan determines its ethical permissibility.
+    \end{block}
+   If $\pi \in \mathcal{EP}(\Pi, s_0)$ and $harms(\pi') \subseteq harms(\pi)$, \\
+   then $\pi' \in \mathcal{EP}(\Pi, s_0)$, for all $\pi' \in \Pi$.
+\end{frame}
+
+\begin{frame}{Social Choice Theory}
+    todo
+\end{frame}
+
 
 \section{Appendix}
 
