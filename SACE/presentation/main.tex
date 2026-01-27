@@ -511,9 +511,85 @@ greater than the initial state, which has a goodness of 0.
    then $\pi' \in \mathcal{EP}(\Pi, s_0)$, for all $\pi' \in \Pi$.
 \end{frame}
 
-\begin{frame}{Social Choice Theory}
-    todo
+
+
+\begin{frame}{Social Choice Properties}
+    \begin{block}{Overview}
+    Social choice theory designs protocols to select the best outcomes from preferences or choices.  
+    \begin{itemize}
+        \item Aggregating individual preferences into collective decisions,
+        \item Analyzing voting systems,
+        \item Investigating choice functions.
+    \end{itemize}  
+    The paper presents seven social choice properties to ensure \(\mathcal{EP}\) is robust and consistent.
+    \end{block}
 \end{frame}
+
+\begin{frame}{Social Choice Properties}
+    \begin{block}{Consistency Preservation (cp)}
+        This property ensures that if there are any admissible plans, at least one must be ethically permissible. It guarantees that a decision is always made, even in dilemmas.
+    \end{block}
+    If \(\Pi \neq \emptyset\), then \(\mathcal{EP}(\Pi, s_0) \neq \emptyset\).
+    \pause
+    \begin{block}{Iteration (it)}
+        This property requires that applying the ethical permissibility function twice (or more) does not change the result. It ensures stability in decisions.
+    \end{block}
+    \(\mathcal{EP}(\mathcal{EP}(\Pi, s_0), s_0) = \mathcal{EP}(\Pi, s_0)\).
+\end{frame}
+
+
+\begin{frame}{Social Choice Properties}
+    \begin{block}{Cut (c)}
+        This property states that if you remove some impermissible plans from \(\Pi\), the permissibility of the remaining plans does not change. It ensures robustness when the set of plans is reduced.
+    \end{block}
+    If \(\mathcal{EP}(\Pi, s_0) \subseteq \Pi' \subseteq \Pi\), then \(\mathcal{EP}(\Pi, s_0) \subseteq \mathcal{EP}(\Pi', s_0)\).
+    \pause
+    \begin{block}{Aizerman (aiz)}
+        This property ensures that if you restrict the set of plans to a subset \(\Pi'\) that includes all permissible plans, the result does not change. It guarantees that adding back previously rejected plans does not affect the permissibility of the kept plans.
+    \end{block}
+    If \(\mathcal{EP}(\Pi, s_0) \subseteq \Pi' \subseteq \Pi\), then \(\mathcal{EP}(\Pi', s_0) \subseteq \mathcal{EP}(\Pi, s_0)\).
+
+    \tiny
+    \underline{Note:} these two are tightly related, and refer to contextual blindness.
+\end{frame}
+
+\begin{frame}{Social Choice Properties}
+    \begin{block}{Chernoff (ch)}
+        This property requires that if you shrink the set of plans (\(\Pi' \subseteq \Pi\)), the permissible plans in \(\Pi'\) must include those that were permissible in \(\Pi\). It ensures fairness when the set of plans is reduced.
+    \end{block}
+    If \(\Pi' \subseteq \Pi\), then \(\mathcal{EP}(\Pi, s_0) \cap \Pi' \subseteq \mathcal{EP}(\Pi', s_0)\).
+    \pause
+    \begin{block}{Sen (s)}
+        This property states that if a plan \(\pi\) is permissible in both \(\Pi\) and \(\Pi'\), then it must be permissible in their intersection \(\Pi \cap \Pi'\). It ensures consistency across different contexts.
+    \end{block}
+    If \(\mathcal{EP}(\Pi, s_0) \cap \mathcal{EP}(\Pi', s_0) \neq \emptyset\), then \(\mathcal{EP}(\Pi \cap \Pi', s_0) \subseteq \mathcal{EP}(\Pi, s_0) \cap \mathcal{EP}(\Pi', s_0)\).
+
+\end{frame}
+
+
+\begin{frame}{Social Choice Properties}
+    \begin{block}{Arrow (iia)}
+        This property, also known as Independence of Irrelevant Alternatives, requires that if a subset \(\Pi'\) of plans includes some permissible plans from \(\Pi\), then the permissible plans in \(\Pi'\) are exactly those. It ensures that the permissibility of a plan depends only on how it compares to other available plans.
+    \end{block}
+    If \(\Pi' \subseteq \Pi\) and \(\mathcal{EP}(\Pi, s_0) \cap \Pi' \neq \emptyset\), then \(\mathcal{EP}(\Pi, s_0) \cap \Pi' = \mathcal{EP}(\Pi', s_0)\).
+\end{frame}
+
+
+\section{Results}
+
+\begin{frame}{Results}
+    \includegraphics[width=\textwidth,height=0.9\textheight,keepaspectratio]{images/table1.png}    
+\end{frame}
+
+\begin{frame}{Interpretation}
+    \begin{block}{Recap}
+        Utilitarianism and Hedonism and motivated by maximising goodness. \\
+        The other three principles are motivated by harm reduction.
+    \end{block}
+    Utilitarianism is "stronger" (always selects a plan), while Hedonism is "weaker" (rejects non-improving plans).\\
+    Harm Avoidance is the strictest but may be too restrictive in real-world dilemmas.
+\end{frame}
+
 
 
 \section{Appendix}
