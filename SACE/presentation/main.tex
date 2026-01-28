@@ -578,19 +578,285 @@ greater than the initial state, which has a goodness of 0.
 \section{Results}
 
 \begin{frame}{Results}
+    \begin{block}{Recap}
+        \textit{Principles} are \textbf{filters}, which directly select which plans 
+        are permissible based on their ethical criteria.\\
+        \textit{Properties} are tools to \textbf{evaluate and compare principles}:
+        how a principle behaves or what it guarantees.
+
+    \end{block}
+    \small
+    Example:
+    \begin{itemize}
+        \item Maximal Welfare: "Does this principle always select plans that maximize goodness?"
+        \item Harmlessness: "Does this principle avoid causing unnecessary harm?"
+        \item Consistency Preservation: "Does this principle always select at least one plan, even in dilemmas?"
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Results}
     \includegraphics[width=\textwidth,height=0.9\textheight,keepaspectratio]{images/table1.png}    
 \end{frame}
 
-\begin{frame}{Interpretation}
-    \begin{block}{Recap}
-        Utilitarianism and Hedonism and motivated by maximising goodness. \\
-        The other three principles are motivated by harm reduction.
+\begin{frame}{Utilitarianism}
+    \begin{block}{Key Idea}
+        Utilitarianism focuses on \textbf{maximizing overall welfare}, \\
+        even if it means accepting some harm or less-than-ideal outcomes. \\
+        \begin{center}
+            \textit{"The greatest good for the greatest number."}
+        \end{center}
     \end{block}
-    Utilitarianism is "stronger" (always selects a plan), while Hedonism is "weaker" (rejects non-improving plans).\\
-    Harm Avoidance is the strictest but may be too restrictive in real-world dilemmas.
+    \tiny
+    \begin{block}{Consequential Equivalence}
+            Plans with the same outcome are treated equally.\\
+            $[evac, extg]$ and $[extg, evac]$ are both permissible if they result in the same state (employees safe, fire extinguished).
+    \end{block}
+
+    \begin{block}{Maximal Welfare}
+        A permissible plan must produce at least as much goodness as any other plan.\\
+        If $[evac, extg]$ has $goodness = 10$ and $[call]$ has $goodness = 5$, \\
+        only $[evac, extg]$ is permissible.
+    \end{block}
+
+    \begin{block}{Aggregationism}
+        If a plan is permissible and another plan is even better, 
+        the better plan must also be permissible.\\
+
+        If $[evac]$ is permissible ($goodness = 7$), \\
+        $[evac, extg]$ ($goodness = 10$) must also be permissible.
+    \end{block}
+
 \end{frame}
 
+\begin{frame}{Hedonism}
+    \begin{block}{Key Idea and Contrast}
+        Hedonism focuses on \textbf{ensuring a net benefit} compared to doing nothing. \\
+        \begin{center}
+            \textit{"A plan must be better than inaction."}
+        \end{center}
+    \end{block}
+    \tiny
+    \begin{block}{Consequential Equivalence \& Aggregationism}
+        Same as Utilitarianism.
+    \end{block}
 
+    \begin{block}{Independence}
+        Permissibility does not depend on irrelevant alternatives.\\
+        If $[evac]$ is permissible in $\Pi = \{[evac], [extg], [call]\}$, \\
+        it remains permissible in $\Pi' = \{[evac], [extg]\}$.
+    \end{block}
+
+    \begin{block}{Beneficence}
+        Permissible plans must improve the initial state.\\
+        $[call]$ ($goodness = -2$) is not permissible if the initial state has $goodness = 0$.
+    \end{block}
+
+\end{frame}
+
+\begin{frame}{No New Harm}
+    \begin{block}{Key Idea}
+        No New Harm focuses on \textbf{avoiding new harm}, \\
+        even if it means tolerating existing harm. \\
+        \begin{center}
+            \textit{"Do not produce a harm if it can be avoided."}
+        \end{center}
+    \end{block}
+    \tiny
+    \begin{block}{Consequential Equivalence}
+        Plans with the same outcome are treated equally.\\
+        $[evac, call]$ and $[call, evac]$ are both permissible if they result in the same state (no new harm introduced).
+    \end{block}
+
+    \begin{block}{Positive Responsibility}
+        A permissible plan must not introduce new harm.\\
+        If $[evac]$ avoids new harm but $[extg]$ risks injuries, \\
+        only $[evac]$ is permissible.
+    \end{block}
+
+    \begin{block}{Harmlessness}
+        If a plan causes less harm than a permissible plan, \\
+        it must also be permissible.\\
+        If $[evac]$ is permissible, $[evac, call]$ (less risky) must also be permissible.
+    \end{block}
+\end{frame}
+
+\begin{frame}{Remove Harm}
+    \begin{block}{Key Idea}
+        Remove Harm focuses on \textbf{eliminating existing harm}, \\
+        even if it means tolerating some new harm. \\
+        \begin{center}
+            \textit{"Eliminate a pre-existing harm if possible."}
+        \end{center}
+    \end{block}
+    \tiny
+    \begin{block}{Consequential Equivalence}
+        Plans with the same outcome are treated equally.\\
+        $[extg, call]$ and $[call, extg]$ are both permissible if they result in the same state (existing harm removed).
+    \end{block}
+
+    \begin{block}{Negative Responsibility}
+        A permissible plan must eliminate existing harm.\\
+        If $[extg]$ removes the fire but $[call]$ doesn't, \\
+        only $[extg]$ is permissible.
+    \end{block}
+
+    \begin{block}{Harmlessness}
+        If a plan causes less harm than a permissible plan, \\
+        it must also be permissible.\\
+        If $[extg]$ is permissible, $[extg, evac]$ (removes more harm) must also be permissible.
+    \end{block}
+\end{frame}
+
+\begin{frame}{Harm Avoidance}
+    \begin{block}{Key Idea and Contrast}
+        Harm Avoidance focuses on \textbf{avoiding all avoidable harms}, \\
+        both new and existing. \\
+        \begin{center}
+            \textit{"Avoid all avoidable harms!"}
+        \end{center}
+        \begin{itemize}
+            \item Stricter than No New Harm and Remove Harm.
+            \item May reject all plans if none avoid all harms.
+        \end{itemize}
+    \end{block}
+    \tiny
+    \begin{block}{Consequential Equivalence}
+        Plans with the same outcome are treated equally.\\
+        $[evac, extg]$ and $[extg, evac]$ are both permissible if they result in the same state (all harms avoided).
+    \end{block}
+
+    \begin{block}{Harmlessness}
+        A permissible plan must avoid all avoidable harms.\\
+        If $[evac]$ leaves fire burning and $[extg]$ risks injuries, \\
+        neither may be permissible.
+    \end{block}
+\end{frame}
+
+\begin{frame}{Social Choice Properties: Universally Satisfied}
+    \begin{block}{Key Idea}
+        These properties are satisfied by \textbf{all five principles}:
+    \end{block}
+    \tiny
+    \begin{block}{Iteration}
+        Applying the ethical permissibility function twice doesn't change the result.\\
+        \textit{Example:} If $[evac, extg]$ is permissible, re-applying $\mathcal{EP}$ won't exclude it.
+    \end{block}
+
+    \begin{block}{Cut}
+        Removing impermissible plans doesn't affect permissible ones.\\
+        \textit{Example:} If $[evac]$ is permissible in $\Pi$, it remains permissible in $\Pi' = \{[evac], [extg]\}$.
+    \end{block}
+
+    \begin{block}{Chernoff}
+        Shrinking the set of plans preserves permissibility.\\
+        \textit{Example:} If $[evac]$ is permissible in $\Pi$, it remains permissible in $\Pi' = \{[evac]\}$.
+    \end{block}
+
+    \begin{block}{Sen}
+        Plans permissible in both sets must be permissible in their intersection.\\
+        \textit{Example:} If $[evac]$ is permissible in both $\Pi$ and $\Pi'$, it's permissible in $\Pi \cap \Pi'$.
+    \end{block}
+
+    \begin{block}{Arrow}
+        Permissibility depends only on available plans.\\
+        \textit{Example:} If $[evac]$ is permissible in $\Pi = \{[evac], [extg]\}$, its permissibility doesn't change if $[call]$ is added.
+    \end{block}
+\end{frame}
+
+\begin{frame}{Consistency Preservation: Utilitarianism Only}
+    \begin{block}{Key Idea}
+        Only Utilitarianism satisfies this property:
+    \end{block}
+    \tiny
+    \begin{block}{Definition}
+        If there are any admissible plans, at least one must be permissible.\\
+        If $\Pi \neq \emptyset$, then $\mathcal{EP}(\Pi, s_0) \neq \emptyset$.
+    \end{block}
+
+    \begin{block}{Why Utilitarianism?}
+        Always selects the "least bad" option, even if all plans are harmful.\\
+        \textit{Example:} In $\Pi = \{[evac], [extg]\}$ where both cause harm, Utilitarianism picks the one with less harm.
+    \end{block}
+
+    \begin{block}{Why Not Others?}
+        Harm-based principles may reject all plans if all cause harm.\\
+        \textit{Example:} No New Harm might reject both $[evac]$ and $[extg]$ if both introduce new harm.
+    \end{block}
+\end{frame}
+
+\begin{frame}{Aizerman: Only Hedonism and Utilitarianism}
+    \begin{block}{Key Idea}
+        Only these Utilitarianism and Hedonism satisfy Aizerman.
+    \end{block}
+    \tiny
+    \begin{block}{Definition}
+        Restricting plans to a subset containing all permissible plans doesn't change results.\\
+        If $\mathcal{EP}(\Pi, s_0) \subseteq \Pi' \subseteq \Pi$, then $\mathcal{EP}(\Pi', s_0) \subseteq \mathcal{EP}(\Pi, s_0)$.
+    \end{block}
+
+    \begin{block}{Why Utilitarianism?}
+        Focuses on maximal welfare, unaffected by adding back rejected plans.\\
+        \textit{Example:} If $[evac]$ is permissible in $\Pi$, it remains so in $\Pi' = \{[evac], [do\ nothing]\}$.
+    \end{block}
+
+    \begin{block}{Why Hedonism?}
+        Only requires improvement over inaction, unaffected by additional options.\\
+        \textit{Example:} If $[evac]$ improves over inaction, it remains permissible even if $[do\ nothing]$ is added.
+    \end{block}
+
+    \begin{block}{Why Not Others?}
+        Harm-based principles may change permissibility when new options are added.\\
+        \textit{Example:} Harm Avoidance might reject $[evac]$ if $[do\ nothing]$ is added (avoids all harm).
+    \end{block}
+\end{frame}
+
+\begin{frame}{Conclusion: Novel Contributions}
+    \begin{block}{Key Innovations}
+        \begin{itemize}
+            \item \textbf{First formal framework} for consequentialist machine ethics using situation calculus.
+            \item \textbf{Two major contributions}:
+            \begin{itemize}
+                \item Formalized 5 ethical principles 
+                \item Defined 15 properties 
+            \end{itemize}
+            \item \textbf{Proved property satisfaction} for each principle, enabling precise characterization.
+            \item \textbf{Bridged philosophy and AI} by translating ethical theories into computational logic.
+        \end{itemize}
+
+        \tiny
+        Proofs are available here: bit.ly/3JUVrU9
+    \end{block}
+
+    \begin{block}{Why This Matters}
+        \begin{itemize}
+            \item Enables \textbf{rigorous analysis} of ethical AI systems.
+            \item Provides \textbf{toolkit} to validate and compare ethical approaches.
+            \item Facilitates \textbf{transparent, explainable} ethical decision-making in AI.
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}{Future Directions and Impact}
+    \begin{block}{Conclusions}
+        \begin{itemize}
+            \item No single principle is perfect - each satisfies some properties but not others.
+            \item \textbf{Trade-offs} must be considered based on application context.
+        \end{itemize}
+    \end{block}
+
+    \begin{block}{Future Research Opportunities}
+        \begin{itemize}
+            \item Extend to \textbf{deontological and hybrid} approaches.
+            \item Incorporate \textbf{uncertainty} in ethical reasoning.
+            \item Study \textbf{prioritization of principles} in complex scenarios.
+            \item Develop \textbf{tooling} for practical implementation.
+            \item Validate with \textbf{real-world case studies}.
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\section{Thank You}
 
 \section{Appendix}
 

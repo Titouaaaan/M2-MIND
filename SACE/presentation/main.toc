@@ -4,4 +4,5 @@
 \beamer@sectionintoc {3}{Formalisation of Ethical Principles}{27}{0}{3}
 \beamer@sectionintoc {4}{Formalisation of Properties}{44}{0}{4}
 \beamer@sectionintoc {5}{Results}{63}{0}{5}
-\beamer@sectionintoc {6}{Appendix}{66}{0}{6}
+\beamer@sectionintoc {6}{Thank You}{76}{0}{6}
+\beamer@sectionintoc {7}{Appendix}{77}{0}{7}
