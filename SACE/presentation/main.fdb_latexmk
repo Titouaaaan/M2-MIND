@@ -1,6 +1,6 @@
 # Fdb version 4
-["bibtex main"] 0 "main.aux" "main.bbl" "main" 1769609949.78807 0
-  "./main-blx.bib" 1769609947 342 73514f57ec3137b3b33c6de31c0e88f7 ""
+["bibtex main"] 0 "main.aux" "main.bbl" "main" 1769691105.37732 0
+  "./main-blx.bib" 1769691103 342 73514f57ec3137b3b33c6de31c0e88f7 ""
   "C:/Program Files/MiKTeX/bibtex/bst/biblatex/biblatex.bst" 1752408733 65510 9a2a51799b543ff279b8ea2dd91ec499 ""
   "library.bib" 0 -1 0 ""
   "main.aux" 0 -1 0 "pdflatex"
@@ -8,7 +8,7 @@
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1769609941.6449 "c:/Users/titouan/OneDrive/Bureau/M2-MIND/SACE/presentation/main.tex" "main.pdf" "main" 1769609949.79084 0
+["pdflatex"] 1769691097.71959 "c:/Users/titouan/OneDrive/Bureau/M2-MIND/SACE/presentation/main.tex" "main.pdf" "main" 1769691105.37978 0
   "C:/Program Files/MiKTeX/fonts/tfm/jknappen/ec/eccc2488.tfm" 993061990 2804 1c49d6d7a3fd4b169a001b417a049ee6 ""
   "C:/Program Files/MiKTeX/fonts/tfm/jknappen/ec/ecsi0600.tfm" 993062164 3404 641ff08a0fc617cb75ea3c9403b6f67a ""
   "C:/Program Files/MiKTeX/fonts/tfm/jknappen/ec/ecsi1095.tfm" 993062172 3404 45c009612aa0fe760d4d2594faa5d5dd ""
@@ -287,16 +287,16 @@
   "C:/Users/titouan/AppData/Roaming/MiKTeX/tex/latex/translator/translator-theorem-dictionary-English.dict" 1622471508 3523 1f9d9b91f7d78b73e74c7e97bca30fb0 ""
   "C:/Users/titouan/AppData/Roaming/MiKTeX/tex/latex/translator/translator.sty" 1622471510 8765 56d370785f0143111ff9898b5adfe08e ""
   "beamerthemesorbonne.sty" 1769609913 10975 6687259b6fd843b139be0ed7f7cef664 ""
-  "c:/Users/titouan/OneDrive/Bureau/M2-MIND/SACE/presentation/main.tex" 1769609932 39457 c454b2193bdd142cf503dd5df4d689b5 ""
+  "c:/Users/titouan/OneDrive/Bureau/M2-MIND/SACE/presentation/main.tex" 1769691096 39001 63da16b51bea7da1d7d99ed8279c587d ""
   "images/background.pdf" 1769604049 604205 66e7e52ef1c76c2e746ee0b7521a409a ""
   "images/logoWhite.pdf" 1769604049 44203 2802ae92ac8fc10fac1d32aee2c875f9 ""
   "images/table1.png" 1769604049 58137 07a8db29169ec0456780c3a427fed083 ""
-  "main.aux" 1769609947 10114 8565d8d3738b3de59cdb15a5dda3db33 "pdflatex"
+  "main.aux" 1769691103 10114 ff1e78231718e08896e8622beca5a238 "pdflatex"
   "main.bbl" 0 -1 0 "bibtex main"
-  "main.nav" 1769609948 6645 24a8329a9d919f58a728eba8fad12270 "pdflatex"
-  "main.out" 1769609947 902 09ef243031d8bb9b1ea3cf644e414331 "pdflatex"
-  "main.run.xml" 1769609948 2525 9803ebd604f62977bcbf407a9ae19fce "pdflatex"
-  "main.tex" 1769609932 39457 c454b2193bdd142cf503dd5df4d689b5 ""
+  "main.nav" 1769691103 6645 54051856e7b7dd0878d7f5834976aa57 "pdflatex"
+  "main.out" 1769691103 902 09ef243031d8bb9b1ea3cf644e414331 "pdflatex"
+  "main.run.xml" 1769691103 2525 9803ebd604f62977bcbf407a9ae19fce "pdflatex"
+  "main.tex" 1769691096 39001 63da16b51bea7da1d7d99ed8279c587d ""
   (generated)
   "main-blx.bib"
   "main.aux"

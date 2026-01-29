@@ -188,24 +188,17 @@ $F(\vec{x}, do(a, s)) \equiv \gamma_F^+(\vec{x}, a, s) \vee (F(\vec{x}, s) \wedg
     
 \end{frame}
 
-\begin{frame}{Examples}
+\begin{frame}{Example}
     In $s_0$, we can say that:
     \begin{itemize}
-        \item $OnFire(s0)$: True (the building is on fire),
-        \item $EmployeesSafe(s0)$: False (employees are not safe),
-        \item $FireExtinguished(s0)$: False (the fire is not extinguished),
+        \item $onfire(s0) \wedge inside(emp, s0)$
+        \item $Poss(call, s) \equiv \top$
+        \item $Poss(extg, s) \equiv onfire(s)$
+        \item $Poss(evac, s) \equiv inside(emp, s)$
     \end{itemize}
-    \pause
-    And some action preconditions could be:
-    \begin{itemize}
-        \item $Poss(extg,s) \equiv OnFire(s)$: The robot can extinguish the fire only if the building is on fire,
-        \item $Poss(evac,s) \equiv \neg EmployeesSafe(s)$: The robot can evacuate employees only if they are not already safe.
-    \end{itemize}
-    \pause
-    And one positive effect axiom could be:
-    \begin{itemize}
-        \item $\gamma^{+}_{FireExtinguished}(extg,s) \rightarrow FireExtinguished(do(extg,s))$ which means that performing the extinguish action in $s$ always results in $FireExtinguished$ to become True.
-    \end{itemize}
+    
+    Building is one fire, employees are inside, we can always call the fire department,
+    we can only extinguish if there is a fire, and we can only evacuate if employees are inside.
     
 \end{frame}
 
@@ -266,7 +259,7 @@ $F(\vec{x}, do(a, s)) \equiv \gamma_F^+(\vec{x}, a, s) \vee (F(\vec{x}, s) \wedg
         end state compared to the initial state.
         $$
         \mathcal{E}\mathcal{P}_{hedon}(\Pi, s_0) =
-        \{ \pi \in \Pi \mid goodness(\pi) \geq goodness(\emptyset)\}
+        \{ \pi \in \Pi \mid goodness(\pi) > goodness(\emptyset)\}
         $$
     \end{block}
     \pause
@@ -296,7 +289,7 @@ $F(\vec{x}, do(a, s)) \equiv \gamma_F^+(\vec{x}, a, s) \vee (F(\vec{x}, s) \wedg
     \end{block}
     \pause
     Explanation:\\
-    For every harmful predicate $\varphi$,
+    For every harmful predicate $\varphi$ (like $harmful(injured(emp)))$,
 
 If $\varphi$ is not true in the initial state ($state(s_0) \not\vdash \varphi$),
 Then $\varphi$ must not become true after executing $\pi$ ($state(\pi) \not\vdash \varphi$),
@@ -355,7 +348,7 @@ unless $\varphi$ becomes true after every admissible plan (for all $\pi' \in \
         \item $inside(emp, do(a, s)) \equiv inside(emp, s) \land a \neq evac$
         \item $onfire(do(a, s)) \equiv onfire(s) \land a \neq extg$
         \item $injured(emp, do(a, s)) \equiv inside(emp, s) \land onfire(s) \land a \neq evac$
-        \item $injured'emp, do(a, s)) \equiv injured(emp, s) \land a \neq evac \land inside(emp, s) \land onfire(s)$
+        \item $injured'(emp, do(a, s)) \equiv injured(emp, s) \land a \neq evac \land inside(emp, s) \land onfire(s)$
     \end{itemize}
     Here $emp$ is the employee and $injured(emp)$ the penatly of letting someone get injured. 
     $injured'(emp)$ means even more damage to an employee.\\
@@ -384,6 +377,7 @@ unless $\varphi$ becomes true after every admissible plan (for all $\pi' \in \
     \end{itemize}
     \end{multicols}
     Therefore, with the goodness of initial state set to 0, we have:\\
+    \small
     $$
     \begin{aligned}
     \mathcal{E}\mathcal{P}_{util}(\Pi, s_0) 
@@ -395,7 +389,8 @@ unless $\varphi$ becomes true after every admissible plan (for all $\pi' \in \
     $$
 \tiny
 \underline{Note:} Hedonism returns empty set because no plan has a goodness strictly 
-greater than the initial state, which has a goodness of 0.
+greater than the initial state, which has a goodness of 0.\\
+\underline{Note:} But there is a problem because lack of temporality (we will mention this later).
 \end{frame}
 
 \section{Formalisation of Properties}
@@ -847,10 +842,8 @@ greater than the initial state, which has a goodness of 0.
 
     \begin{block}{Future Research Opportunities}
         \begin{itemize}
-            \item Extend to \textbf{deontological and hybrid} approaches.
-            \item Incorporate \textbf{uncertainty} in ethical reasoning.
-            \item Study \textbf{prioritization of principles} in complex scenarios.
-            \item Develop \textbf{tooling} for practical implementation.
+            \item Extend to temporal logic (big problem in my opinion).
+            \item Study \textbf{prioritization of principles} in complex scenarios (with time!).
             \item Validate with \textbf{real-world case studies}.
         \end{itemize}
     \end{block}
