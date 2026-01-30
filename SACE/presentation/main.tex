@@ -170,7 +170,8 @@
         \textbf{Example:} If $extg$ is performed, "building is on fire" becomes false, and all other fluents stay the same unless changed,\\
         \textbf{Formal notation:}
 $F(\vec{x}, do(a, s)) \equiv \gamma_F^+(\vec{x}, a, s) \vee (F(\vec{x}, s) \wedge \neg \gamma_F^-(\vec{x}, a, s))$
-    \end{block}
+        \textbf{Ex:} $Inside(emp,do(a,s)) \equiv \gamma_{Inside}^+(a,s) \vee (Inside(emp,s) \wedge \neg \gamma_{Inside}^-(a,s))$
+\end{block}
     \pause
     \begin{block}{Plans}
         \textbf{What they are:} Sequences of actions,\\
@@ -200,6 +201,18 @@ $F(\vec{x}, do(a, s)) \equiv \gamma_F^+(\vec{x}, a, s) \vee (F(\vec{x}, s) \wedg
     Building is one fire, employees are inside, we can always call the fire department,
     we can only extinguish if there is a fire, and we can only evacuate if employees are inside.
     
+\end{frame}
+
+\begin{frame}{Example}
+    Let's define that the most important thing is to keep the employees safe. So we define the world as:\\
+    \begin{itemize}
+        \item $inside(emp, do(a, s)) \equiv inside(emp, s) \land a \neq evac$
+        \item $onfire(do(a, s)) \equiv onfire(s) \land a \neq extg$
+        \item $injured(emp, do(a, s)) \equiv inside(emp, s) \land onfire(s) \land a \neq evac$
+        \item $injured'(emp, do(a, s)) \equiv injured(emp, s) \land a \neq evac \land inside(emp, s) \land onfire(s)$
+    \end{itemize}
+    Here $emp$ is the employee and $injured(emp)$ the penatly of letting someone get injured. 
+    $injured'(emp)$ means even more damage to an employee.\\
 \end{frame}
 
 \section{Formalisation of Ethical Principles}
@@ -343,18 +356,6 @@ unless $\varphi$ becomes true after every admissible plan (for all $\pi' \in \
 \end{frame}
 
 \begin{frame}{Example}
-    Let's define that the most important thing is to keep the employees safe. So we define the world as:\\
-    \begin{itemize}
-        \item $inside(emp, do(a, s)) \equiv inside(emp, s) \land a \neq evac$
-        \item $onfire(do(a, s)) \equiv onfire(s) \land a \neq extg$
-        \item $injured(emp, do(a, s)) \equiv inside(emp, s) \land onfire(s) \land a \neq evac$
-        \item $injured'(emp, do(a, s)) \equiv injured(emp, s) \land a \neq evac \land inside(emp, s) \land onfire(s)$
-    \end{itemize}
-    Here $emp$ is the employee and $injured(emp)$ the penatly of letting someone get injured. 
-    $injured'(emp)$ means even more damage to an employee.\\
-\end{frame}
-
-\begin{frame}{Example}
     According to our previous definitions, we model the goodness function as:
     \begin{multicols}{2}
     \tiny
@@ -376,6 +377,7 @@ unless $\varphi$ becomes true after every admissible plan (for all $\pi' \in \
         \item $goodness([extg, evac, call]) = -10$
     \end{itemize}
     \end{multicols}
+    \pause
     Therefore, with the goodness of initial state set to 0, we have:\\
     \small
     $$
@@ -393,6 +395,23 @@ greater than the initial state, which has a goodness of 0.\\
 \underline{Note:} But there is a problem because lack of temporality (we will mention this later).
 \end{frame}
 
+\begin{frame}
+    With the avoid-harm approach, we can define several harm-
+ful fluents: $harmful(injured(emp)), harmful(injured'(emp))$.\\
+Therefore, it is easy to see that No New Harm and Harm
+Avoidance principles will always prioritise plans that avoid $injured(emp)$.\\
+\vfill
+\pause
+\small
+$\mathcal{EP}_{nnHarm}(\Pi, s_0) = \{[evac], [evac, call], [evac, extg], [evac, call, extg], [evac, extg, call]\}$\\
+$\mathcal{EP}_{rHarm}(\Pi, s_0) = \Pi$\\
+$\mathcal{EP}_{aHarm}(\Pi, s_0) = \{[evac], [evac, call], [evac, extg], [evac, call, extg], [evac, extg, call]\}$\\
+\vfill
+\pause
+\tiny
+\underline{Note:} Remove Harm returns all plans as ethically permissible because there is no existing harm in the initial state to remove. Do you see a problem with that?
+\end{frame}
+
 \section{Formalisation of Properties}
 
 \begin{frame}{Definition}
@@ -404,6 +423,10 @@ greater than the initial state, which has a goodness of 0.\\
     \pause
     The authors define 8 properties which are directly derived from the principles we just saw.\\
     7 more are presented, and are derived from properties found in social choice theory (we will define what this means later).
+    \vfill
+    \pause
+    \textbf{They don't decide permissibility but help us understand how a principle behaves.}
+
 \end{frame}
 
 \begin{frame}{Ethical Properties}
@@ -423,7 +446,7 @@ greater than the initial state, which has a goodness of 0.\\
     \begin{block}{Maximal Welfare}
         An ethically permissible plan must produce at least as much goodness as any other plan that is ethically admissible.
     \end{block}
-    if $\pi \in \mathcal{EP}(\Pi, s_0)$, then for all $\pi' \in \Pi$, $goodness(\pi) \geq goodness(\pi')$
+    if $\pi \in \mathcal{EP}(\Pi, s_0) \wedge \pi' \in \Pi$,  $goodness(\pi') \leq goodness(\pi)$
 
     Example: \\
     If $[evac,extg] \in \mathcal{EP}(\Pi, s_0)$ and $[call]$ is a plan (not yet determined if ethical or not), 

@@ -1,8 +1,8 @@
 \babel@toc {english}{}\relax 
 \beamer@sectionintoc {1}{Introduction}{2}{0}{1}
 \beamer@sectionintoc {2}{Situation Calculus}{11}{0}{2}
-\beamer@sectionintoc {3}{Formalisation of Ethical Principles}{25}{0}{3}
-\beamer@sectionintoc {4}{Formalisation of Properties}{42}{0}{4}
-\beamer@sectionintoc {5}{Results}{61}{0}{5}
-\beamer@sectionintoc {6}{Thank You}{74}{0}{6}
-\beamer@sectionintoc {7}{Appendix}{75}{0}{7}
+\beamer@sectionintoc {3}{Formalisation of Ethical Principles}{26}{0}{3}
+\beamer@sectionintoc {4}{Formalisation of Properties}{46}{0}{4}
+\beamer@sectionintoc {5}{Results}{66}{0}{5}
+\beamer@sectionintoc {6}{Thank You}{79}{0}{6}
+\beamer@sectionintoc {7}{Appendix}{80}{0}{7}
